@@ -438,6 +438,41 @@ html[data-theme="light"] .vsmock{background:#1e1e2e}
 .vsmock .vsterm{border-top:1px solid rgba(255,255,255,.08);padding:7px 12px;font-family:var(--mono);
   font-size:11px;color:#8ff0c6;background:#0a1020}
 
+/* ---- 먼저 예상하기 · 직접 써 보기 · 공학 연결 ---- */
+.predict{border:1px solid rgba(255,206,106,.5);border-radius:13px;background:rgba(255,255,255,.035);overflow:hidden}
+.predict .ph{display:flex;align-items:center;gap:9px;padding:9px 14px;background:rgba(255,206,106,.16);
+  border-bottom:1px solid rgba(255,206,106,.45);font-size:13.5px;font-weight:800;color:var(--warn)}
+.predict .pb{padding:11px 14px;display:flex;flex-direction:column;gap:7px}
+.predict .pq{border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13.3px;
+  line-height:1.6;color:var(--ink);cursor:pointer;background:rgba(255,255,255,.03)}
+.predict .pq:hover{border-color:rgba(255,206,106,.6)}
+.predict .pq .pa{display:none;margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);
+  color:var(--good);font-weight:700}
+.predict .pq.open .pa{display:block}
+.predict .pq .tip{font-size:11.5px;color:var(--muted);font-weight:700;margin-left:6px}
+
+.write{border:1px solid rgba(126,166,255,.5);border-radius:13px;background:rgba(255,255,255,.035);overflow:hidden}
+.write .wrh{display:flex;align-items:center;gap:9px;padding:9px 14px;background:rgba(47,107,255,.18);
+  border-bottom:1px solid rgba(126,166,255,.45);font-size:13.5px;font-weight:800;color:var(--samsung-d)}
+.write .wrb{padding:11px 14px;display:flex;flex-direction:column;gap:9px}
+.write .wq{font-size:13.5px;line-height:1.65;color:var(--ink)}
+.write .wq b{color:var(--samsung-d)}
+.write .whint{font-size:12.5px;color:var(--muted);margin-top:3px}
+.write .wans{margin-top:6px;font-family:var(--mono);font-size:12.5px;line-height:1.6;white-space:pre-wrap;
+  background:rgba(4,10,30,.5);border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:var(--code-ink);display:none}
+html[data-theme="light"] .write .wans{background:#0a1430}
+.write .wq.open .wans{display:block}
+.write .wbtn{border:1px solid rgba(126,166,255,.5);background:rgba(47,107,255,.18);color:var(--samsung-d);
+  font-size:11.5px;font-weight:800;padding:3px 11px;border-radius:999px;margin-left:8px}
+
+.eng{border:1px solid rgba(61,220,155,.45);border-radius:13px;background:rgba(255,255,255,.035);overflow:hidden}
+.eng .eh{display:flex;align-items:center;gap:9px;padding:9px 14px;background:rgba(61,220,155,.14);
+  border-bottom:1px solid rgba(61,220,155,.4);font-size:13.5px;font-weight:800;color:var(--good)}
+.eng .eb{padding:11px 14px;display:flex;flex-direction:column;gap:9px}
+.eng .eb p{font-size:13.3px;line-height:1.7}
+.eng ul{padding-left:20px}
+.eng li{font-size:13px;line-height:1.6;color:var(--ink);margin:3px 0}
+
 @media (max-width:1100px){
   #kbhint{display:none}
 }
@@ -1290,6 +1325,7 @@ function rowOf(host){ var r = el('div', 'row'); host.appendChild(r); return r; }
 function mkBtn(label, cls, fn){ var b = el('button', cls || 'btn', label); b.onclick = fn; return b; }
 function pyType(v){
   var s = v.trim();
+  if(s === '') return null;
   if(s === 'True' || s === 'False') return 'bool';
   if(s === 'None') return 'NoneType';
   if(/^-?\d+$/.test(s)) return 'int';
@@ -1298,7 +1334,7 @@ function pyType(v){
   if(/^\[.*\]$/.test(s)) return 'list';
   if(/^\{.*:.*\}$/.test(s)) return 'dict';
   if(/^\(.*,.*\)$/.test(s)) return 'tuple';
-  return 'str';
+  return null;   /* 리터럴이 아니면 여기서 판단하지 않는다 */
 }
 
 var WIDGETS = {};
@@ -1318,16 +1354,32 @@ WIDGETS.vars = function(host){
   presets.forEach(function(p){
     chips.appendChild(mkBtn(p[0], 'chip', function(){ nm.value = p[0]; vl.value = p[1]; show(); }));
   });
+  host.appendChild(el('div', 'note', '<b>' + L('읽는 법', 'How to read this') + '</b> ' +
+    L('이 상자는 파이썬을 실제로 실행하지 않습니다. 따옴표로 감싼 글자·숫자·True/False 같이 <b>값을 그대로 적은 것(리터럴)</b>만 보여 줍니다. ' +
+      '<code>1 + 2</code> 같은 식이나 <code>abc</code> 같은 이름은 여기서 계산하지 않으니, 그것은 VS Code 터미널에서 확인하세요.',
+      'This box does not run Python. It only shows <b>literals</b> - quoted text, numbers, True/False. ' +
+      'An expression such as <code>1 + 2</code> or a name such as <code>abc</code> is not evaluated here; try those in the VS Code terminal.')));
   var o = outBox(host);
   o.style.marginTop = '12px';
   function show(){
-    var t2 = pyType(vl.value);
+    var v = vl.value.trim(), t2 = pyType(v);
+    if(t2 === null){
+      var isExpr = /[+\-*\/%()]/.test(v);
+      o.textContent =
+        '>>> ' + nm.value + ' = ' + v + '\n\n' +
+        (isExpr
+          ? L('여기는 계산기가 아닙니다. 이 식은 파이썬이 먼저 계산한 뒤 그 결과를 상자에 넣습니다.\n터미널에서 확인해 보세요:  python  ->  ' + v,
+              'This is not a calculator. Python would compute this first and store the result.\nCheck it in the terminal:  python  ->  ' + v)
+          : L('따옴표가 없는 이름입니다. 파이썬에서는 다른 변수의 이름으로 보고, 그런 변수가 없으면\nNameError: name \'' + v + '\' is not defined 가 납니다.\n글자로 다루려면 따옴표로 감싸세요:  "' + v + '"',
+              'This is a bare name. Python would treat it as another variable and raise\nNameError: name \'' + v + '\' is not defined if it does not exist.\nWrap it in quotes to make it text:  "' + v + '"'));
+      return;
+    }
     o.textContent =
-      '>>> ' + nm.value + ' = ' + vl.value + '\n' +
-      '>>> print(' + nm.value + ')\n' + vl.value.replace(/^["'](.*)["']$/, '$1') + '\n' +
+      '>>> ' + nm.value + ' = ' + v + '\n' +
+      '>>> print(' + nm.value + ')\n' + v.replace(/^["'](.*)["']$/, '$1') + '\n' +
       '>>> type(' + nm.value + ')\n' + "<class '" + t2 + "'>\n\n" +
-      L('상자 그림: [ ' + nm.value + ' ] -> ' + vl.value + '   (' + t2 + ')',
-        'box view: [ ' + nm.value + ' ] -> ' + vl.value + '   (' + t2 + ')');
+      L('상자 그림: [ ' + nm.value + ' ] -> ' + v + '   (' + t2 + ')',
+        'box view: [ ' + nm.value + ' ] -> ' + v + '   (' + t2 + ')');
   }
   nm.oninput = show; vl.oninput = show; show();
 };
@@ -1351,6 +1403,8 @@ WIDGETS.operators = function(host){
     i2.oninput = show2; f[p[0]] = i2; r2.appendChild(i2);
   });
   var o2 = outBox(host);
+  function pymod(x, y){ return y === 0 ? null : ((x % y) + y) % y; }
+  function pyfloor(x, y){ return y === 0 ? null : Math.floor(x / y); }
   function show(){
     var x = Number(a.value), y = Number(b.value);
     o.textContent =
@@ -1358,11 +1412,13 @@ WIDGETS.operators = function(host){
       'a - b  = ' + (x - y) + '\n' +
       'a * b  = ' + (x * y) + '\n' +
       'a / b  = ' + (y === 0 ? 'ZeroDivisionError' : (x / y).toFixed(4)) + L('   <- 나눗셈은 실수', '   <- true division') + '\n' +
-      'a // b = ' + (y === 0 ? 'ZeroDivisionError' : Math.floor(x / y)) + L('   <- 몫만', '   <- quotient only') + '\n' +
-      'a % b  = ' + (y === 0 ? 'ZeroDivisionError' : (x % y)) + L('   <- 나머지', '   <- remainder') + '\n' +
+      'a // b = ' + (y === 0 ? 'ZeroDivisionError' : pyfloor(x, y)) + L('   <- 몫만 (내림)', '   <- quotient, rounded down') + '\n' +
+      'a % b  = ' + (y === 0 ? 'ZeroDivisionError' : pymod(x, y)) + L('   <- 나머지 (부호는 b 를 따른다)', '   <- remainder (sign follows b)') + '\n' +
       'a ** 2 = ' + Math.pow(x, 2) + '\n' +
       'a > b  = ' + (x > y ? 'True' : 'False') + '   a == b = ' + (x === y ? 'True' : 'False') + '\n' +
-      '(a > b) and (b > 0) = ' + ((x > y && y > 0) ? 'True' : 'False');
+      '(a > b) and (b > 0) = ' + ((x > y && y > 0) ? 'True' : 'False') +
+      ((x < 0 || y < 0) ? L('\n\n음수가 있습니다. 파이썬의 // 는 내림이고 % 의 부호는 오른쪽 값을 따릅니다.\n예: -5 // 3 = -2,  -5 % 3 = 1  (다른 언어와 다를 수 있습니다)',
+                            '\n\nA negative is in play. Python floors // and the sign of % follows the right operand.\ne.g. -5 // 3 = -2, -5 % 3 = 1 (other languages differ)') : '');
   }
   function show2(){
     var bx = Number(f['bullet.x'].value), by = Number(f['bullet.y'].value);
@@ -2036,8 +2092,8 @@ SECTIONS.push({
     {type:'sh', text:{ko:'변수는 이름을 붙인 상자다', en:'A variable is a box with a name on it'}},
     {type:'p', text:{ko:'WIDTH = 640 은 "640이라는 값을 WIDTH 라는 이름의 상자에 넣는다"는 뜻입니다. 등호(=)는 수학에서처럼 "양쪽이 같다"는 뜻이 아니라, 오른쪽 값을 왼쪽 이름에 넣으라는 명령입니다. 한 번 넣어 두면 그 뒤로는 640 대신 WIDTH 라고 쓸 수 있고, 파이썬은 그때마다 상자를 열어 640을 꺼내 씁니다.',
                      en:'WIDTH = 640 means "put the value 640 into a box named WIDTH". The equals sign is not the mathematical "both sides are equal"; it is an instruction to store the right-hand value under the left-hand name. After that you write WIDTH instead of 640, and Python opens the box each time.'}},
-    {type:'p', text:{ko:'게임 코드에서 WIDTH 는 27줄, 180줄, 196줄, 283줄 등 여러 곳에 나옵니다. 창을 조금 넓히고 싶으면 17줄의 640을 800으로 한 번만 고치면 됩니다. 만약 변수를 쓰지 않고 640을 그냥 여러 곳에 적어 두었다면, 그 숫자들을 모두 찾아 고쳐야 하고 한 군데만 빠뜨려도 우주선이 화면 밖으로 사라집니다.',
-                     en:'WIDTH shows up on lines 27, 180, 196, 283 and more. To widen the window you change the 640 on line 17 once. Had you typed 640 in every one of those places instead, you would have to find them all - and missing one sends the ship off the edge.'}},
+    {type:'p', text:{ko:'게임 코드에서 WIDTH 는 27줄, 180줄, 196줄, 283줄 등 여러 곳에 나옵니다. 창을 조금 넓히고 싶으면 19줄의 640을 800으로 한 번만 고치면 됩니다. 만약 변수를 쓰지 않고 640을 그냥 여러 곳에 적어 두었다면, 그 숫자들을 모두 찾아 고쳐야 하고 한 군데만 빠뜨려도 우주선이 화면 밖으로 사라집니다.',
+                     en:'WIDTH shows up on lines 27, 180, 196, 283 and more. To widen the window you change the 640 on line 19 once. Had you typed 640 in every one of those places instead, you would have to find them all - and missing one sends the ship off the edge.'}},
     {type:'sh', text:{ko:'값의 모양에 따라 자료형이 정해진다', en:'The shape of the value decides the type'}},
     {type:'p', text:{ko:'파이썬은 자료형을 따로 적지 않습니다. 값을 보고 스스로 정합니다. 640처럼 소수점이 없으면 정수(int), 6.0처럼 소수점이 있으면 실수(float), 따옴표로 감싸면 문자열(str), True/False 는 참거짓(bool)입니다. 자료형이 중요한 이유는 할 수 있는 일이 다르기 때문입니다. 숫자끼리는 뺄셈이 되지만 문자열끼리는 안 되고, 문자열에 곱하기를 하면 그만큼 이어 붙습니다.',
                      en:'You never declare a type in Python; the value decides. No decimal point means int, a decimal point means float, quotes mean str, and True or False are bool. Types matter because each allows different work: numbers subtract, strings do not, and multiplying a string repeats it.'}},
@@ -2109,10 +2165,10 @@ Tell me which of the variables on lines 17-27 to change and to what, then point 
                  en:'A decimal point makes it a float; writing 6 would make it an int. Values like speed, which you may later want to move in half-steps, are safer as floats.'}},
       {q:{ko:'창 너비를 800으로 넓히려면 어떻게 하는 것이 가장 좋은가?', en:'What is the best way to widen the window to 800?'},
        opts:[{ko:'코드에서 640 이라고 적힌 곳을 모두 찾아 800 으로 바꾼다', en:'find every 640 in the code and change it to 800'},
-             {ko:'19줄 WIDTH = 640 을 WIDTH = 800 으로 한 번만 바꾼다', en:'change WIDTH = 640 to WIDTH = 800 once'},
+             {ko:'19줄 WIDTH = 640 을 WIDTH = 800 으로 한 번만 바꾼다', en:'change WIDTH = 640 on line 19 to 800 once'},
              {ko:'새 변수 WIDTH2 = 800 을 만들어 아래에 추가한다', en:'add a new variable WIDTH2 = 800 underneath'},
              {ko:'창 크기는 pygame 이 정하므로 바꿀 수 없다', en:'pygame decides the window size, so it cannot change'}],
-       a:1, why:{ko:'설정값을 변수 한 곳에 모아 두는 이유가 바로 이것입니다. 17줄 하나만 고치면 그 변수를 쓰는 모든 곳이 함께 바뀝니다. 다만 27줄 아래에서 640 을 직접 적은 곳이 있다면 그곳은 따로 봐야 하는데, 이 게임에는 그런 곳이 없습니다.',
+       a:1, why:{ko:'설정값을 변수 한 곳에 모아 두는 이유가 바로 이것입니다. 19줄 하나만 고치면 그 변수를 쓰는 모든 곳이 함께 바뀝니다. 다만 27줄 아래에서 640 을 직접 적은 곳이 있다면 그곳은 따로 봐야 하는데, 이 게임에는 그런 곳이 없습니다.',
                  en:'This is exactly why settings sit in one variable: change that one line and every place using it follows. You would still have to check any place that typed 640 directly - in this game there are none.'}}
     ]},
     {type:'key', label:{ko:'고쳐 보기', en:'Change it'},
@@ -2229,8 +2285,8 @@ if distance(bullet.x, bullet.y, enemy.x, enemy.y) < (enemy.size / 2 + 6):
                  en:'A distance of 20 is under the limit of 24 (18 + 6), so it is True. The last option is a trap: 36 // 2 is the integer 18, and 18 == 18.0 is in fact True, because == compares values across int and float.'}}
     ]},
     {type:'key', label:{ko:'고쳐 보기', en:'Change it'},
-      text:{ko:'44줄 "level_up_score": 120 을 40 으로 줄여 저장하고 실행해 보세요. 세 마리만 잡아도 단계가 올라가면서 적이 금방 빨라집니다. 몫(//) 한 번이 게임의 난이도 곡선 전체를 정하고 있었다는 것을 확인할 수 있습니다.',
-            en:'Change "level_up_score": 120 on line 44 to 40, save and run. Three kills already raise the level and the enemies speed up fast. One quotient was setting the whole difficulty curve.'}}
+      text:{ko:'44줄 "level_up_score": 120 을 40 으로 줄여 저장하고 실행해 보세요. 적 한 마리가 10점이므로 네 마리(40점)를 잡는 순간 2단계가 되고, 적이 금방 빨라집니다. 몫(//) 한 번이 게임의 난이도 곡선 전체를 정하고 있었다는 것을 확인할 수 있습니다.',
+            en:'Change "level_up_score": 120 on line 44 to 40, save and run. An enemy is worth 10, so the fourth kill (40 points) makes it level 2 and the enemies speed up fast. One quotient was setting the whole difficulty curve.'}}
   ]
 });
 
@@ -2252,8 +2308,8 @@ SECTIONS.push({
     {type:'code', ex:'ex_clamp', hl:[189,191,194,196]},
     {type:'h', text:{ko:'문법 풀어 보기', en:'Unpack the syntax'}},
     {type:'sh', text:{ko:'if 는 참일 때만 들여쓴 줄을 실행한다', en:'An if runs the indented lines only when it is true'}},
-    {type:'p', text:{ko:'if 조건: 다음 줄부터 빈칸 네 개를 들여쓴 부분이 그 조건이 참일 때만 실행되는 덩어리입니다. 189줄의 if keys[pygame.K_LEFT]: 는 "왼쪽 화살표가 지금 눌려 있으면" 이라는 뜻이고, 눌려 있으면 다음 줄에서 x 좌표를 6 만큼 줄입니다. 눌려 있지 않으면 그 줄을 건너뜁니다. 다른 언어처럼 중괄호를 쓰지 않고 들여쓰기로 덩어리를 정하기 때문에, 들여쓰기를 한 칸 틀리면 문법 오류가 납니다.',
-                     en:'After if condition:, the block indented by four spaces runs only when that condition is true. Line 189, if keys[pygame.K_LEFT]:, means "if the left arrow is down right now", and the next line then lowers x by 6. If it is not down, that line is skipped. Python marks blocks with indentation rather than braces, so getting the indentation wrong is a syntax error.'}},
+    {type:'p', text:{ko:'if 조건: 다음 줄부터 빈칸 네 개를 들여쓴 부분이 그 조건이 참일 때만 실행되는 덩어리입니다. 189줄의 if keys[pygame.K_LEFT]: 는 "왼쪽 화살표가 지금 눌려 있으면" 이라는 뜻이고, 눌려 있으면 다음 줄에서 x 좌표를 6 만큼 줄입니다. 눌려 있지 않으면 그 줄을 건너뜁니다. 파이썬은 다른 언어의 중괄호 대신 들여쓰기로 덩어리를 정합니다. 규칙은 "같은 덩어리의 줄은 들여쓰기 폭이 서로 같아야 한다"이고, 폭 자체는 두 칸이든 네 칸이든 됩니다. 다만 파이썬 스타일 가이드(PEP 8)가 네 칸을 권하고 이 교재도 네 칸으로 통일합니다. 한 줄만 폭이 어긋나면 IndentationError 가 납니다.',
+                     en:'After if condition:, the block indented by four spaces runs only when that condition is true. Line 189, if keys[pygame.K_LEFT]:, means "if the left arrow is down right now", and the next line then lowers x by 6. If it is not down, that line is skipped. Python marks blocks with indentation instead of braces. The rule is that lines in the same block must be indented by the same amount; the amount itself may be two or four spaces. PEP 8 recommends four and this book uses four throughout. One line out of step raises IndentationError.'}},
     {type:'sh', text:{ko:'나란한 if 둘과 if - elif 는 다르다', en:'Two separate ifs and an if-elif chain are not the same'}},
     {type:'p', text:{ko:'189줄과 191줄은 if 두 개가 나란히 있습니다. 왼쪽과 오른쪽을 동시에 누르면 둘 다 실행되어 -6 과 +6 이 상쇄되고 우주선은 제자리에 섭니다. 이것은 의도한 동작입니다. 반대로 194줄과 196줄은 if 와 elif 로 이어져 있습니다. 왼쪽 벽을 넘었다면 오른쪽 벽은 확인할 필요조차 없기 때문입니다. 한 번에 한 쪽 벽만 넘을 수 있으므로, elif 로 이으면 판정을 한 번 아낍니다.',
                      en:'Lines 189 and 191 are two independent ifs: press both arrows and both run, so -6 and +6 cancel out and the ship holds still - which is intended. Lines 194 and 196, by contrast, are joined by elif, because if you passed the left wall there is no point testing the right one. You can only cross one wall at a time, so the elif saves a test.'}},
@@ -2341,8 +2397,8 @@ Right now an enemy that leaves the bottom simply disappears (self.alive = False 
                  en:'The while loop keeps running. Line 349 turns false, so only the movement, collision and cleanup are skipped; the drawing from line 411 on still runs, which is why the frozen picture stays visible and the pause text can be drawn over it.'}}
     ]},
     {type:'key', label:{ko:'고쳐 보기', en:'Change it'},
-      text:{ko:'196줄의 elif 를 if 로 바꿔 저장하고 실행해도 게임은 똑같이 돌아갑니다. 왜 똑같은지 스스로 설명할 수 있으면 조건문을 이해한 것입니다. 그다음 194줄의 부등호 < 를 > 로 바꿔 보세요. 우주선이 화면 밖으로 튀어 나가는 모습으로 조건문 한 글자의 무게를 알 수 있습니다.',
-            en:'Turn the elif on line 196 into an if, save and run: the game behaves exactly the same. If you can explain why, you have understood conditionals. Then flip the < on line 194 to >: watching the ship shoot off the screen shows what one character in a condition is worth.'}}
+      text:{ko:'196줄의 elif 를 if 로 바꿔 저장하고 실행해도 게임은 똑같이 돌아갑니다. 왜 똑같은지 스스로 설명할 수 있으면 조건문을 이해한 것입니다. 그다음 194줄의 부등호 < 를 > 로 바꿔 보세요. 시작하자마자 우주선이 왼쪽 벽(x = 21)에 붙어 버리고 오른쪽으로 가지 못합니다. x 가 21보다 크기만 하면 매 프레임 21 로 되돌려 놓기 때문입니다. 조건문 한 글자의 무게를 이렇게 확인합니다.',
+            en:'Turn the elif on line 196 into an if, save and run: the game behaves exactly the same. If you can explain why, you have understood conditionals. Then flip the < on line 194 to >: the ship sticks to the left wall (x = 21) from the start and cannot move right, because every frame with x above 21 pushes it back. That is what one character in a condition is worth.'}}
   ]
 });
 
@@ -3034,8 +3090,8 @@ Current order: settings -> colour and text dictionaries -> save functions -> dra
                  en:'On import __name__ is "game", so the condition on line 448 is false and main() is never called. All the function and class definitions are still read, so level_of imports fine. Without those two lines, borrowing one function would launch the game.'}}
     ]},
     {type:'key', label:{ko:'고쳐 보기', en:'Change it'},
-      text:{ko:'game.py 와 같은 폴더에 test.py 라는 새 파일을 만들고 다음 두 줄을 적어 실행해 보세요. from game import level_of 와 print(level_of(500)). 게임 창은 열리지 않고 5 만 출력됩니다. 448줄을 잠시 주석 처리하고 다시 실행하면 게임 창이 열립니다. 두 줄의 역할을 눈으로 확인하는 실습입니다.',
-            en:'In the same folder as game.py, make test.py with two lines - from game import level_of and print(level_of(500)) - and run it: no window, just 5. Comment out line 448 and run it again: the window opens. That is those two lines, seen with your own eyes.'}}
+      text:{ko:'game.py 와 같은 폴더에 test.py 를 만들고 두 줄을 적어 실행해 보세요 — <code>from game import level_of</code> 와 <code>print(level_of(500))</code>. 게임 창은 열리지 않고 5 만 출력됩니다. 다음으로 game.py 의 448~450줄 세 줄을 <b>모두</b> 주석 처리하고 맨 끝에 들여쓰기 없이 <code>main()</code> 한 줄을 적은 뒤 test.py 를 다시 실행해 보세요. 이번에는 import 만 했는데 게임 창이 열립니다. 조건 줄 하나만 주석 처리하면 아래 main() 이 들여쓰기된 채 남아 IndentationError 가 나므로, 세 줄을 함께 다루어야 합니다. 확인 뒤에는 원래대로 되돌립니다.',
+            en:'In the same folder as game.py make test.py with two lines - <code>from game import level_of</code> and <code>print(level_of(500))</code> - and run it: no window, just 5. Now comment out <b>all three</b> lines 448-450 and add a single unindented <code>main()</code> at the end, then run test.py again: importing alone opens the window. Commenting only the if line leaves main() indented and raises IndentationError, so the three lines move together. Put it back afterwards.'}}
   ]
 });
 
@@ -3184,8 +3240,8 @@ SECTIONS.push({
     {type:'p', text:{ko:'with open(...) as f: 형태를 쓰는 이유는 닫기를 잊지 않기 위해서입니다. 파일을 열면 운영체제가 자원을 붙잡고 있어서 반드시 닫아야 하는데, with 를 쓰면 그 블록을 벗어나는 순간 자동으로 닫힙니다. 중간에 오류가 나서 빠져나가도 닫힙니다. f.close() 를 직접 적는 방식은 오류가 나면 닫히지 않을 수 있어 지금은 거의 쓰지 않습니다.',
                      en:'The with open(...) as f: form exists so you cannot forget to close. An open file holds resources in the operating system and must be closed; with closes it the moment the block ends, even if an error threw you out of it. Writing f.close() by hand can leave the file open when something fails, which is why it is rarely used now.'}},
     {type:'sh', text:{ko:'json · 딕셔너리를 글자로, 글자를 딕셔너리로', en:'json - dictionary to text and back'}},
-    {type:'p', text:{ko:'파일에는 글자만 적을 수 있습니다. 파이썬의 딕셔너리를 그대로 적을 수는 없습니다. json.dump(딕셔너리, f) 는 딕셔너리를 약속된 글자 형식으로 바꿔 파일에 적습니다. 반대로 json.load(f) 는 그 글자를 읽어 딕셔너리로 되돌립니다. 103줄에 옵션이 둘 붙어 있습니다. ensure_ascii=False 는 한글을 그대로 적으라는 뜻이고(빼면 \\uac00 같은 기호로 적힙니다), indent=2 는 사람이 읽기 좋게 두 칸씩 들여쓰라는 뜻입니다. 게임에는 숫자 하나만 저장하므로 큰 차이는 없지만, 나중에 이름이나 설정을 저장할 때 차이가 드러납니다.',
-                     en:'A file can only hold text; a Python dictionary cannot be written as it is. json.dump(dictionary, f) converts it into an agreed text format and writes that, while json.load(f) reads the text back into a dictionary. Line 103 carries two options: ensure_ascii=False writes Korean characters as themselves (without it you get escapes such as \\uac00), and indent=2 indents for human eyes. With one number saved it hardly matters, but it shows the day you save names or settings.'}},
+    {type:'p', text:{ko:'텍스트 파일에는 글자로 적습니다(그림이나 음악 같은 파일은 바이너리로 적지만, 이 게임은 텍스트만 씁니다). 파이썬의 딕셔너리를 그 모양 그대로 적을 수는 없습니다. json.dump(딕셔너리, f) 는 딕셔너리를 약속된 글자 형식으로 바꿔 파일에 적습니다. 반대로 json.load(f) 는 그 글자를 읽어 딕셔너리로 되돌립니다. 103줄에 옵션이 둘 붙어 있습니다. ensure_ascii=False 는 한글을 그대로 적으라는 뜻이고(빼면 \\uac00 같은 기호로 적힙니다), indent=2 는 사람이 읽기 좋게 두 칸씩 들여쓰라는 뜻입니다. 게임에는 숫자 하나만 저장하므로 큰 차이는 없지만, 나중에 이름이나 설정을 저장할 때 차이가 드러납니다.',
+                     en:'A text file holds characters (images and audio are written as binary, but this game only writes text). A Python dictionary cannot be written as it stands. json.dump(dictionary, f) converts it into an agreed text format and writes that, while json.load(f) reads the text back into a dictionary. Line 103 carries two options: ensure_ascii=False writes Korean characters as themselves (without it you get escapes such as \\uac00), and indent=2 indents for human eyes. With one number saved it hardly matters, but it shows the day you save names or settings.'}},
     {type:'sh', text:{ko:'파일 이름만 적으면 위치가 흔들린다', en:'A bare file name drifts'}},
     {type:'p', text:{ko:'26줄에 SAVE_FILE = "highscore.json" 이 있고, 27줄에 그것을 os.path 로 game.py 가 있는 폴더 경로와 이어 붙인 SAVE_PATH 가 있습니다. 왜 이렇게까지 하는가 하면, 파일 이름만 적고 열면 "지금 작업 중인 폴더" 기준으로 찾기 때문입니다. 명령 프롬프트에서 다른 폴더로 이동해 python C:\\game\\game.py 처럼 실행하면, 최고점 파일이 엉뚱한 폴더에 생기거나 이전 기록을 못 찾습니다. 27줄 한 줄이 그 문제를 막아 줍니다.',
                      en:'Line 26 holds SAVE_FILE = "highscore.json", and line 27 joins it, via os.path, to the folder game.py lives in as SAVE_PATH. Why bother? Because a bare file name is resolved against the current working folder. Run it from elsewhere, as python C:\\game\\game.py, and the save file appears in the wrong folder or the old record cannot be found. That one line prevents it.'}},
@@ -3792,8 +3848,8 @@ var SEC_VSCODE = {
     ]},
     {type:'vsmock', title:{ko:'VS Code · 폴더를 연 모습', en:'VS Code with the folder open'},
       files:[{n:'금요일교육', on:false}, {n:'  game.py', on:true}, {n:'  game_en.py'}, {n:'  highscore.json'}],
-      lines:[{t:'17  TITLE = "SPACE DEFENDER"'}, {t:'18  WIDTH = 640'}, {t:'19  HEIGHT = 720'},
-             {t:'20  FPS = 60'}, {t:'21  PLAYER_SPEED = 6.0'}],
+      lines:[{t:'18  TITLE = "SPACE DEFENDER"'}, {t:'19  WIDTH = 640'}, {t:'20  HEIGHT = 720'},
+             {t:'21  FPS = 60'}, {t:'22  PLAYER_SPEED = 6.0'}],
       term:{ko:'PS C:\\Users\\...\\금요일교육> python game.py', en:'PS C:\\Users\\...\\friday> python game.py'}},
 
     {type:'h', text:{ko:'2단계 · 실행하는 세 가지 방법', en:'Step 2 · Three ways to run it'}},
@@ -3839,13 +3895,13 @@ var SEC_VSCODE = {
          en:'Run with <kbd>F5</kbd> and shoot one enemy in the game window. Everything freezes.'},
         {ko:'왼쪽 변수 창에서 game 을 펼쳐 score · level · bullets · enemies 를 확인합니다.',
          en:'Expand game in the Variables panel and read score, level, bullets and enemies.'},
-        {ko:'<kbd>F10</kbd> 을 한 번 눌러 그 줄을 실행하고, score 가 10 늘어나는 것을 눈으로 확인합니다.',
-         en:'Press <kbd>F10</kbd> once to run that line and watch score go up by 10.'},
+        {ko:'<kbd>F10</kbd> 을 한 번 눌러 그 줄을 실행하고, <b>변수 창</b>의 score 가 10 늘어나는 것을 확인합니다. 이때 게임 창의 숫자는 아직 그대로입니다 — 멈춰 있는 동안에는 화면을 다시 그리지 않기 때문입니다.',
+         en:'Press <kbd>F10</kbd> once to run that line and watch score rise by 10 <b>in the Variables panel</b>. The number in the game window has not changed yet: while paused, nothing is redrawn.'},
         {ko:'<kbd>Shift</kbd>+<kbd>F5</kbd> 로 끝내고, 중단점을 다시 클릭해 없앱니다.',
          en:'Finish with <kbd>Shift</kbd>+<kbd>F5</kbd> and click the breakpoint again to remove it.'}
       ],
-      check:{ko:'변수 창의 score 값이 게임 화면 왼쪽 위의 숫자와 같아야 합니다. 이 두 개가 같은 값이라는 것을 확인하면, 앞으로 화면에 보이는 모든 숫자를 코드에서 찾을 수 있습니다.',
-             en:'The score in the Variables panel must match the number at the top left of the game window. Once you see they are the same value, you can trace every number on screen back to the code.'}},
+      check:{ko:'<kbd>F5</kbd> 로 계속 실행해 화면이 다시 그려지면, 그때 게임 화면 왼쪽 위의 점수가 변수 창에서 본 값과 같아집니다. 값이 바뀌는 순간과 화면에 보이는 순간이 다르다는 것 — 이것만 확인하면 앞으로 화면의 모든 숫자를 코드에서 찾을 수 있습니다.',
+             en:'Continue with <kbd>F5</kbd>; once the screen is redrawn, the score at the top left matches what you saw in the Variables panel. The value changes at one moment and appears at another - see that once, and you can trace every number on screen back to the code.'}},
     {type:'warn', label:{ko:'자주 막히는 곳', en:'Where people get stuck'},
       text:{ko:'게임 창이 열린 채로 멈추면 창이 회색으로 굳어 보일 수 있습니다. 정상입니다. 계속(F5) 하거나 중지(Shift+F5) 하면 됩니다. 창이 닫히지 않으면 VS Code 아래쪽 디버그 막대의 정지 단추를 누르세요.',
             en:'While paused, the game window may look frozen and grey. That is normal: continue with F5 or stop with Shift+F5. If the window will not close, press the stop button on the debug bar at the bottom of VS Code.'}},
@@ -3903,14 +3959,14 @@ var EXTRA = {
          en:'Open game.py, press <kbd>Ctrl</kbd>+<kbd>G</kbd> and go to line 24: <code>START_LIVES = 3</code>.'},
         {ko:'3 을 10 으로 바꾸고 <kbd>Ctrl</kbd>+<kbd>S</kbd> 로 저장한 뒤 ▷ 로 실행합니다.',
          en:'Change 3 to 10, save with <kbd>Ctrl</kbd>+<kbd>S</kbd> and run with ▷.'},
-        {ko:'화면 오른쪽 위의 @ 표시가 열 개인지 셉니다. 한 줄이 화면을 바꿨습니다.',
-         en:'Count the @ marks at the top right - there should be ten. One line changed the screen.'},
+        {ko:'화면 <b>왼쪽 위</b> 「목숨 @@@」 자리의 @ 표시가 열 개인지 셉니다(오른쪽 위는 최고점입니다). 한 줄이 화면을 바꿨습니다.',
+         en:'Count the @ marks in the <b>top-left</b> HUD next to LIVES - there should be ten (the top right is the best score). One line changed the screen.'},
         {ko:'이번에는 22줄 <code>PLAYER_SPEED = 6.0</code> 을 20.0 으로 바꿔 실행해 봅니다.',
          en:'Now change <code>PLAYER_SPEED = 6.0</code> on line 22 to 20.0 and run it.'},
         {ko:'우주선이 벽에 부딪히는 느낌이 어떻게 달라지는지 보고, 왜 그런지 3장(조건문)에서 확인할 것을 적어 둡니다.',
          en:'Notice how hitting the wall feels different, and note the question for chapter 3 (conditionals).'},
-        {ko:'<kbd>Ctrl</kbd>+<kbd>Z</kbd> 를 두 번 눌러 원래대로 돌려놓고 저장합니다.',
-         en:'Press <kbd>Ctrl</kbd>+<kbd>Z</kbd> twice to restore the original values and save.'}
+        {ko:'원래 값으로 되돌려 저장합니다 — <code>START_LIVES = 3</code>, <code>PLAYER_SPEED = 6.0</code>. (되돌리기 <kbd>Ctrl</kbd>+<kbd>Z</kbd> 는 편집 횟수만큼 눌러야 하므로, 값을 직접 다시 적는 편이 확실합니다.)',
+         en:'Type the original values back and save - <code>START_LIVES = 3</code>, <code>PLAYER_SPEED = 6.0</code>. (Undo depends on how many edits you made, so retyping the values is safer.)'}
       ],
       check:{ko:'두 값을 바꾸는 동안 코드의 다른 곳은 한 글자도 건드리지 않았다는 점. 이것이 설정값을 위에 모아 둔 이유입니다.',
              en:'You never touched another character anywhere else in the code. That is why the settings live at the top.'}}
@@ -3953,22 +4009,22 @@ var EXTRA = {
             en:'Most operator-related accidents in practice come from comparing floats. A computer cannot write 0.1 exactly in binary, so it carries a tiny error. In Python <code>0.1 + 0.2 == 0.3</code> is False.'},
       bad:{ko:'결제 금액을 실수로 더해 나가며 <code>if total == expected:</code> 로 검사하는 코드는 대부분의 경우 통과하다가 어느 조합에서 갑자기 실패합니다. 재현이 어려워 "가끔 안 되는 버그"로 남습니다.',
            en:'Adding money as floats and checking <code>if total == expected:</code> passes almost always, then fails on one combination. It is hard to reproduce and lives on as "the bug that happens sometimes".'},
-      good:{ko:'금액은 정수(원 단위)로 다루거나 decimal 모듈을 씁니다. 실수끼리 비교해야 하면 <code>abs(a - b) &lt; 0.001</code> 처럼 허용 오차로 비교합니다. 게임이 거리를 <code>&lt;</code> 로만 비교하고 <code>==</code> 를 쓰지 않는 것도 같은 이유입니다.',
-            en:'Handle money as integers of the smallest unit, or use the decimal module. When floats must be compared, compare within a tolerance: <code>abs(a - b) &lt; 0.001</code>. The game compares distance with <code>&lt;</code> and never <code>==</code> for the same reason.'},
+      good:{ko:'금액은 정수(원 단위)로 다루거나 decimal 모듈을 씁니다. 실수끼리 비교해야 하면 <code>abs(a - b) &lt; 0.001</code> 처럼 허용 오차로 비교합니다. 게임의 충돌 판정이 <code>&lt;</code> 를 쓰는 것은 애초에 "거리가 범위 안인가"를 묻는 것이라 성격이 다르지만, 덕분에 실수를 <code>==</code> 로 맞히려다 생기는 이 함정도 자연스럽게 비켜 갑니다.',
+            en:'Handle money as integers of the smallest unit, or use the decimal module. When floats must be compared, compare within a tolerance: <code>abs(a - b) &lt; 0.001</code>. The game\u2019s hit test uses <code>&lt;</code> for a different reason - it asks whether the distance is inside a range - but that also keeps it clear of this trap.'},
       why:{ko:'덧붙여, 제곱근은 계산이 비쌉니다. 실무 게임 코드에서는 <code>dx*dx + dy*dy &lt; r*r</code> 처럼 제곱근을 빼고 비교하는 방식을 자주 씁니다. 결과는 같고 속도는 빠릅니다. 이 교재는 식을 눈으로 따라가기 쉽도록 math.sqrt 를 남겨 두었습니다.',
            en:'Also, square roots are expensive. Production game code often compares <code>dx*dx + dy*dy &lt; r*r</code> and skips the root: same answer, faster. This book keeps math.sqrt because the formula is easier to follow.'}},
     lab:{type:'lab', title:{ko:'VS Code 실습 2 · 난이도 곡선을 연산자로 바꾸기', en:'VS Code lab 2 · Reshape the difficulty with operators'},
       steps:[
         {ko:'터미널(<kbd>Ctrl</kbd>+<kbd>`</kbd>)에 <code>python</code> 을 입력해 대화형 파이썬을 켜고 250 // 120, 250 % 120, 250 / 120 을 차례로 쳐 봅니다. exit() 로 나옵니다.',
          en:'Open the terminal (<kbd>Ctrl</kbd>+<kbd>`</kbd>), type <code>python</code> and try 250 // 120, 250 % 120, 250 / 120. Leave with exit().'},
-        {ko:'game.py 44줄 <code>"level_up_score": 120</code> 을 40 으로 바꿔 실행합니다. 세 마리만 잡아도 단계가 오릅니다.',
-         en:'Change <code>"level_up_score": 120</code> on line 44 to 40 and run. Three kills already raise the level.'},
+        {ko:'game.py 44줄 <code>"level_up_score": 120</code> 을 40 으로 바꿔 실행합니다. 적 한 마리가 10점이므로 <b>네 마리(40점)</b>를 잡는 순간 2단계가 됩니다. 실행 전에 몇 마리일지 먼저 답해 보세요.',
+         en:'Change <code>"level_up_score": 120</code> on line 44 to 40 and run. An enemy is 10 points, so the <b>fourth kill (40 points)</b> makes it level 2. Predict the number before you run it.'},
         {ko:'42줄 <code>"spawn_delay": 44</code> 를 15 로 바꿔 실행합니다. 적이 쏟아지는 이유를 <code>timer % 15 == 0</code> 으로 설명해 봅니다.',
          en:'Change <code>"spawn_delay": 44</code> on line 42 to 15 and run. Explain the flood with <code>timer % 15 == 0</code>.'},
         {ko:'382줄의 <code>+ 6</code> 을 <code>+ 30</code> 으로 바꿔 실행합니다. 총알이 스쳐도 맞는 이유를 기준값으로 설명해 봅니다.',
          en:'Change <code>+ 6</code> on line 382 to <code>+ 30</code> and run. Explain with the limit why a graze now counts.'},
-        {ko:'세 값을 모두 되돌립니다. <kbd>Ctrl</kbd>+<kbd>Z</kbd> 를 여러 번 누르거나 파일을 닫고 다시 받으세요.',
-         en:'Restore all three values with repeated <kbd>Ctrl</kbd>+<kbd>Z</kbd>, or download the file again.'}
+        {ko:'원래 값으로 되돌립니다 — <code>"level_up_score": 120</code>, <code>"spawn_delay": 44</code>, <code>+ 6</code>.',
+         en:'Type the originals back - <code>"level_up_score": 120</code>, <code>"spawn_delay": 44</code>, <code>+ 6</code>.'}
       ],
       check:{ko:'세 번의 변경이 모두 숫자 하나였고, 그 숫자가 각각 // · % · 비교 연산자에 쓰였다는 점을 확인하세요.',
              en:'Each of the three changes was a single number, feeding //, % and a comparison respectively.'}}
@@ -4004,8 +4060,8 @@ var EXTRA = {
 '    print("inside the screen")\n' +
 '\n' +
 'print(x)              # 21'}},
-      {type:'p', text:{ko:'들여쓰기가 문법입니다. if 줄 아래에서 빈칸 네 개만큼 들어간 줄들이 한 덩어리이고, 그 덩어리 전체가 조건이 참일 때만 실행됩니다. 빈칸을 하나 빠뜨리면 파이썬은 IndentationError 를 내며 실행을 거부합니다. 다른 언어의 중괄호와 같은 역할이라고 보면 됩니다.',
-                       en:'Indentation is the syntax. The lines indented by four spaces under an if form one block, and the whole block runs only when the condition is true. Miss one space and Python refuses to run, raising IndentationError. Think of it as the braces other languages use.'}}
+      {type:'p', text:{ko:'들여쓰기가 문법입니다. if 줄 아래에서 안쪽으로 들어간 줄들이 한 덩어리이고, 그 덩어리 전체가 조건이 참일 때만 실행됩니다. 같은 덩어리의 줄은 들여쓰기 폭이 서로 같아야 하며, 폭은 네 칸을 씁니다(PEP 8 권장, 이 교재도 네 칸으로 통일). 한 줄만 어긋나면 IndentationError 가 나면서 실행이 거부됩니다.',
+                       en:'Indentation is the syntax. The lines indented under an if form one block, and the whole block runs only when the condition is true. Lines in the same block must share the same indent; the width is four spaces here (PEP 8 recommends it and this book follows). One line out of step raises IndentationError.'}}
     ],
     caseStudy:{type:'case',
       title:{ko:'실무에서 · 중첩된 if 를 펴는 가드 절', en:'In practice · guard clauses flatten nested ifs'},
@@ -4021,8 +4077,8 @@ var EXTRA = {
       steps:[
         {ko:'game.py 194줄로 이동합니다. <code>if self.x &lt; self.size / 2:</code> 입니다.',
          en:'Go to line 194 of game.py: <code>if self.x &lt; self.size / 2:</code>.'},
-        {ko:'부등호 <code>&lt;</code> 를 <code>&gt;</code> 로 바꾸고 실행합니다. 우주선이 어떻게 되는지 보고, 왜 그런지 말로 설명해 봅니다.',
-         en:'Change <code>&lt;</code> to <code>&gt;</code> and run. Watch what the ship does and say out loud why.'},
+        {ko:'부등호 <code>&lt;</code> 를 <code>&gt;</code> 로 바꾸고 실행합니다. 바꾸기 전에 무엇이 일어날지 먼저 답해 보세요. 실제로는 우주선이 시작하자마자 왼쪽 끝(x = 21)에 붙어 오른쪽으로 가지 못합니다. 왜 그런지 말로 설명해 봅니다.',
+         en:'Change <code>&lt;</code> to <code>&gt;</code> and run - but predict first. What actually happens is that the ship jumps to the left edge (x = 21) and cannot move right. Explain why out loud.'},
         {ko:'되돌린 뒤, 196줄의 <code>elif</code> 를 <code>if</code> 로 바꿔 실행합니다. 이번에는 아무 차이가 없습니다. 왜 없는지 생각해 봅니다.',
          en:'Undo, then change the <code>elif</code> on line 196 to <code>if</code> and run. Nothing changes - work out why.'},
         {ko:'189줄과 191줄의 두 if 사이에 중단점을 찍고 <kbd>F5</kbd> 로 실행합니다. 좌우 화살표를 동시에 누른 채 <kbd>F10</kbd> 으로 한 줄씩 넘기며 self.x 값을 봅니다.',
@@ -4078,6 +4134,571 @@ var EXTRA = {
       for(var i = 0; i < SECTIONS.length; i++) if(SECTIONS[i].id === id){
         SECTIONS[i].no = (n < 10 ? '0' : '') + n; n++;
       }
+    });
+  });
+})();
+
+/* ===== 10_extend.js ===== */
+/* ===================== 초보자 준비 · 예상하기 · 직접 쓰기 · 공학 연결 · 4~12장 실습 ===================== */
+
+/* ---------- 블록 렌더러 추가 ---------- */
+var _rb2 = renderBlock;
+renderBlock = function(b){
+  if(b.type === 'predict'){
+    var p = el('div', 'predict');
+    p.appendChild(el('div', 'ph', '🤔 ' + T(b.title || {ko:'먼저 예상해 보세요', en:'Predict first'})));
+    var pb = el('div', 'pb');
+    b.items.forEach(function(it){
+      var q = el('div', 'pq', '<span>' + T(it.q) + '</span><span class="tip">' +
+        T({ko:'눌러서 답 보기', en:'click for the answer'}) + '</span>' +
+        '<div class="pa">' + T(it.a) + '</div>');
+      q.onclick = function(){ q.classList.toggle('open'); };
+      pb.appendChild(q);
+    });
+    p.appendChild(pb);
+    return p;
+  }
+  if(b.type === 'write'){
+    var w = el('div', 'write');
+    w.appendChild(el('div', 'wrh', '✍️ ' + T(b.title || {ko:'직접 써 보기 (AI 없이)', en:'Write it yourself (no AI)'})));
+    var wb = el('div', 'wrb');
+    b.items.forEach(function(it, i){
+      var q = el('div', 'wq');
+      q.innerHTML = '<b>' + (i + 1) + '.</b> ' + T(it.q) +
+        (it.hint ? '<div class="whint">' + T({ko:'힌트', en:'Hint'}) + ' · ' + T(it.hint) + '</div>' : '') +
+        '<div class="wans">' + esc(T(it.a)) + '</div>';
+      var btn = el('button', 'wbtn', T({ko:'답 보기', en:'show answer'}));
+      btn.onclick = function(){ q.classList.toggle('open'); };
+      q.querySelector('b').after(btn);
+      wb.appendChild(q);
+    });
+    w.appendChild(wb);
+    return w;
+  }
+  if(b.type === 'eng'){
+    var e = el('div', 'eng');
+    e.appendChild(el('div', 'eh', '📐 ' + T(b.title)));
+    var eb = el('div', 'eb');
+    if(b.lead) eb.appendChild(el('p', '', T(b.lead)));
+    if(b.code) eb.appendChild(codeBox(T(b.code).split('\n'), null, T({ko:'공학 예제', en:'engineering example'}), null, 260));
+    if(b.points){
+      var ul = el('ul');
+      b.points.forEach(function(x){ ul.appendChild(el('li', '', T(x))); });
+      eb.appendChild(ul);
+    }
+    e.appendChild(eb);
+    return e;
+  }
+  return _rb2(b);
+};
+
+/* ---------- 0장 · 진짜 처음 시작하는 사람을 위한 준비 ---------- */
+var SEC_START = {
+  id:'start', no:'02',
+  title:{ko:'처음 시작하는 사람을 위한 준비', en:'Before anything else - the very first steps'},
+  sub:{ko:'파이썬과 VS Code 는 다른 것입니다. 파일 하나 만들어 한 줄 출력해 보는 데까지 갑니다.',
+       en:'Python and VS Code are two different things. We go as far as one file printing one line.'},
+  blocks:[
+    {type:'goal', items:[
+      {ko:'파이썬(실행하는 도구)과 VS Code(작성하는 도구)의 차이', en:'Python runs code, VS Code writes it - the difference'},
+      {ko:'.py 파일을 만들고 저장하고 실행해 결과를 읽는 한 바퀴', en:'the full loop: make a .py file, save, run, read the output'},
+      {ko:'print() 로 화면에 글자를 내보내고 # 으로 메모를 남기는 법', en:'printing with print() and leaving notes with #'},
+      {ko:'오류 메시지가 나왔을 때 어디를 먼저 보는지', en:'where to look first when an error appears'}
+    ]},
+    {type:'lead', text:{
+      ko:'프로그래밍을 처음 하는 사람이 가장 많이 막히는 곳은 문법이 아니라 "지금 내가 무엇을 하고 있는지"입니다. 파일을 만들었는데 실행이 안 되고, 실행은 됐는데 결과가 어디에 나오는지 모릅니다. 이 장은 그 한 바퀴를 끝까지 한 번 돌아 보는 것이 전부입니다. 5분이면 끝나고, 이 다음부터는 같은 방법을 반복합니다.',
+      en:'What stops a first-time programmer is rarely the syntax; it is not knowing what they are doing right now. The file is made but will not run, or it runs and the output is nowhere to be seen. This chapter does nothing but walk that loop once, end to end. It takes five minutes, and everything afterwards repeats the same moves.'}},
+    {type:'h', text:{ko:'파이썬과 VS Code 는 서로 다른 것입니다', en:'Python and VS Code are not the same thing'}},
+    {type:'table',
+      head:[{ko:'', en:''}, {ko:'파이썬 (Python)', en:'Python'}, {ko:'VS Code', en:'VS Code'}],
+      rows:[
+        [{ko:'무엇인가', en:'What it is'}, {ko:'우리가 적은 코드를 읽어 실행하는 프로그램', en:'the program that reads your code and runs it'},
+         {ko:'코드를 적고 고치는 편집기', en:'the editor you type and edit code in'}],
+        [{ko:'비유하면', en:'An analogy'}, {ko:'악보를 연주하는 연주자', en:'the player who performs the score'},
+         {ko:'악보를 적는 종이와 펜', en:'the paper and pen you write the score on'}],
+        [{ko:'없으면', en:'Without it'}, {ko:'코드를 적어도 아무 일이 일어나지 않는다', en:'you can write code but nothing happens'},
+         {ko:'메모장으로도 적을 수는 있다 (불편할 뿐)', en:'you could still type it in Notepad - just painfully'}],
+        [{ko:'확인하는 법', en:'How to check'}, {ko:'터미널에 python --version', en:'python --version in a terminal'},
+         {ko:'프로그램을 열면 보인다', en:'it opens as an application'}]
+      ]},
+    {type:'note', label:{ko:'용어 정리', en:'Words you will hear'},
+      text:{ko:'<code>.py</code> 는 파이썬 코드가 든 파일입니다. <b>실행</b>은 그 파일을 파이썬에게 읽히는 것이고, <b>출력</b>은 실행 결과로 화면에 나오는 글자입니다. <b>터미널</b>은 그 글자가 나오는 검은 창입니다.',
+            en:'A <code>.py</code> file holds Python code. <b>Running</b> means handing that file to Python; <b>output</b> is the text that comes back; the <b>terminal</b> is the dark panel where that text appears.'}},
+    {type:'h', text:{ko:'첫 한 바퀴 · 만들고 저장하고 실행하기', en:'The first loop - make, save, run'}},
+    {type:'lab', title:{ko:'실습 00 · hello.py 한 줄 프로그램', en:'Lab 00 · hello.py, a one-line program'},
+      steps:[
+        {ko:'VS Code 에서 game.py 가 있는 폴더를 열어 둔 상태에서, 왼쪽 파일 목록 빈 곳을 오른쪽 클릭 → <b>새 파일</b> → 이름을 <code>hello.py</code> 로 합니다. 확장자 <code>.py</code> 를 꼭 붙이세요.',
+         en:'With the game.py folder open, right-click the empty area of the file list → <b>New File</b> → name it <code>hello.py</code>. The <code>.py</code> ending matters.'},
+        {ko:'파일에 딱 한 줄을 적습니다 — <code>print("안녕하세요")</code>. 괄호와 따옴표를 빠뜨리지 마세요.',
+         en:'Type exactly one line — <code>print("hello")</code>. Do not drop the brackets or the quotes.'},
+        {ko:'<kbd>Ctrl</kbd>+<kbd>S</kbd> 로 저장합니다. 파일 이름 옆의 흰 점이 사라지면 저장된 것입니다.',
+         en:'Save with <kbd>Ctrl</kbd>+<kbd>S</kbd>. The white dot next to the file name disappears when it is saved.'},
+        {ko:'오른쪽 위 ▷ 단추를 누릅니다. 아래 터미널에 <code>안녕하세요</code> 가 나옵니다. 이것이 출력입니다.',
+         en:'Press the ▷ button at the top right. The terminal below shows <code>hello</code>. That is the output.'},
+        {ko:'둘째 줄에 <code># 이건 메모입니다</code> 를 적고 다시 실행합니다. # 뒤는 실행되지 않고 사람만 읽습니다.',
+         en:'Add a second line, <code># this is a note</code>, and run again. Anything after # is for people, not Python.'},
+        {ko:'이번에는 일부러 틀려 봅니다. <code>print("안녕하세요"</code> 처럼 닫는 괄호를 지우고 실행하세요.',
+         en:'Now break it on purpose: delete the closing bracket, <code>print("hello"</code>, and run.'},
+        {ko:'빨간 글씨 마지막 줄에 <code>SyntaxError</code> 가 보입니다. 오류는 <b>맨 아래줄부터</b> 읽습니다. 괄호를 다시 넣어 고칩니다.',
+         en:'The last red line says <code>SyntaxError</code>. Read errors <b>from the bottom up</b>. Put the bracket back.'}
+      ],
+      check:{ko:'터미널에 내가 적은 글자가 그대로 나왔다면 성공입니다. 이 다섯 동작(만들기 · 적기 · 저장 · 실행 · 읽기)이 이 교재 모든 실습의 뼈대입니다.',
+             en:'If the terminal echoes your text, you are done. Those five moves - create, type, save, run, read - are the skeleton of every lab in this book.'}},
+    {type:'write', items:[
+      {q:{ko:'자기 이름과 학번을 각각 한 줄씩 출력하는 프로그램을 쓰세요.', en:'Write a program that prints your name and student number, one per line.'},
+       hint:{ko:'print 를 두 번 씁니다. 글자는 따옴표로 감쌉니다.', en:'Use print twice. Wrap text in quotes.'},
+       a:{ko:'print("홍길동")\nprint("20261234")', en:'print("Hong Gildong")\nprint("20261234")'}},
+      {q:{ko:'다음 코드는 왜 오류가 날까요? 고쳐 쓰세요.  <code>print(안녕하세요)</code>', en:'Why does this fail? Fix it.  <code>print(hello)</code>'},
+       hint:{ko:'따옴표가 없으면 파이썬은 그것을 변수 이름으로 봅니다.', en:'Without quotes Python reads it as a variable name.'},
+       a:{ko:'print("안녕하세요")\n# 따옴표가 없으면 NameError: name \'안녕하세요\' is not defined',
+          en:'print("hello")\n# without quotes: NameError: name \'hello\' is not defined'}}
+    ]},
+    {type:'key', label:{ko:'여기까지 오면', en:'Once you are here'},
+      text:{ko:'이제 남은 것은 "한 줄을 여러 줄로 늘리는 일"뿐입니다. 다음 장에서 VS Code 를 조금 더 익히고, 그다음부터 게임 코드를 한 조각씩 열어 봅니다.',
+            en:'From here on it is only a matter of turning one line into many. Next we settle into VS Code, and after that we start opening the game code piece by piece.'}}
+  ]
+};
+
+/* ---------- 장별 보강 : 예상하기 · 직접 쓰기 · 공학 연결 · 실습 ---------- */
+var ADD = {
+  c1:{
+    predict:{items:[
+      {q:{ko:'START_LIVES 를 10 으로 바꾸면 화면의 어디가, 어떻게 달라질까요?', en:'Change START_LIVES to 10 - what changes on screen, and where?'},
+       a:{ko:'왼쪽 위 「목숨」 뒤의 @ 가 세 개에서 열 개로 늘어납니다. 오른쪽 위 최고점은 그대로입니다.', en:'The @ marks after LIVES at the top left go from three to ten. The best score at the top right is unchanged.'}},
+      {q:{ko:'PLAYER_SPEED 를 20.0 으로 올리면 목숨도 함께 달라질까요?', en:'If PLAYER_SPEED becomes 20.0, do the lives change too?'},
+       a:{ko:'아니요. 속도와 목숨은 서로 다른 상자입니다. 다만 빨라져서 적과 더 자주 부딪히면 목숨이 빨리 줄 수는 있습니다.', en:'No - speed and lives are different boxes. You may lose lives faster simply because you crash more often.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'목숨을 담는 변수 <code>lives</code> 를 만들어 3 을 넣고, 한 번 줄인 뒤 출력하세요.', en:'Make a variable <code>lives</code> holding 3, take one off, and print it.'},
+       hint:{ko:'-= 를 씁니다.', en:'Use -=.'},
+       a:{ko:'lives = 3\nlives -= 1\nprint(lives)   # 2', en:'lives = 3\nlives -= 1\nprint(lives)   # 2'}},
+      {q:{ko:'다음 두 줄의 결과가 다른 이유를 한 줄로 적고, 각각의 자료형을 쓰세요.<br><code>a = 640</code> 과 <code>b = "640"</code>', en:'In one line, say why these differ and name each type:<br><code>a = 640</code> and <code>b = "640"</code>'},
+       hint:{ko:'하나는 계산할 수 있고 하나는 글자입니다.', en:'One can be added to; the other is text.'},
+       a:{ko:'a 는 int(정수), b 는 str(문자열). a + 1 은 641 이지만 b + 1 은 TypeError 입니다.', en:'a is int, b is str. a + 1 gives 641; b + 1 raises TypeError.'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 측정값을 변수에 담는다', en:'To engineering · a measurement in a variable'},
+      lead:{ko:'게임의 WIDTH 가 창 너비를 담았듯, 실험실에서는 센서 번호와 측정값을 담습니다. 자료형을 구분하는 이유가 여기서도 같습니다 — 계산할 값은 숫자로, 이름표는 글자로 둡니다.',
+            en:'WIDTH held a window size; in a lab the same boxes hold a sensor id and a reading. The reason types matter is identical: numbers for arithmetic, text for labels.'},
+      code:{ko:'SENSOR_ID = "TC-01"      # 문자열 - 이름표\ntemp_c = 23.5            # 실수 - 측정값\nLIMIT_C = 80.0           # 실수 - 기준값(설정)\n\nprint(SENSOR_ID, temp_c, "C")',
+            en:'SENSOR_ID = "TC-01"      # str - a label\ntemp_c = 23.5            # float - the reading\nLIMIT_C = 80.0           # float - the limit (a setting)\n\nprint(SENSOR_ID, temp_c, "C")'},
+      points:[{ko:'기준값 LIMIT_C 를 대문자로 둔 것은 게임의 START_LIVES 와 같은 이유입니다 — 프로그램이 도는 동안 바꾸지 않는 설정값이라는 표시입니다.',
+               en:'LIMIT_C is capitalised for the same reason as START_LIVES: it marks a setting that does not change while the program runs.'},
+              {ko:'측정값을 "23.5" 처럼 글자로 받으면 평균을 낼 때 float() 로 바꿔야 합니다. 받을 때부터 숫자로 두는 편이 안전합니다.',
+               en:'If a reading arrives as the text "23.5" you must float() it before averaging. Keeping it numeric from the start is safer.'}]}
+  },
+
+  c2:{
+    predict:{items:[
+      {q:{ko:'level_up_score 를 40 으로 바꾸면 적을 몇 마리 잡았을 때 2단계가 될까요?', en:'With level_up_score at 40, how many kills make it level 2?'},
+       a:{ko:'네 마리입니다. 한 마리가 10점이므로 40점이 되는 순간 40 // 40 + 1 = 2 가 됩니다. 세 마리(30점)까지는 1단계입니다.', en:'Four. Each enemy is 10 points, so at 40 points 40 // 40 + 1 = 2. Three kills (30 points) is still level 1.'}},
+      {q:{ko:'spawn_delay 를 44 에서 15 로 줄이면 적이 몇 배쯤 자주 나올까요?', en:'Dropping spawn_delay from 44 to 15 - roughly how much more often do waves come?'},
+       a:{ko:'약 3배입니다. 44프레임마다 한 번(0.73초)에서 15프레임마다 한 번(0.25초)으로 바뀝니다.', en:'About three times: from once every 44 frames (0.73 s) to once every 15 (0.25 s).'}}
+    ]},
+    write:{items:[
+      {q:{ko:'점수가 175 점일 때 단계를 구해 출력하세요. 기준 점수는 120 입니다.', en:'Print the level for a score of 175, with a step of 120.'},
+       hint:{ko:'// 를 쓰고 1 을 더합니다.', en:'Use // and add 1.'},
+       a:{ko:'score = 175\nlevel = score // 120 + 1\nprint(level)   # 2', en:'score = 175\nlevel = score // 120 + 1\nprint(level)   # 2'}},
+      {q:{ko:'프레임 번호 <code>timer</code> 가 10 의 배수일 때만 True 가 되는 식을 쓰세요.', en:'Write an expression that is True only when <code>timer</code> is a multiple of 10.'},
+       hint:{ko:'나머지가 0 인지 봅니다.', en:'Check whether the remainder is zero.'},
+       a:{ko:'timer % 10 == 0', en:'timer % 10 == 0'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 단위 변환과 주기 기록', en:'To engineering · unit conversion and sampling'},
+      lead:{ko:'거리 공식에 쓴 사칙연산은 단위 변환에 그대로 쓰이고, 게임의 timer % 44 는 "몇 번마다 한 번 기록"에 그대로 쓰입니다.',
+            en:'The arithmetic behind the distance formula is what converts units, and timer % 44 is exactly how you sample "every Nth reading".'},
+      code:{ko:'temp_c = 23.5\ntemp_f = temp_c * 9 / 5 + 32      # 섭씨 -> 화씨\nprint(temp_f)                      # 74.3\n\ncount = 37\nif count % 10 == 0:                # 10번마다 한 번만 기록\n    print("기록:", temp_c)',
+            en:'temp_c = 23.5\ntemp_f = temp_c * 9 / 5 + 32      # C -> F\nprint(temp_f)                      # 74.3\n\ncount = 37\nif count % 10 == 0:                # log only every tenth reading\n    print("log:", temp_c)'},
+      points:[{ko:'초당 100번 들어오는 센서 값을 모두 저장하면 파일이 금세 커집니다. % 로 솎아 내는 것이 가장 간단한 방법입니다.',
+               en:'Storing a 100 Hz sensor in full fills a disk fast; thinning it with % is the simplest answer.'},
+              {ko:'평균을 낼 때 / 와 // 를 헷갈리면 소수점이 잘려 결과가 달라집니다. 측정 계산에는 / 를 씁니다.',
+               en:'Confusing / with // when averaging quietly truncates the decimals. Measurements use /.'}]}
+  },
+
+  c3:{
+    predict:{items:[
+      {q:{ko:'194줄의 <code>&lt;</code> 를 <code>&gt;</code> 로 바꾸면 우주선은 어떻게 될까요?', en:'If the <code>&lt;</code> on line 194 becomes <code>&gt;</code>, what happens to the ship?'},
+       a:{ko:'시작하자마자 왼쪽 끝(x = 21)으로 끌려가 붙어 버립니다. x 가 21 보다 크기만 하면 매 프레임 21 로 되돌려 놓기 때문에 오른쪽으로 갈 수 없습니다.', en:'It is dragged to the left edge (x = 21) immediately and stays: any x above 21 is pushed back every frame, so it cannot move right.'}},
+      {q:{ko:'왼쪽과 오른쪽 화살표를 동시에 누르면?', en:'What if you hold both arrow keys?'},
+       a:{ko:'제자리에 섭니다. 나란한 if 두 개가 모두 실행되어 -6 과 +6 이 상쇄됩니다.', en:'It stands still: both independent ifs run, so -6 and +6 cancel out.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'목숨이 0 이하이면 「게임 끝」을 출력하고, 아니면 남은 목숨을 출력하는 코드를 쓰세요.', en:'Print "game over" when lives are 0 or less, otherwise print the lives left.'},
+       hint:{ko:'if 와 else 를 씁니다. 들여쓰기를 맞추세요.', en:'Use if and else, and keep the indentation aligned.'},
+       a:{ko:'lives = 0\n\nif lives <= 0:\n    print("게임 끝")\nelse:\n    print("남은 목숨", lives)', en:'lives = 0\n\nif lives <= 0:\n    print("game over")\nelse:\n    print("lives left", lives)'}},
+      {q:{ko:'점수가 0 이상 120 미만이면 "1단계"를 출력하는 조건을 <code>and</code> 로 쓰세요.', en:'Using <code>and</code>, print "level 1" when the score is at least 0 and under 120.'},
+       hint:{ko:'조건 두 개를 and 로 잇습니다.', en:'Join two conditions with and.'},
+       a:{ko:'score = 90\n\nif score >= 0 and score < 120:\n    print("1단계")', en:'score = 90\n\nif score >= 0 and score < 120:\n    print("level 1")'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 기준 초과 경고', en:'To engineering · warning past a limit'},
+      lead:{ko:'우주선을 화면 안에 붙잡아 두는 조건문은, 설비 온도를 기준 안에 두는 판정과 구조가 같습니다. 값 하나를 기준과 비교해 다른 길로 보냅니다.',
+            en:'The conditional that keeps the ship on screen has the same shape as a temperature check: compare one value with a limit and send it down a different road.'},
+      code:{ko:'temp_c = 92.4\nLIMIT_C = 80.0\nWARN_C = 70.0\n\nif temp_c >= LIMIT_C:\n    print("경보 · 가동 중지 기준 초과")\nelif temp_c >= WARN_C:\n    print("주의 · 기준에 근접")\nelse:\n    print("정상")',
+            en:'temp_c = 92.4\nLIMIT_C = 80.0\nWARN_C = 70.0\n\nif temp_c >= LIMIT_C:\n    print("alarm - over the shutdown limit")\nelif temp_c >= WARN_C:\n    print("caution - close to the limit")\nelse:\n    print("normal")'},
+      points:[{ko:'if - elif 순서를 뒤집어 WARN 을 먼저 보면, 92.4 도 「주의」로 끝나 경보가 뜨지 않습니다. 조건의 순서가 곧 판정 결과입니다.',
+               en:'Swap the order so WARN is tested first and 92.4 stops at "caution" - the alarm never fires. The order of the tests is the verdict.'},
+              {ko:'게임의 벽 판정과 마찬가지로, 엄한 조건을 먼저 두고 느슨한 조건을 뒤에 둡니다.',
+               en:'As with the wall clamp, put the stricter condition first and the looser one after.'}]}
+  },
+
+  c4:{
+    predict:{items:[
+      {q:{ko:'clock.tick(60) 을 clock.tick(15) 로 바꾸면 적의 속도는 어떻게 보일까요?', en:'Change clock.tick(60) to clock.tick(15) - how do the enemies look?'},
+       a:{ko:'화면이 1초에 15번만 갱신되어 뚝뚝 끊기고, 적은 느려 보입니다. 한 프레임의 이동량은 그대로지만 프레임 수가 줄기 때문입니다.', en:'The screen updates only fifteen times a second, so it stutters and the enemies look slower: the step per frame is the same but there are fewer frames.'}},
+      {q:{ko:'총알 목록이 비어 있을 때 for bullet in bullets: 는 몇 번 실행될까요?', en:'With an empty bullet list, how many times does the for run?'},
+       a:{ko:'0번입니다. 목록에 있는 만큼만 돌기 때문에 그냥 지나갑니다.', en:'Zero - a for runs once per item, so it is skipped entirely.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'1 부터 5 까지 더한 값을 출력하세요.', en:'Print the sum of 1 to 5.'},
+       hint:{ko:'range(1, 6) 을 for 로 돕니다.', en:'Loop over range(1, 6).'},
+       a:{ko:'total = 0\nfor i in range(1, 6):\n    total = total + i\nprint(total)   # 15', en:'total = 0\nfor i in range(1, 6):\n    total = total + i\nprint(total)   # 15'}},
+      {q:{ko:'리스트 <code>[12, 7, 25, 3]</code> 에서 10 보다 큰 값만 출력하세요. (컴프리헨션 말고 일반 for 로)', en:'Print the values over 10 in <code>[12, 7, 25, 3]</code> - with a plain for, not a comprehension.'},
+       hint:{ko:'for 안에 if 를 넣습니다.', en:'Put an if inside the for.'},
+       a:{ko:'values = [12, 7, 25, 3]\nfor v in values:\n    if v > 10:\n        print(v)', en:'values = [12, 7, 25, 3]\nfor v in values:\n    if v > 10:\n        print(v)'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 측정값 여러 개 처리하기', en:'To engineering · handling many readings'},
+      lead:{ko:'게임 루프가 총알 목록을 훑는 것과, 하루치 측정값을 훑어 평균과 최댓값을 내는 것은 같은 동작입니다.',
+            en:'Walking the bullet list in the game loop and walking a day of readings for the average and the peak are the same move.'},
+      code:{ko:'readings = [21.5, 23.0, 25.8, 24.1, 30.2]\n\ntotal = 0\nover = 0\nfor v in readings:\n    total = total + v\n    if v > 25:\n        over = over + 1\n\nprint("평균", total / len(readings))\nprint("25도 초과", over, "회")',
+            en:'readings = [21.5, 23.0, 25.8, 24.1, 30.2]\n\ntotal = 0\nover = 0\nfor v in readings:\n    total = total + v\n    if v > 25:\n        over = over + 1\n\nprint("mean", total / len(readings))\nprint("over 25:", over, "times")'},
+      points:[{ko:'측정 개수를 미리 몰라도 됩니다. for 는 목록에 있는 만큼만 돕니다 — 센서가 100개든 3개든 코드는 그대로입니다.',
+               en:'You never need to know the count in advance: the for runs once per item, so three sensors or a hundred use the same code.'},
+              {ko:'총합을 담을 total 을 반복문 밖에서 0 으로 두는 것을 잊으면 NameError 가 납니다. 게임의 score = 0 과 같은 자리입니다.',
+               en:'Forget to set total = 0 outside the loop and you get a NameError. It is the same slot as score = 0 in the game.'}]},
+    lab:{title:{ko:'VS Code 실습 4 · 게임의 속도를 손으로 만져 보기', en:'VS Code lab 4 · Feel the game\u2019s speed with your hands'},
+      steps:[
+        {ko:'324줄로 이동합니다(<kbd>Ctrl</kbd>+<kbd>G</kbd> → 324). <code>clock.tick(FPS)</code> 입니다.', en:'Go to line 324 (<kbd>Ctrl</kbd>+<kbd>G</kbd> → 324): <code>clock.tick(FPS)</code>.'},
+        {ko:'<code>clock.tick(15)</code> 로 바꾸고 실행합니다. 예상한 대로 끊기는지 확인합니다.', en:'Change it to <code>clock.tick(15)</code> and run. Check it stutters as you predicted.'},
+        {ko:'<code>clock.tick(120)</code> 으로 바꿔 실행합니다. 적이 두 배 빨라 보이는 이유를 말로 설명합니다.', en:'Now <code>clock.tick(120)</code>. Say out loud why the enemies look twice as fast.'},
+        {ko:'371줄 <code>for bullet in game["bullets"]:</code> 에 중단점을 찍고 <kbd>F5</kbd> 로 실행해 총알을 한 발 쏩니다. <kbd>F5</kbd> 를 몇 번 눌러 이 줄이 계속 다시 걸리는 것을 확인합니다.', en:'Put a breakpoint on line 371, <code>for bullet in game["bullets"]:</code>, run with <kbd>F5</kbd> and fire once. Press <kbd>F5</kbd> a few times and watch the same line come back around.'},
+        {ko:'원래대로 되돌립니다 — <code>clock.tick(FPS)</code>. 중단점도 지웁니다.', en:'Put it back to <code>clock.tick(FPS)</code> and clear the breakpoint.'}
+      ],
+      check:{ko:'FPS 를 바꿨을 뿐인데 난이도가 달라진 이유를 "1초에 몇 번 도는가"로 설명할 수 있으면 됩니다.', en:'You should be able to explain the difficulty change purely in terms of how many times a second the loop runs.'}}
+  },
+
+  c5:{
+    predict:{items:[
+      {q:{ko:'level_of(359) 는 얼마를 돌려줄까요? (기준 120)', en:'What does level_of(359) return, with a step of 120?'},
+       a:{ko:'3 입니다. 359 // 120 = 2 이고 여기에 1 을 더합니다.', en:'3 - because 359 // 120 is 2, plus one.'}},
+      {q:{ko:'draw_text 를 부를 때 색을 주지 않으면 무슨 색이 될까요?', en:'Call draw_text without a colour - which colour is used?'},
+       a:{ko:'기본값으로 정해 둔 COLORS["text"] 가 쓰입니다. 매개변수에 = 로 적어 둔 값입니다.', en:'The default written with = in the parameter list, COLORS["text"].'}}
+    ]},
+    write:{items:[
+      {q:{ko:'점수를 받아 10 을 더해 돌려주는 함수 <code>add_score</code> 를 만들고, 20 을 넣어 출력하세요.', en:'Write <code>add_score</code>, which takes a score and returns it plus 10, then call it with 20.'},
+       hint:{ko:'def 로 만들고 return 으로 돌려줍니다.', en:'Define it with def and hand the result back with return.'},
+       a:{ko:'def add_score(score):\n    return score + 10\n\nprint(add_score(20))   # 30', en:'def add_score(score):\n    return score + 10\n\nprint(add_score(20))   # 30'}},
+      {q:{ko:'섭씨를 받아 화씨로 바꿔 돌려주는 함수 <code>c_to_f</code> 를 쓰세요.', en:'Write <code>c_to_f</code>, converting Celsius to Fahrenheit.'},
+       hint:{ko:'× 9 / 5 + 32', en:'times 9 / 5 plus 32'},
+       a:{ko:'def c_to_f(c):\n    return c * 9 / 5 + 32\n\nprint(c_to_f(23.5))   # 74.3', en:'def c_to_f(c):\n    return c * 9 / 5 + 32\n\nprint(c_to_f(23.5))   # 74.3'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 단위 변환 함수', en:'To engineering · a unit-conversion function'},
+      lead:{ko:'게임이 글자 그리기를 함수로 뺀 이유와, 단위 변환을 함수로 빼는 이유는 같습니다. 바꿀 곳이 한 곳이고, 그 한 곳만 시험해 보면 됩니다.',
+            en:'The game pulled text drawing into a function for the same reason you pull out a unit conversion: one place to change, one place to test.'},
+      code:{ko:'def c_to_f(c):\n    return c * 9 / 5 + 32\n\ndef is_over(value, limit):\n    return value >= limit\n\ntemps = [21.5, 83.2, 64.0]\nfor t in temps:\n    print(t, c_to_f(t), is_over(t, 80.0))',
+            en:'def c_to_f(c):\n    return c * 9 / 5 + 32\n\ndef is_over(value, limit):\n    return value >= limit\n\ntemps = [21.5, 83.2, 64.0]\nfor t in temps:\n    print(t, c_to_f(t), is_over(t, 80.0))'},
+      points:[{ko:'is_over 처럼 True/False 를 돌려주는 함수는 if 에 그대로 넣을 수 있습니다. 게임의 enemy.hit() 이 같은 모양입니다.',
+               en:'A function returning True or False, like is_over, drops straight into an if - the same shape as enemy.hit().'},
+              {ko:'변환식이 틀렸는지 확인할 때 프로그램 전체를 돌릴 필요가 없습니다. c_to_f(0) 이 32 인지만 보면 됩니다.',
+               en:'To check the formula you never run the whole program: just see that c_to_f(0) is 32.'}]},
+    lab:{title:{ko:'VS Code 실습 5 · 함수 하나가 여러 곳을 바꾼다', en:'VS Code lab 5 · One function reaches many places'},
+      steps:[
+        {ko:'147줄 <code>return score // SETTINGS["level_up_score"] + 1</code> 을 <code>... * 2 + 1</code> 로 바꿔 실행합니다.', en:'Change line 147 to <code>... * 2 + 1</code> and run.'},
+        {ko:'단계 표시뿐 아니라 적의 수와 속도까지 함께 달라지는 것을 확인합니다. 왜 그런지 spawn_wave 를 열어 확인합니다(278줄).', en:'Notice the level number, the enemy count and the speed all change together; open spawn_wave (line 278) to see why.'},
+        {ko:'<kbd>F9</kbd> 로 147줄에 중단점을 찍고 <kbd>F5</kbd> 로 실행합니다. 변수 창에서 score 를 보고, <kbd>F11</kbd> 로 함수 안에 들어가 봅니다.', en:'Put a breakpoint on 147 with <kbd>F9</kbd>, run with <kbd>F5</kbd>, read score in the Variables panel and step in with <kbd>F11</kbd>.'},
+        {ko:'422줄 <code>draw_text(screen, hud, 22, 16, 14, COLORS["text"], center=False)</code> 의 색을 <code>COLORS["boss"]</code> 로 바꿔 실행합니다.', en:'On line 422 change the colour to <code>COLORS["boss"]</code> and run.'},
+        {ko:'원래대로 되돌립니다 — <code>+ 1</code>, <code>COLORS["text"]</code>.', en:'Restore <code>+ 1</code> and <code>COLORS["text"]</code>.'}
+      ],
+      check:{ko:'함수 한 줄을 고쳤는데 화면의 여러 곳이 달라졌다면, 그 함수가 어디어디에서 불리는지 찾아 말할 수 있어야 합니다.', en:'If one line in a function changed several things on screen, you should be able to name every place that function is called.'}}
+  },
+
+  c6:{
+    predict:{items:[
+      {q:{ko:'COLORS["player"] 를 (255, 120, 0) 으로 바꾸면 무엇이 달라질까요?', en:'Set COLORS["player"] to (255, 120, 0) - what changes?'},
+       a:{ko:'우주선이 주황색이 됩니다. 그 색을 쓰는 곳이 한 곳이라 그곳만 바뀝니다.', en:'The ship turns orange. Only that one place uses the colour, so only that changes.'}},
+      {q:{ko:'extend 대신 append 로 적 무리를 넣으면?', en:'What if append is used instead of extend for a wave?'},
+       a:{ko:'목록 안에 리스트가 통째로 하나 들어가고, for 로 꺼낼 때 적이 아니라 리스트가 나와 enemy.update() 에서 AttributeError 가 납니다.', en:'A whole list lands inside the list, and the for hands you a list instead of an enemy - AttributeError at enemy.update().'}}
+    ]},
+    write:{items:[
+      {q:{ko:'리스트 <code>bullets = [1, 2, 3]</code> 에 4 를 더하고, 첫 번째 값을 출력하세요.', en:'Append 4 to <code>bullets = [1, 2, 3]</code> and print the first item.'},
+       hint:{ko:'append 와 [0] 을 씁니다.', en:'Use append and [0].'},
+       a:{ko:'bullets = [1, 2, 3]\nbullets.append(4)\nprint(bullets[0])   # 1\nprint(len(bullets)) # 4', en:'bullets = [1, 2, 3]\nbullets.append(4)\nprint(bullets[0])   # 1\nprint(len(bullets)) # 4'}},
+      {q:{ko:'센서 이름과 측정값을 담은 딕셔너리를 만들고, 값 하나를 꺼내 출력하세요.', en:'Build a dictionary of sensor names and readings, then print one value.'},
+       hint:{ko:'{"이름": 값} 형태이고, 대괄호로 꺼냅니다.', en:'Use {"name": value} and fetch with square brackets.'},
+       a:{ko:'temps = {"TC-01": 23.5, "TC-02": 81.0}\nprint(temps["TC-02"])   # 81.0', en:'temps = {"TC-01": 23.5, "TC-02": 81.0}\nprint(temps["TC-02"])   # 81.0'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 센서별로 값을 묶는다', en:'To engineering · group readings per sensor'},
+      lead:{ko:'게임이 색과 설정을 딕셔너리에 묶었듯, 측정 자료는 센서 이름으로 묶습니다. 번호 대신 이름으로 꺼내면 코드가 스스로 설명이 됩니다.',
+            en:'The game bundled colours and settings in dictionaries; measurements bundle by sensor name. Fetching by name instead of position makes the code explain itself.'},
+      code:{ko:'temps = {"TC-01": [21.5, 22.0], "TC-02": [79.8, 83.2]}\nLIMITS = {"TC-01": 60.0, "TC-02": 80.0}\n\nfor name in temps:\n    values = temps[name]\n    worst = max(values)\n    print(name, worst, worst > LIMITS[name])',
+            en:'temps = {"TC-01": [21.5, 22.0], "TC-02": [79.8, 83.2]}\nLIMITS = {"TC-01": 60.0, "TC-02": 80.0}\n\nfor name in temps:\n    values = temps[name]\n    worst = max(values)\n    print(name, worst, worst > LIMITS[name])'},
+      points:[{ko:'센서마다 기준이 다르면 LIMITS 딕셔너리에서 이름으로 꺼냅니다. 게임의 SETTINGS 와 같은 쓰임입니다.',
+               en:'Different limits per sensor come out of LIMITS by name - the same use as SETTINGS in the game.'},
+              {ko:'없는 이름을 꺼내면 KeyError 가 납니다. 10장 예외처리에서 이 경우를 막는 방법을 배웁니다.',
+               en:'A missing name raises KeyError; chapter 10 shows how to guard that.'}]},
+    lab:{title:{ko:'VS Code 실습 6 · 딕셔너리 값 하나로 화면 바꾸기', en:'VS Code lab 6 · One dictionary value repaints the screen'},
+      steps:[
+        {ko:'32줄 <code>"player": (86, 214, 255)</code> 을 <code>(255, 120, 0)</code> 으로 바꿔 실행합니다.', en:'Change line 32 to <code>(255, 120, 0)</code> and run.'},
+        {ko:'35줄 <code>"boss"</code> 색도 바꿔 실행합니다. 보스가 나올 때까지 5단계를 가야 하니, 44줄 기준 점수를 잠시 30 으로 낮춰도 됩니다.', en:'Change the <code>"boss"</code> colour on line 35 too. A boss needs level 5, so you may drop line 44 to 30 for a moment.'},
+        {ko:'297~298줄에서 게임 상태 딕셔너리의 <code>"bullets": []</code> 와 <code>"enemies": []</code> 를 확인합니다. 시작할 때 비어 있는 목록입니다.', en:'Look at lines 297-298: <code>"bullets": []</code> and <code>"enemies": []</code> start out empty.'},
+        {ko:'357줄에 중단점을 찍고 <kbd>F5</kbd> 로 실행해 총알을 몇 발 쏩니다. 변수 창에서 bullets 의 길이가 늘어나는 것을 봅니다.', en:'Breakpoint on line 357, run with <kbd>F5</kbd>, fire a few shots and watch the length of bullets grow in the Variables panel.'},
+        {ko:'모든 값을 원래대로 되돌립니다 — 색 (86, 214, 255) 과 (188, 132, 255), 기준 점수 120.', en:'Restore (86, 214, 255), (188, 132, 255) and the step score 120.'}
+      ],
+      check:{ko:'색 한 줄을 바꿨을 때 그 색을 쓰는 곳이 전부 함께 바뀌었는지, 아니면 한 곳만 바뀌었는지 설명할 수 있어야 합니다.', en:'You should be able to say whether every user of that colour changed, or only one place.'}}
+  },
+
+  c7:{
+    predict:{items:[
+      {q:{ko:'421줄의 <code>:&gt;5</code> 를 지우면 화면이 어떻게 달라질까요?', en:'Delete the <code>:&gt;5</code> on line 421 - what changes?'},
+       a:{ko:'점수의 자릿수가 늘 때마다 뒤의 「단계」 글자가 오른쪽으로 밀려 덜컥거립니다.', en:'Each time the score gains a digit, the LEVEL text behind it jumps right.'}},
+      {q:{ko:'목숨이 0 일 때 <code>"@" * lives</code> 는 무엇이 될까요?', en:'With zero lives, what is <code>"@" * lives</code>?'},
+       a:{ko:'빈 문자열입니다. 아무것도 보이지 않습니다.', en:'An empty string - nothing shows.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'이름과 온도를 받아 <code>TC-01 :  23.5 C</code> 처럼 출력하는 f-문자열을 쓰세요. (온도는 다섯 칸 오른쪽 맞춤)', en:'Write an f-string that prints <code>TC-01 :  23.5 C</code>, right-aligning the number in five columns.'},
+       hint:{ko:'f"{name} : {value:>5} C"', en:'f"{name} : {value:>5} C"'},
+       a:{ko:'name = "TC-01"\nvalue = 23.5\nprint(f"{name} : {value:>5} C")', en:'name = "TC-01"\nvalue = 23.5\nprint(f"{name} : {value:>5} C")'}},
+      {q:{ko:'별표를 목숨 수만큼 이어 붙여 출력하세요. (목숨 4개)', en:'Print a row of stars, one per life (four lives).'},
+       hint:{ko:'문자열에 곱하기를 씁니다.', en:'Multiply the string.'},
+       a:{ko:'lives = 4\nprint("*" * lives)   # ****', en:'lives = 4\nprint("*" * lives)   # ****'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 보고용 표 만들기', en:'To engineering · laying out a report line'},
+      lead:{ko:'게임의 점수판이 흔들리지 않는 이유가 자리맞춤이었듯, 측정 보고서의 숫자가 줄을 맞추는 것도 같은 기능입니다.',
+            en:'Alignment is what keeps the HUD steady, and the same feature is what lines the numbers up in a measurement report.'},
+      code:{ko:'rows = [("TC-01", 23.5), ("TC-02", 118.75), ("TC-03", 9.2)]\n\nprint(f"{\'센서\':<8}{\'측정값\':>10}")\nfor name, value in rows:\n    print(f"{name:<8}{value:>10.1f}")',
+            en:'rows = [("TC-01", 23.5), ("TC-02", 118.75), ("TC-03", 9.2)]\n\nprint(f"{\'sensor\':<8}{\'reading\':>10}")\nfor name, value in rows:\n    print(f"{name:<8}{value:>10.1f}")'},
+      points:[{ko:'<code>:&gt;10.1f</code> 는 "소수점 한 자리로 반올림해 열 칸 오른쪽 맞춤"입니다. 보고서 숫자는 자릿수를 고정하는 편이 읽기 쉽습니다.',
+               en:'<code>:&gt;10.1f</code> means "round to one decimal and right-align in ten columns" - fixed widths read far better in a report.'},
+              {ko:'글자는 왼쪽(<code>&lt;</code>), 숫자는 오른쪽(<code>&gt;</code>)으로 맞추는 것이 일반적인 관례입니다.',
+               en:'By convention text aligns left (<code>&lt;</code>) and numbers right (<code>&gt;</code>).'}]},
+    lab:{title:{ko:'VS Code 실습 7 · 점수판 문구 바꾸기', en:'VS Code lab 7 · Reword the HUD'},
+      steps:[
+        {ko:'50~52줄의 한국어 문구를 바꿔 봅니다 — <code>"score": "점수"</code> 를 <code>"score": "SCORE"</code> 로.', en:'Change the Korean wording on lines 50-52, e.g. <code>"score": "점수"</code> to <code>"score": "SCORE"</code>.'},
+        {ko:'실행해 화면 왼쪽 위 글자가 바뀌는지 확인합니다. 게임 안에서 <kbd>L</kbd> 을 눌러 영어 화면도 봅니다.', en:'Run and check the top-left text. Press <kbd>L</kbd> in the game to see the English side too.'},
+        {ko:'421줄의 <code>:&gt;5</code> 를 지우고 실행해 점수가 10 → 100 으로 넘어갈 때를 봅니다.', en:'Delete the <code>:&gt;5</code> on line 421, run, and watch the score cross from 10 to 100.'},
+        {ko:'<code>:&gt;8</code> 로 늘려 실행해 차이를 봅니다.', en:'Try <code>:&gt;8</code> and compare.'},
+        {ko:'원래대로 되돌립니다 — <code>"점수"</code>, <code>:&gt;5</code>.', en:'Restore <code>"점수"</code> and <code>:&gt;5</code>.'}
+      ],
+      check:{ko:'자리맞춤을 지웠을 때와 넣었을 때의 화면을 각각 말로 설명할 수 있으면 됩니다.', en:'Be able to describe both screens - with the alignment and without.'}}
+  },
+
+  c8:{
+    predict:{items:[
+      {q:{ko:'보스의 <code>hp</code> 를 1 로 바꾸면?', en:'Set the boss <code>hp</code> to 1 - what happens?'},
+       a:{ko:'총알 한 발에 죽습니다. 크기와 색은 그대로입니다. 체력만 다른 상자이기 때문입니다.', en:'It dies to one bullet. Size and colour are unchanged, because hit points live in a separate box.'}},
+      {q:{ko:'Boss 에 hit() 이 없는데 보스를 맞히면 어느 코드가 도나요?', en:'Boss has no hit() - which code runs when you hit one?'},
+       a:{ko:'부모인 Enemy 의 hit() 이 돕니다. 자기 클래스에 없으면 파이썬이 부모에서 찾습니다.', en:'Enemy.hit(), the parent\u2019s - Python looks up the chain when the class itself has none.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'센서를 나타내는 클래스 <code>Sensor</code> 를 만들어 이름과 측정값을 저장하고, 하나 만들어 출력하세요.', en:'Write a <code>Sensor</code> class holding a name and a reading, create one and print it.'},
+       hint:{ko:'__init__ 안에서 self.name, self.value 로 담습니다.', en:'Store self.name and self.value in __init__.'},
+       a:{ko:'class Sensor:\n    def __init__(self, name, value):\n        self.name = name\n        self.value = value\n\ns = Sensor("TC-01", 23.5)\nprint(s.name, s.value)', en:'class Sensor:\n    def __init__(self, name, value):\n        self.name = name\n        self.value = value\n\ns = Sensor("TC-01", 23.5)\nprint(s.name, s.value)'}},
+      {q:{ko:'Enemy 를 물려받아 점수가 25 점인 <code>FastEnemy</code> 를 쓰세요. (게임 코드 기준)', en:'Inheriting Enemy, write a <code>FastEnemy</code> worth 25 points.'},
+       hint:{ko:'super().__init__ 을 부른 뒤 값만 덮어씁니다.', en:'Call super().__init__ then overwrite the values.'},
+       a:{ko:'class FastEnemy(Enemy):\n    def __init__(self, x, y, speed):\n        super().__init__(x, y, speed * 1.8)\n        self.points = 25', en:'class FastEnemy(Enemy):\n    def __init__(self, x, y, speed):\n        super().__init__(x, y, speed * 1.8)\n        self.points = 25'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 장비마다 다른 측정기', en:'To engineering · one class per instrument'},
+      lead:{ko:'적과 보스가 공통 부분을 부모에 두고 다른 점만 다시 썼듯, 온도계와 압력계도 공통 동작을 부모에 두고 단위와 읽는 법만 달리합니다.',
+            en:'Enemy and Boss share a parent and rewrite only the differences; a thermometer and a pressure gauge do the same, differing only in units and how they read.'},
+      code:{ko:'class Instrument:\n    def __init__(self, name, unit):\n        self.name = name\n        self.unit = unit\n    def label(self):\n        return self.name + " (" + self.unit + ")"\n\nclass Thermo(Instrument):\n    def __init__(self, name):\n        super().__init__(name, "C")\n\nt = Thermo("TC-01")\nprint(t.label())   # TC-01 (C)',
+            en:'class Instrument:\n    def __init__(self, name, unit):\n        self.name = name\n        self.unit = unit\n    def label(self):\n        return self.name + " (" + self.unit + ")"\n\nclass Thermo(Instrument):\n    def __init__(self, name):\n        super().__init__(name, "C")\n\nt = Thermo("TC-01")\nprint(t.label())   # TC-01 (C)'},
+      points:[{ko:'장비가 열 대든 백 대든 설계도는 하나입니다. 각 객체가 자기 이름과 값을 따로 가집니다.',
+               en:'Ten instruments or a hundred, there is one blueprint; each object carries its own name and value.'},
+              {ko:'label() 을 자식에서 다시 쓰면 그 장비만 다른 형식으로 표시됩니다 — 게임의 draw() 오버라이딩과 같습니다.',
+               en:'Rewrite label() in a child and only that instrument prints differently - the same as overriding draw() in the game.'}]},
+    lab:{title:{ko:'VS Code 실습 8 · 보스를 내 마음대로', en:'VS Code lab 8 · Make the boss yours'},
+      steps:[
+        {ko:'259줄 <code>self.hp = 6 + level * 2</code> 를 <code>self.hp = 1</code> 로 바꾸고, 44줄 기준 점수를 30 으로 낮춰 보스를 빨리 만나 봅니다.', en:'Set line 259 to <code>self.hp = 1</code> and lower the step score on line 44 to 30 so a boss arrives quickly.'},
+        {ko:'256줄 <code>self.size = 86</code> 을 150 으로 키워 실행합니다. 충돌 판정도 함께 커지는지 확인하고, 이유를 163줄 rect() 에서 찾습니다.', en:'Raise <code>self.size</code> on line 256 to 150 and run. Check the hit area grew too, and find why in rect() on line 163.'},
+        {ko:'251줄 <code>class Boss(Enemy):</code> 의 괄호 안을 <code>GameObject</code> 로 바꿔 실행해 봅니다. 어떤 오류가 나는지 읽어 봅니다.', en:'Change <code>class Boss(Enemy):</code> on line 251 to inherit <code>GameObject</code> and run. Read the error.'},
+        {ko:'오류 메시지 맨 아래줄이 <code>AttributeError: \'Boss\' object has no attribute \'hit\'</code> 인지 확인합니다. hit() 은 Enemy 것이었습니다.', en:'Confirm the last line is <code>AttributeError: \'Boss\' object has no attribute \'hit\'</code>: hit() belonged to Enemy.'},
+        {ko:'모두 원래대로 되돌립니다 — <code>Boss(Enemy)</code>, <code>self.size = 86</code>, <code>self.hp = 6 + level * 2</code>, 기준 점수 120.', en:'Restore <code>Boss(Enemy)</code>, <code>self.size = 86</code>, <code>self.hp = 6 + level * 2</code> and the step score 120.'}
+      ],
+      check:{ko:'상속을 끊었을 때 나는 오류 이름을 보고, 어떤 기능이 부모에게서 왔는지 말할 수 있으면 됩니다.', en:'From the error name alone you should be able to say which capability came from the parent.'}}
+  },
+
+  c9:{
+    predict:{items:[
+      {q:{ko:'다른 파일에서 <code>from game import level_of</code> 를 하면 게임 창이 열릴까요?', en:'Does <code>from game import level_of</code> in another file open the game window?'},
+       a:{ko:'열리지 않습니다. 448줄의 if 가 거짓이 되어 main() 을 부르지 않기 때문입니다.', en:'No - the if on line 448 is false, so main() is never called.'}},
+      {q:{ko:'pygame 을 설치하지 않고 실행하면 어떤 오류가 날까요?', en:'Run it without installing pygame - which error appears?'},
+       a:{ko:'ModuleNotFoundError: No module named \'pygame\' 입니다. 표준 라이브러리가 아니기 때문입니다.', en:'ModuleNotFoundError: No module named \'pygame\' - it is not in the standard library.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'random 모듈로 1~6 사이 주사위 눈을 한 번 뽑아 출력하세요.', en:'Roll a die from 1 to 6 with the random module and print it.'},
+       hint:{ko:'import 를 먼저 적습니다.', en:'Put the import first.'},
+       a:{ko:'import random\n\nprint(random.randint(1, 6))', en:'import random\n\nprint(random.randint(1, 6))'}},
+      {q:{ko:'math 모듈로 2 의 제곱근을 소수점 셋째 자리까지 출력하세요.', en:'Print the square root of 2 to three decimals using math.'},
+       hint:{ko:'round(값, 3) 을 씁니다.', en:'Use round(value, 3).'},
+       a:{ko:'import math\n\nprint(round(math.sqrt(2), 3))   # 1.414', en:'import math\n\nprint(round(math.sqrt(2), 3))   # 1.414'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 통계와 표 모듈', en:'To engineering · statistics and table modules'},
+      lead:{ko:'게임이 math 와 random 을 가져다 썼듯, 측정 자료는 statistics 로 평균과 표준편차를, csv 로 표 파일을 다룹니다. 직접 만들지 않습니다.',
+            en:'The game borrowed math and random; measurement work borrows statistics for the mean and deviation, and csv for table files. You do not write these yourself.'},
+      code:{ko:'import statistics\n\nreadings = [21.5, 23.0, 25.8, 24.1, 30.2]\nprint(statistics.mean(readings))    # 평균\nprint(statistics.stdev(readings))   # 표준편차\nprint(max(readings), min(readings))',
+            en:'import statistics\n\nreadings = [21.5, 23.0, 25.8, 24.1, 30.2]\nprint(statistics.mean(readings))    # mean\nprint(statistics.stdev(readings))   # standard deviation\nprint(max(readings), min(readings))'},
+      points:[{ko:'statistics 는 파이썬에 처음부터 들어 있어 설치가 필요 없습니다. 반면 numpy · pandas 는 pygame 처럼 pip 로 받아야 합니다.',
+               en:'statistics ships with Python; numpy and pandas, like pygame, need pip.'},
+              {ko:'평균을 직접 for 로 구해도 되지만, 남이 검증해 둔 모듈을 쓰는 편이 오류가 적습니다.',
+               en:'You can average with a for loop, but a module other people have already verified makes fewer mistakes.'}]},
+    lab:{title:{ko:'VS Code 실습 9 · import 하면 무슨 일이 일어나는가', en:'VS Code lab 9 · What importing actually does'},
+      steps:[
+        {ko:'game.py 와 같은 폴더에 <code>test.py</code> 를 만들고 두 줄을 적습니다 — <code>from game import level_of</code>, <code>print(level_of(500))</code>.', en:'Create <code>test.py</code> next to game.py with two lines: <code>from game import level_of</code> and <code>print(level_of(500))</code>.'},
+        {ko:'실행하면 게임 창은 열리지 않고 <code>5</code> 만 나옵니다. 448줄의 if 덕분입니다.', en:'Run it: no window, just <code>5</code> - thanks to the if on line 448.'},
+        {ko:'이번에는 game.py 의 448~450줄 <b>세 줄을 모두</b> 주석 처리하고, 파일 맨 끝에 들여쓰기 없이 <code>main()</code> 한 줄을 적습니다.', en:'Now comment out <b>all three</b> lines 448-450 and add one unindented <code>main()</code> at the very end.'},
+        {ko:'test.py 를 다시 실행합니다. 이번에는 import 만 했는데 게임 창이 열립니다. 이것이 그 두 줄이 막아 주던 일입니다.', en:'Run test.py again: importing alone now opens the window. That is what those two lines were preventing.'},
+        {ko:'조건 줄만 주석 처리하면 <code>IndentationError</code> 가 나는 것도 한 번 확인해 봅니다. 아래 main() 이 들여쓰기된 채 남기 때문입니다.', en:'Try commenting only the if line to see <code>IndentationError</code>: the main() below is left indented.'},
+        {ko:'game.py 를 원래대로 되돌립니다 — 448~450줄 주석 해제, 맨 끝에 추가한 main() 삭제.', en:'Restore game.py: uncomment 448-450 and delete the main() you added.'}
+      ],
+      check:{ko:'「직접 실행」과 「import 됨」의 차이를 __name__ 값으로 설명할 수 있으면 됩니다.', en:'Explain the difference between being run and being imported in terms of __name__.'}}
+  },
+
+  c10:{
+    predict:{items:[
+      {q:{ko:'highscore.json 을 지우고 게임을 켜면?', en:'Delete highscore.json and start the game - then what?'},
+       a:{ko:'FileNotFoundError 가 나지만 except 가 잡아 최고점 0 으로 시작합니다. 게임은 정상으로 켜집니다.', en:'FileNotFoundError is raised, the except catches it and the game starts with a best of 0 - perfectly normally.'}},
+      {q:{ko:'except FileNotFoundError 를 except KeyError 로 바꾸고 파일을 지우면?', en:'Change except FileNotFoundError to except KeyError and delete the file - what then?'},
+       a:{ko:'파일 없음 오류를 아무도 잡지 않아 창이 열리지 않고 Traceback 이 뜹니다.', en:'Nothing catches the missing file, so no window opens and a traceback appears.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'숫자를 입력받되, 숫자가 아니면 「숫자를 입력하세요」를 출력하는 코드를 쓰세요.', en:'Read a number, but print "please type a number" when it is not one.'},
+       hint:{ko:'try 안에 int(input()) 을 두고 ValueError 를 잡습니다.', en:'Put int(input()) inside try and catch ValueError.'},
+       a:{ko:'try:\n    n = int(input("숫자: "))\n    print(n * 2)\nexcept ValueError:\n    print("숫자를 입력하세요")', en:'try:\n    n = int(input("number: "))\n    print(n * 2)\nexcept ValueError:\n    print("please type a number")'}},
+      {q:{ko:'0 으로 나누는 코드를 try - except 로 감싸 「0으로 나눌 수 없습니다」를 출력하세요.', en:'Guard a division by zero and print "cannot divide by zero".'},
+       hint:{ko:'ZeroDivisionError 를 잡습니다.', en:'Catch ZeroDivisionError.'},
+       a:{ko:'try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("0으로 나눌 수 없습니다")', en:'try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("cannot divide by zero")'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 센서값이 비어 있을 때', en:'To engineering · when a reading is missing'},
+      lead:{ko:'현장 데이터에는 반드시 빈 칸과 이상한 값이 섞여 있습니다. 게임이 저장 파일을 믿지 않았듯, 측정 자료도 믿지 않고 걸러야 합니다.',
+            en:'Field data always contains blanks and nonsense. The game did not trust its save file; measurement data deserves the same suspicion.'},
+      code:{ko:'raw = ["21.5", "", "25.8", "고장", "30.2"]\n\nvalues = []\nfor item in raw:\n    try:\n        values.append(float(item))\n    except ValueError:\n        print("숫자가 아님 · 건너뜀:", repr(item))\n\nprint(values)',
+            en:'raw = ["21.5", "", "25.8", "faulty", "30.2"]\n\nvalues = []\nfor item in raw:\n    try:\n        values.append(float(item))\n    except ValueError:\n        print("not a number, skipped:", repr(item))\n\nprint(values)'},
+      points:[{ko:'빈 칸 하나 때문에 밤새 돌린 처리 작업이 통째로 죽는 일은 흔합니다. 한 줄씩 try 로 감싸면 나머지는 살아남습니다.',
+               en:'One blank cell killing an overnight job is common; wrapping each row in try keeps the rest alive.'},
+              {ko:'건너뛴 값은 반드시 출력하거나 기록해 두세요. 조용히 버리면 나중에 개수가 맞지 않아 원인을 찾기 어렵습니다.',
+               en:'Always print or log what you skipped. Silently dropping rows makes the counts disagree later with no clue why.'}]},
+    lab:{title:{ko:'VS Code 실습 10 · 일부러 망가뜨려 보기', en:'VS Code lab 10 · Break it on purpose'},
+      steps:[
+        {ko:'게임을 한 판 끝내 highscore.json 을 만든 뒤, 그 파일을 VS Code 에서 열어 중괄호 하나를 지우고 저장합니다.', en:'Finish a round to create highscore.json, then open it in VS Code, delete one brace and save.'},
+        {ko:'게임을 실행합니다. 최고점만 0 이 되고 게임은 정상으로 켜집니다. 어느 except 가 잡았는지 94줄에서 확인합니다.', en:'Run the game: only the best score resets to 0 and it starts fine. Find which except caught it on line 94.'},
+        {ko:'91줄 <code>except FileNotFoundError:</code> 를 <code>except KeyError:</code> 로 바꾸고, highscore.json 을 지운 뒤 실행합니다.', en:'Change <code>except FileNotFoundError:</code> on line 91 to <code>except KeyError:</code>, delete highscore.json and run.'},
+        {ko:'창이 열리지 않고 터미널에 Traceback 이 뜹니다. <b>맨 아래줄</b>부터 읽어 오류 이름과 줄 번호를 확인합니다.', en:'No window opens; a traceback appears. Read it <b>from the bottom</b> for the error name and the line.'},
+        {ko:'원래대로 되돌립니다 — <code>except FileNotFoundError:</code>.', en:'Restore <code>except FileNotFoundError:</code>.'}
+      ],
+      check:{ko:'예외처리가 있을 때와 없을 때 「사용자가 보는 화면」이 어떻게 달라지는지 두 문장으로 말할 수 있으면 됩니다.', en:'In two sentences, say how the user\u2019s experience differs with and without the handler.'}}
+  },
+
+  c11:{
+    predict:{items:[
+      {q:{ko:'highscore.json 의 숫자를 99999 로 바꾸고 게임을 켜면?', en:'Set the number in highscore.json to 99999 and start the game?'},
+       a:{ko:'오른쪽 위 최고점이 99999 로 뜹니다. 파일에 적힌 글자가 그대로 프로그램의 값이 됩니다.', en:'The best score at the top right reads 99999: what is written in the file becomes the value in the program.'}},
+      {q:{ko:'저장 모드 "w" 를 "a" 로 바꾸면 파일이 어떻게 될까요?', en:'Change the save mode "w" to "a" - what becomes of the file?'},
+       a:{ko:'기존 내용 뒤에 새 json 이 덧붙어 형식이 깨집니다. 다음 실행에서 JSONDecodeError 가 나고 최고점이 0 이 됩니다.', en:'A second json is appended after the first and the format breaks; the next run raises JSONDecodeError and the best score falls back to 0.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'측정값 한 줄을 <code>log.txt</code> 에 이어 쓰는 코드를 쓰세요.', en:'Append one reading to <code>log.txt</code>.'},
+       hint:{ko:'모드는 "a", with 를 씁니다.', en:'Mode "a", inside a with.'},
+       a:{ko:'with open("log.txt", "a", encoding="utf-8") as f:\n    f.write("23.5\\n")', en:'with open("log.txt", "a", encoding="utf-8") as f:\n    f.write("23.5\\n")'}},
+      {q:{ko:'딕셔너리 <code>{"best": 1200}</code> 을 json 파일로 저장하세요.', en:'Save <code>{"best": 1200}</code> as a json file.'},
+       hint:{ko:'json.dump(딕셔너리, 파일)', en:'json.dump(dictionary, file)'},
+       a:{ko:'import json\n\nwith open("best.json", "w", encoding="utf-8") as f:\n    json.dump({"best": 1200}, f)', en:'import json\n\nwith open("best.json", "w", encoding="utf-8") as f:\n    json.dump({"best": 1200}, f)'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 측정 기록을 csv 로 남긴다', en:'To engineering · logging measurements to csv'},
+      lead:{ko:'게임이 최고점 하나를 남겼다면, 실험은 측정마다 한 줄씩 남깁니다. csv 로 적으면 엑셀에서 바로 열립니다.',
+            en:'The game kept one best score; an experiment keeps one line per reading. Written as csv it opens straight in Excel.'},
+      code:{ko:'import csv\nfrom datetime import datetime\n\nrow = [datetime.now().strftime("%Y-%m-%d %H:%M"), "TC-01", 23.5]\n\nwith open("log.csv", "a", newline="", encoding="utf-8") as f:\n    csv.writer(f).writerow(row)',
+            en:'import csv\nfrom datetime import datetime\n\nrow = [datetime.now().strftime("%Y-%m-%d %H:%M"), "TC-01", 23.5]\n\nwith open("log.csv", "a", newline="", encoding="utf-8") as f:\n    csv.writer(f).writerow(row)'},
+      points:[{ko:'"a" 는 이어쓰기입니다. 게임처럼 한 값만 남길 때는 "w", 기록을 쌓을 때는 "a" 입니다.',
+               en:'"a" appends. Use "w" when one value replaces the last, "a" when the log accumulates.'},
+              {ko:'encoding="utf-8" 을 빼면 한글이 깨질 수 있습니다. 파일을 열 때는 늘 적어 두세요.',
+               en:'Drop encoding="utf-8" and Korean text can break; always write it when you open a file.'}]},
+    lab:{title:{ko:'VS Code 실습 11 · 파일에 적힌 글자가 값이 된다', en:'VS Code lab 11 · Text in a file becomes a value'},
+      steps:[
+        {ko:'게임을 한 판 끝내고 폴더에 생긴 <code>highscore.json</code> 을 VS Code 에서 엽니다.', en:'Finish a round and open the new <code>highscore.json</code> in VS Code.'},
+        {ko:'숫자를 99999 로 바꿔 저장하고 게임을 다시 켭니다. 오른쪽 위 최고점을 확인합니다.', en:'Change the number to 99999, save, restart the game and check the best score at the top right.'},
+        {ko:'102줄 <code>open(SAVE_PATH, "w", ...)</code> 의 <code>"w"</code> 를 <code>"a"</code> 로 바꾸고, 게임을 두 판 끝냅니다.', en:'Change <code>"w"</code> on line 102 to <code>"a"</code> and finish two rounds.'},
+        {ko:'highscore.json 을 열어 보면 json 이 두 번 겹쳐 적혀 있습니다. 게임을 다시 켜면 최고점이 0 입니다. 어느 except 가 잡았는지 확인합니다.', en:'Open highscore.json: two json objects are stacked. Restart and the best is 0 - find which except caught it.'},
+        {ko:'원래대로 되돌립니다 — <code>"w"</code>. 깨진 highscore.json 은 지우면 다음 실행에서 새로 만들어집니다.', en:'Restore <code>"w"</code>. Delete the broken highscore.json; the next run recreates it.'}
+      ],
+      check:{ko:'"w" 와 "a" 의 차이를 파일 내용으로 직접 보여 줄 수 있으면 됩니다.', en:'You should be able to show the difference between "w" and "a" from the file contents themselves.'}}
+  },
+
+  c12:{
+    predict:{items:[
+      {q:{ko:'죽은 것을 걸러 내는 402~403줄을 주석 처리하면?', en:'Comment out lines 402-403 that filter the dead - what happens?'},
+       a:{ko:'죽은 적과 총알이 목록에 계속 쌓여 화면에 남고, 시간이 지나면 점점 느려집니다.', en:'Dead enemies and bullets pile up in the lists, stay on screen and the game slows down over time.'}},
+      {q:{ko:'그리기(411줄부터)를 움직임 계산(349줄)보다 먼저 하면?', en:'What if drawing (from line 411) happened before the movement (line 349)?'},
+       a:{ko:'한 프레임 전의 상태를 그리게 되어 조작이 한 박자 늦게 느껴집니다.', en:'You would draw the previous frame\u2019s state and the controls would feel a beat late.'}}
+    ]},
+    write:{items:[
+      {q:{ko:'측정값 목록을 받아 평균을 돌려주는 함수 <code>mean_of</code> 를 쓰세요. 빈 목록이면 0 을 돌려줍니다.', en:'Write <code>mean_of</code>, returning the average of a list of readings, or 0 for an empty list.'},
+       hint:{ko:'len(values) 가 0 인지 먼저 확인하는 가드 절을 씁니다.', en:'Start with a guard clause on len(values).'},
+       a:{ko:'def mean_of(values):\n    if len(values) == 0:\n        return 0\n    return sum(values) / len(values)\n\nprint(mean_of([1, 2, 3]))   # 2.0\nprint(mean_of([]))          # 0', en:'def mean_of(values):\n    if len(values) == 0:\n        return 0\n    return sum(values) / len(values)\n\nprint(mean_of([1, 2, 3]))   # 2.0\nprint(mean_of([]))          # 0'}},
+      {q:{ko:'센서 이름과 값 목록을 받아, 기준을 넘은 값의 개수를 돌려주는 함수를 쓰세요.', en:'Write a function that counts how many readings exceed a limit.'},
+       hint:{ko:'for 와 if 를 함께 씁니다.', en:'Combine a for and an if.'},
+       a:{ko:'def count_over(values, limit):\n    n = 0\n    for v in values:\n        if v > limit:\n            n = n + 1\n    return n\n\nprint(count_over([21.5, 83.2, 64.0], 80))   # 1', en:'def count_over(values, limit):\n    n = 0\n    for v in values:\n        if v > limit:\n            n = n + 1\n    return n\n\nprint(count_over([21.5, 83.2, 64.0], 80))   # 1'}}
+    ]},
+    eng:{title:{ko:'공학으로 연결 · 측정 → 판정 → 기록 한 바퀴', en:'To engineering · measure, judge, log - one full loop'},
+      lead:{ko:'게임 루프가 「입력 → 계산 → 판정 → 정리 → 표시」였듯, 공학 프로그램도 같은 한 바퀴를 돕니다. 12장까지 배운 것이 모두 이 안에 들어갑니다.',
+            en:'The game loop was input, compute, judge, clean up, display. An engineering program runs the same circuit, and everything from the twelve chapters fits inside it.'},
+      code:{ko:'import csv\nimport statistics\n\nLIMIT_C = 80.0\nraw = ["21.5", "", "83.2", "64.0"]\n\nvalues = []\nfor item in raw:                     # 4장 반복문\n    try:                             # 10장 예외처리\n        values.append(float(item))   # 6장 리스트\n    except ValueError:\n        pass\n\nover = [v for v in values if v > LIMIT_C]\nprint(f"평균 {statistics.mean(values):>6.1f} C · 초과 {len(over)}건")   # 7장 문자열\n\nwith open("report.csv", "a", newline="", encoding="utf-8") as f:       # 11장 파일\n    csv.writer(f).writerow([statistics.mean(values), len(over)])',
+            en:'import csv\nimport statistics\n\nLIMIT_C = 80.0\nraw = ["21.5", "", "83.2", "64.0"]\n\nvalues = []\nfor item in raw:                     # Ch.4 loops\n    try:                             # Ch.10 exceptions\n        values.append(float(item))   # Ch.6 lists\n    except ValueError:\n        pass\n\nover = [v for v in values if v > LIMIT_C]\nprint(f"mean {statistics.mean(values):>6.1f} C, over {len(over)}")      # Ch.7 strings\n\nwith open("report.csv", "a", newline="", encoding="utf-8") as f:       # Ch.11 files\n    csv.writer(f).writerow([statistics.mean(values), len(over)])'},
+      points:[{ko:'스무 줄 안에 변수·연산자·조건문·반복문·리스트·문자열·모듈·예외·파일이 모두 들어 있습니다. 게임에서 배운 것과 같은 문법입니다.',
+               en:'Twenty lines carry variables, operators, conditionals, loops, lists, strings, modules, exceptions and files - the same syntax you met in the game.'},
+              {ko:'기말 과제를 게임 대신 이 구조로 잡아도 됩니다. 측정 자료만 자기 전공 것으로 바꾸면 됩니다.',
+               en:'A final project can follow this shape instead of the game; only the data needs to come from your own field.'}]},
+    lab:{title:{ko:'VS Code 실습 12 · 순서를 바꾸면 무엇이 깨지는가', en:'VS Code lab 12 · Break the order and see'},
+      steps:[
+        {ko:'402~403줄(살아있는 것만 남기는 두 줄)을 주석 처리하고 실행합니다. 적을 여러 마리 잡아 봅니다.', en:'Comment out lines 402-403 (the two that keep the living) and run, killing several enemies.'},
+        {ko:'죽은 적이 화면에 남고 시간이 갈수록 느려지는지 확인합니다. 예상과 같았는지 비교합니다.', en:'Watch dead enemies stay on screen and the game slow down. Compare with your prediction.'},
+        {ko:'주석을 풀고, 이번에는 그 두 줄을 411줄(그리기) 아래로 옮겨 실행합니다.', en:'Uncomment them, then move the two lines below line 411 (the drawing) and run.'},
+        {ko:'맞은 적이 한 프레임 더 번쩍이는지 관찰합니다. 1/60초라 짧지만 보입니다.', en:'Look for the extra flash on a killed enemy - one sixtieth of a second, but visible.'},
+        {ko:'원래 위치로 되돌립니다(401~403줄, 그리기 앞).', en:'Put the lines back where they were, before the drawing (401-403).'}
+      ],
+      check:{ko:'한 프레임의 여덟 걸음 중 어느 하나를 옮겼을 때 무엇이 어긋나는지 말로 설명할 수 있으면, 이 게임의 구조를 이해한 것입니다.', en:'If you can say what goes wrong when any one of the eight steps moves, you have understood the structure of this game.'}}
+  }
+};
+
+/* ---------- 합치기 ---------- */
+(function(){
+  function idx(blocks, type){
+    for(var i = 0; i < blocks.length; i++) if(blocks[i].type === type) return i;
+    return -1;
+  }
+  function sec(id){
+    for(var i = 0; i < SECTIONS.length; i++) if(SECTIONS[i].id === id) return SECTIONS[i];
+    return null;
+  }
+  Object.keys(ADD).forEach(function(id){
+    var s = sec(id); if(!s) return;
+    var a = ADD[id], b = s.blocks;
+
+    /* 실습(lab) 앞에 「먼저 예상하기」 — 실습이 없으면 새로 붙인다 */
+    var li = idx(b, 'lab');
+    if(a.lab && li < 0){
+      var pi = idx(b, 'prompts'); if(pi < 0) pi = b.length;
+      b.splice(pi, 0, {type:'lab', title:a.lab.title, steps:a.lab.steps, check:a.lab.check});
+      li = pi;
+    }
+    if(a.predict){
+      var pr = {type:'predict', items:a.predict.items};
+      if(li >= 0) b.splice(li, 0, pr); else b.push(pr);
+    }
+    /* 공학 예제와 직접 쓰기는 퀴즈 앞(없으면 끝)에 */
+    var qi = idx(b, 'quiz'); if(qi < 0) qi = b.length;
+    var tail = [];
+    if(a.eng) tail.push({type:'eng', title:a.eng.title, lead:a.eng.lead, code:a.eng.code, points:a.eng.points});
+    if(a.write) tail.push({type:'write', items:a.write.items});
+    b.splice.apply(b, [qi, 0].concat(tail));
+  });
+
+  /* 새 섹션 두 개 */
+  SECTIONS.push(SEC_START);
+  var p0 = PARTS[0].ids;
+  if(p0.indexOf('start') < 0) p0.splice(p0.indexOf('vs') >= 0 ? p0.indexOf('vs') : 2, 0, 'start');
+
+  /* 번호 다시 매기기 */
+  var n = 0;
+  PARTS.forEach(function(p){
+    p.ids.forEach(function(id){
+      var s = sec(id); if(s){ s.no = (n < 10 ? '0' : '') + n; n++; }
     });
   });
 })();
