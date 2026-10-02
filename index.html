@@ -482,6 +482,76 @@ html[data-theme="light"] .write .wans{background:#0a1430}
   #stage{gap:0;padding:0}
   .slide{transform:none!important;margin:0 0 6mm!important;break-inside:avoid;box-shadow:none;border:1px solid #ccc;width:1180px}
 }
+
+/* ===== 1~4장 연습문제 ===== */
+.drillhead,.drill{border:1px solid rgba(179,156,245,.55);border-radius:13px;background:rgba(255,255,255,.035);overflow:hidden}
+.dhh,.dh{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--purple-bg);
+  border-bottom:1px solid rgba(179,156,245,.45);font-size:13.5px;font-weight:800;color:var(--purple)}
+.dht{flex:1}
+.dprog{font-size:12px;font-weight:800;padding:3px 11px;border-radius:999px;border:1px solid rgba(179,156,245,.6);color:var(--purple)}
+.dprog.all{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.dhb{padding:12px 16px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;line-height:1.68}
+.dtbl td:first-child{white-space:nowrap;font-weight:800}
+.dnote{font-size:12.8px;line-height:1.65;color:var(--muted);border-left:3px solid rgba(179,156,245,.6);padding:2px 0 2px 10px}
+.dno{font-family:var(--mono);font-size:11.5px;background:var(--purple);color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap}
+html[data-theme="light"] .dno{color:#fff}
+.dt{flex:1;color:var(--ink)}
+.dk{font-size:11.5px;font-weight:800;color:var(--purple);white-space:nowrap}
+.dok{display:none;font-size:11.5px;font-weight:900;color:var(--good);background:var(--good-bg);border:1px solid var(--good);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.drill.solved{border-color:var(--good)}
+.drill.solved .dok{display:inline-block}
+.dbody{padding:12px 16px;display:flex;flex-direction:column;gap:9px}
+.dbody.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:16px;align-items:start}
+.dcol{display:flex;flex-direction:column;gap:9px;min-width:0}
+.dq{font-size:13.6px;line-height:1.72;color:var(--ink)}
+.dlab{font-size:12px;font-weight:800;color:var(--muted)}
+.dgiven{font-size:13px;line-height:1.6;background:var(--purple-bg);border:1px solid rgba(179,156,245,.35);border-radius:9px;padding:7px 11px}
+.dgiven b{color:var(--purple);margin-right:4px}
+.dexp pre,.dres pre,.dans pre,.dcmp pre{font-family:var(--mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;
+  background:var(--code-bg);color:var(--code-ink);border:1px solid var(--line);border-radius:9px;padding:8px 11px;margin-top:5px;max-height:150px;overflow:auto}
+.dta{width:100%;font-family:var(--mono);font-size:13px;line-height:1.6;tab-size:4;background:var(--code-bg);color:var(--code-ink);
+  border:1px solid rgba(86,214,255,.35);border-radius:0 0 11px 11px;padding:10px 12px;resize:vertical;min-height:250px;outline:none}
+.dta.short{min-height:132px;border-radius:11px}
+.dta:focus,.drill .dblank input.dbin:focus{border-color:var(--purple);box-shadow:0 0 0 2px var(--purple-bg)}
+.dedbar{display:flex;align-items:center;gap:8px;background:var(--code-bg);border:1px solid rgba(86,214,255,.35);border-bottom:none;
+  border-radius:11px 11px 0 0;padding:6px 10px;font-family:var(--mono);font-size:12px;color:#9fb0cf;margin-bottom:-9px}
+.dedbar span{flex:1}
+.dedbar button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#cfd8ee;font-size:11px;font-weight:700;padding:2px 9px;border-radius:7px}
+.dfoot{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.dfoot .btn:disabled{opacity:.5;cursor:wait}
+.dres{display:none;font-size:13px;line-height:1.62;border-radius:10px;padding:9px 12px;border:1px solid var(--line)}
+.dres.info{display:block;background:rgba(255,255,255,.05)}
+.dres.ok{display:block;background:var(--good-bg);border-color:var(--good);color:var(--ink)}
+.dres.ok::before{content:"✓ ";font-weight:900;color:var(--good)}
+.dres.no{display:block;background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.dres.no>b:first-child{color:var(--bad)}
+.dx-in{font-family:var(--mono);font-size:12px;color:var(--muted);margin:3px 0}
+.dx-err{margin-top:6px}
+.dx-err b{color:var(--bad)}
+.dx-why{margin-top:5px;font-size:12.6px;color:var(--ink);background:var(--warn-bg);border-radius:8px;padding:6px 9px}
+.dcmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.dcmp span{font-size:11.5px;font-weight:800;color:var(--muted)}
+.dhint,.dans{font-size:13px;line-height:1.66;background:var(--purple-bg);border:1px solid rgba(179,156,245,.35);border-radius:10px;padding:9px 12px}
+.dhint b,.dans>b{color:var(--purple);font-weight:900;margin-right:4px}
+.dans code{white-space:nowrap;margin-right:4px}
+.dwhy{margin-top:7px}
+.pystat{font-size:12px;line-height:1.5;color:var(--muted)}
+.pystat.loading{color:var(--warn)}
+.pystat.ready{color:var(--good)}
+.pystat.fail{color:var(--bad)}
+.dblank .ln{align-items:center}
+.dblank .ln span{white-space:pre}
+.drill .dblank input.dbin{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.1);color:var(--code-ink);border:1px dashed rgba(179,156,245,.8);
+  border-radius:6px;padding:1px 6px;margin:0 2px;outline:none;vertical-align:baseline}
+.drill .dblank input.dbin::placeholder{color:rgba(179,156,245,.75)}
+.drill .dblank input.dbin.ok{border:1px solid var(--good);background:rgba(61,220,155,.16)}
+.drill .dblank input.dbin.no{border:1px solid var(--bad);background:rgba(255,107,129,.16)}
+@media (max-width:900px){ .dbody.two{grid-template-columns:1fr} }
+
+.dlv{font-size:11.5px;font-weight:900;border-radius:999px;padding:2px 10px;white-space:nowrap;border:1px solid}
+.dlv.easy{color:var(--good);background:var(--good-bg);border-color:var(--good)}
+.dlv.mid{color:var(--warn);background:var(--warn-bg);border-color:var(--warn)}
+.dlv.hard{color:var(--bad);background:var(--bad-bg);border-color:var(--bad)}
 </style>
 </head>
 <body>
@@ -4701,6 +4771,1359 @@ var ADD = {
       var s = sec(id); if(s){ s.no = (n < 10 ? '0' : '') + n; n++; }
     });
   });
+})();
+
+
+/* ===== 11_drills.js ===== */
+/* ===================== 1~4장 연습문제 · 직접 풀고 바로 채점 ===================== */
+/*
+  문제 종류
+    output : 코드를 읽고 출력 결과를 그대로 적는다 (브라우저 안에서 바로 채점, 인터넷 불필요)
+    blank  : 코드의 빈칸을 채운다 (브라우저 안에서 바로 채점, 인터넷 불필요)
+    code   : 코드를 직접 작성한다 (브라우저 안 파이썬 실행 엔진으로 여러 입력값을 넣어 채점)
+  code 문제의 preset 값은 채점할 때 변수로 미리 들어가며, tests 의 값을 하나씩 바꿔 넣어 출력과 비교한다.
+*/
+var DRILLS = {
+
+  /* ===================== 1장 · 변수와 자료형 ===================== */
+  c1:[
+    /* ---------- 난이도 하 ---------- */
+    {id:'c1-1', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 다른 변수에 값을 옮겨 담기', en:'Write the output · copying a value to another variable'},
+     q:{ko:'아래 코드의 출력 결과를 줄마다 그대로 적으세요. <code>b = a</code> 는 그 순간 a 에 들어 있는 값을 b 에 넣는 것입니다. 나중에 a 의 값을 바꾸면 b 가 함께 바뀌는지 확인하는 문제입니다.',
+        en:'Write each line of output exactly. <code>b = a</code> copies the value a holds at that moment. Does b change when a changes later?'},
+     code:'a = 10\nb = a\na = 20\nprint(a)\nprint(b)\n\nc = b\nb = b + 5\nprint(b, c)',
+     out:'20\n10\n15 10',
+     hint:{ko:'대입은 값을 복사해 넣는 한 번의 동작입니다. b = a 를 실행한 뒤 a 를 바꿔도 b 에는 영향이 없습니다.',
+           en:'Assignment copies the value once. Changing a after b = a does not touch b.'},
+     why:{ko:'b = a 를 실행할 때 b 에는 10 이 들어갑니다. 그 뒤 a 를 20 으로 바꿔도 b 는 10 그대로입니다. c = b 로 c 에 10 이 들어간 뒤 b 만 15 로 바뀌므로 마지막 줄은 15 10 입니다.',
+          en:'b gets 10 when b = a runs; setting a to 20 later leaves b at 10. c = b copies 10 into c, then only b becomes 15, so the last line is 15 10.'}},
+
+    {id:'c1-2', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 자기 자신을 이용해 값 바꾸기', en:'Write the output · updating a variable from itself'},
+     q:{ko:'아래 코드의 출력 결과를 줄마다 그대로 적으세요. <code>x = x + 1</code> 처럼 오른쪽을 먼저 계산한 뒤 그 결과를 같은 변수에 다시 넣는 동작과, 문자열에 <code>*</code> 와 <code>+</code> 를 쓸 때의 결과를 확인하는 문제입니다.',
+        en:'Write each line of output exactly. It checks how <code>x = x + 1</code> works the right side out first and stores it back, and what <code>*</code> and <code>+</code> do to strings.'},
+     code:'x = 7\nx = x + 1\nx = x * 2\nprint(x)\n\nword = "ab"\nprint(word * 3)\nprint(word + "c")',
+     out:'16\nababab\nabc',
+     hint:{ko:'x 는 7 → 8 → 16 순서로 바뀝니다. 문자열에 정수를 곱하면 그 횟수만큼 반복해 이어 붙입니다.',
+           en:'x goes 7 → 8 → 16. Multiplying a string by an integer repeats it that many times.'},
+     why:{ko:'x = x + 1 은 7 + 1 을 계산해 8 을 다시 x 에 넣고, x = x * 2 는 8 × 2 = 16 을 넣습니다. "ab" * 3 은 "ab" 를 세 번 이어 붙인 ababab, "ab" + "c" 는 abc 입니다.',
+          en:'x = x + 1 computes 8 and stores it; x = x * 2 stores 16. "ab" * 3 repeats to ababab, and "ab" + "c" joins to abc.'}},
+
+    {id:'c1-3', kind:'blank', lv:'easy',
+     title:{ko:'빈칸 채우기 · 글자를 정수와 실수로 바꾸기', en:'Fill the blanks · text into int and float'},
+     q:{ko:'따옴표 안의 값은 숫자처럼 보여도 글자(문자열)입니다. 빈칸 두 곳에 알맞은 함수 이름을 넣어, 첫째는 정수로, 둘째는 실수로 바꾸도록 완성하세요. 실행 결과는 주석과 같아야 합니다.',
+        en:'A value in quotes is text even if it looks like a number. Fill both blanks so the first becomes an integer and the second a float. The output must match the comments.'},
+     code:{ko:'age_text = "25"\nage = __1__(age_text)          # 정수로 바꾼다\nheight = __2__("172.5")        # 실수로 바꾼다\n\nprint(age + 1)                 # 26\nprint(height + 0.5)            # 173.0',
+           en:'age_text = "25"\nage = __1__(age_text)          # into an integer\nheight = __2__("172.5")        # into a float\n\nprint(age + 1)                 # 26\nprint(height + 0.5)            # 173.0'},
+     blanks:[{acc:['int']}, {acc:['float']}],
+     hint:{ko:'정수는 integer, 실수(소수점이 있는 수)는 floating point number 입니다.', en:'Integer, and floating point number.'},
+     why:{ko:'int("25") 는 정수 25 가 되어 1 을 더하면 26 입니다. float("172.5") 는 실수 172.5 가 되어 0.5 를 더하면 173.0 입니다. 바꾸지 않고 "25" + 1 을 하면 TypeError 가 납니다.',
+          en:'int("25") is 25, plus 1 is 26. float("172.5") is 172.5, plus 0.5 is 173.0. "25" + 1 without converting raises TypeError.'}},
+
+    {id:'c1-4', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 직사각형의 넓이', en:'Write code · area of a rectangle'},
+     q:{ko:'직사각형의 가로 <code>width</code> 와 세로 <code>height</code> 가 정수로 주어집니다. 두 값을 곱한 넓이를 변수 <code>area</code> 에 저장한 뒤 area 를 출력하세요.',
+        en:'You are given integers <code>width</code> and <code>height</code>. Store their product in <code>area</code> and print area.'},
+     given:{ko:'width = 12, height = 5 (채점할 때 다른 값으로 바뀝니다)', en:'width = 12, height = 5 (grading uses other values too)'},
+     starter:{ko:'# width 와 height 에는 채점할 때 값이 미리 들어 있습니다 (예: width = 12, height = 5)\n# 이 아래에 코드를 작성하세요\n\n',
+              en:'# width and height already hold values when grading runs (e.g. width = 12, height = 5)\n# Write your code below\n\n'},
+     example:{width:12, height:5},
+     tests:[{preset:{width:12, height:5}, out:'60'}, {preset:{width:7, height:7}, out:'49'}, {preset:{width:100, height:3}, out:'300'}],
+     must:[{re:'\\barea\\s*=', msg:{ko:'결과를 변수 area 에 저장하는 줄이 있어야 합니다.', en:'Store the result in a variable called area.'}}],
+     hint:{ko:'곱셈 기호는 * 입니다. area = width * height 로 저장한 뒤 print(area) 를 씁니다.', en:'Multiplication is *. area = width * height, then print(area).'},
+     answer:{ko:'area = width * height\nprint(area)', en:'area = width * height\nprint(area)'}},
+
+    {id:'c1-5', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 복합 대입으로 값 갱신하기', en:'Write code · updating with compound assignment'},
+     q:{ko:'정수 변수 <code>x</code> 가 주어집니다. <code>+=</code> 로 x 를 3 늘린 다음, <code>*=</code> 로 x 를 2 배로 만들고, 마지막에 x 를 출력하세요. 새 변수를 만들지 말고 x 하나만 갱신합니다.',
+        en:'You are given an integer <code>x</code>. Use <code>+=</code> to add 3, then <code>*=</code> to double it, then print x. Update x only - no new variables.'},
+     given:{ko:'x = 5 (채점할 때 0, -3 으로도 바뀝니다)', en:'x = 5 (grading also uses 0 and -3)'},
+     starter:{ko:'# x 에는 채점할 때 값이 미리 들어 있습니다 (예: x = 5)\n# 이 아래에 코드를 작성하세요\n\n',
+              en:'# x already holds a value when grading runs (e.g. x = 5)\n# Write your code below\n\n'},
+     example:{x:5},
+     tests:[{preset:{x:5}, out:'16'}, {preset:{x:0}, out:'6'}, {preset:{x:-3}, out:'0'}],
+     must:[{re:'\\+=', msg:{ko:'+= 를 사용해야 합니다.', en:'Use +=.'}}, {re:'\\*=', msg:{ko:'*= 를 사용해야 합니다.', en:'Use *=.'}}],
+     hint:{ko:'x += 3 은 x = x + 3 과 같고, x *= 2 는 x = x * 2 와 같습니다. 순서를 바꾸면 결과가 달라집니다.',
+           en:'x += 3 means x = x + 3; x *= 2 means x = x * 2. Swapping the order changes the result.'},
+     answer:{ko:'x += 3\nx *= 2\nprint(x)', en:'x += 3\nx *= 2\nprint(x)'}},
+
+    /* ---------- 난이도 중 ---------- */
+    {id:'c1-6', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · 자료형 변환의 결과', en:'Write the output · what conversions give'},
+     q:{ko:'아래 코드의 출력 결과를 줄마다 그대로 적으세요. <code>int()</code> 가 실수의 소수점 아래를 어떻게 처리하는지, <code>float()</code> 결과의 모양, 글자끼리 더할 때와 숫자끼리 더할 때의 차이, 정수와 실수를 더한 결과의 자료형을 확인하는 문제입니다.',
+        en:'Write each line of output exactly. It checks what <code>int()</code> does with the decimal part, how a <code>float()</code> result looks, text + text versus number + number, and the type of int + float.'},
+     code:'a = int(3.9)\nb = float(4)\nc = str(12) + str(3)\nd = int("12") + int("3")\n\nprint(a)\nprint(b)\nprint(c)\nprint(d)\nprint(a + b)',
+     out:'3\n4.0\n123\n15\n7.0',
+     hint:{ko:'int() 는 반올림하지 않고 소수점 아래를 버립니다. 정수와 실수를 더하면 결과는 실수입니다.',
+           en:'int() drops the decimal part - it does not round. int + float gives a float.'},
+     why:{ko:'int(3.9) 는 소수점 아래를 버려 3, float(4) 는 4.0 입니다. str(12) + str(3) 은 글자를 이어 붙여 123, int("12") + int("3") 은 숫자로 더해 15 입니다. 3 + 4.0 은 실수 7.0 입니다.',
+          en:'int(3.9) drops to 3; float(4) is 4.0. str(12) + str(3) joins to 123; int("12") + int("3") adds to 15. 3 + 4.0 is the float 7.0.'}},
+
+    {id:'c1-7', kind:'blank', lv:'mid',
+     title:{ko:'빈칸 채우기 · 한 줄로 두 변수 맞바꾸기', en:'Fill the blanks · swapping in one line'},
+     q:{ko:'파이썬은 쉼표를 써서 여러 변수에 한 번에 값을 넣을 수 있습니다. 빈칸 두 곳에 변수 이름을 넣어 a 와 b 의 값을 한 줄로 맞바꾸도록 완성하세요. 실행 결과는 <code>2 1</code> 이어야 합니다.',
+        en:'Python can assign several variables at once with commas. Put variable names in both blanks so one line swaps a and b. The output must be <code>2 1</code>.'},
+     code:{ko:'a = 1\nb = 2\na, b = __1__, __2__     # 오른쪽 값을 먼저 모두 구한 뒤 왼쪽에 차례로 넣는다\nprint(a, b)             # 2 1',
+           en:'a = 1\nb = 2\na, b = __1__, __2__     # the right side is worked out first, then stored left to right\nprint(a, b)             # 2 1'},
+     blanks:[{acc:['b']}, {acc:['a']}],
+     hint:{ko:'왼쪽의 a 에는 원래 b 의 값이, 왼쪽의 b 에는 원래 a 의 값이 들어가야 합니다.', en:'The a on the left needs the old b, and the b on the left needs the old a.'},
+     why:{ko:'a, b = b, a 는 오른쪽의 (2, 1) 을 먼저 만든 뒤 a 에 2, b 에 1 을 넣습니다. 오른쪽을 모두 계산한 다음에 대입하므로 임시 변수가 필요 없습니다.',
+          en:'a, b = b, a builds (2, 1) first, then stores 2 in a and 1 in b. Because the right side is finished before assigning, no temporary variable is needed.'}},
+
+    {id:'c1-8', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 글자로 받은 두 수의 합', en:'Write code · sum of two numbers given as text'},
+     q:{ko:'두 수가 문자열 변수 <code>text1</code>, <code>text2</code> 로 주어집니다(예: <code>"12"</code>, <code>"30"</code>). 두 값을 <code>int()</code> 로 정수로 바꾼 뒤 더한 값을 출력하세요. 바꾸지 않고 더하면 1230 처럼 글자가 이어 붙여지므로 틀립니다.',
+        en:'Two numbers arrive as strings <code>text1</code> and <code>text2</code> (e.g. <code>"12"</code>, <code>"30"</code>). Convert both with <code>int()</code> and print their sum. Adding without converting joins them into 1230, which is wrong.'},
+     given:{ko:'text1 = "12", text2 = "30" (채점할 때 음수를 포함한 다른 값으로 바뀝니다)', en:'text1 = "12", text2 = "30" (grading tries others, including negatives)'},
+     starter:{ko:'# text1 과 text2 에는 채점할 때 글자 값이 미리 들어 있습니다\n# 이 아래에 코드를 작성하세요\n\n',
+              en:'# text1 and text2 already hold text values when grading runs\n# Write your code below\n\n'},
+     example:{text1:'12', text2:'30'},
+     tests:[{preset:{text1:'12', text2:'30'}, out:'42'}, {preset:{text1:'-5', text2:'5'}, out:'0'}, {preset:{text1:'100', text2:'250'}, out:'350'}],
+     must:[{re:'int\\s*\\(', msg:{ko:'int() 로 글자를 정수로 바꾸는 코드가 있어야 합니다.', en:'Convert the text with int().'}}],
+     hint:{ko:'num1 = int(text1), num2 = int(text2) 처럼 바꾼 값을 새 변수에 담은 뒤 더하면 읽기 쉽습니다.',
+           en:'Store the converted values first - num1 = int(text1), num2 = int(text2) - then add them.'},
+     answer:{ko:'num1 = int(text1)\nnum2 = int(text2)\nprint(num1 + num2)', en:'num1 = int(text1)\nnum2 = int(text2)\nprint(num1 + num2)'}},
+
+    {id:'c1-9', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 할인 금액과 결제 금액', en:'Write code · discount and amount to pay'},
+     q:{ko:'정가 <code>price</code>(원, 정수)와 할인율 <code>percent</code>(%, 정수)가 주어집니다. 할인 금액은 <code>price * percent // 100</code> 으로 구해 변수 <code>discount</code> 에, 결제 금액은 정가에서 할인 금액을 뺀 값으로 변수 <code>pay</code> 에 저장하고 <code>print(discount, pay)</code> 로 한 줄에 출력하세요.',
+        en:'You are given <code>price</code> (an int) and <code>percent</code> (an int). Store <code>price * percent // 100</code> in <code>discount</code> and price minus discount in <code>pay</code>, then print both on one line with <code>print(discount, pay)</code>.'},
+     given:{ko:'price = 10000, percent = 10 (채점할 때 다른 값으로 바뀝니다)', en:'price = 10000, percent = 10 (grading uses other values too)'},
+     starter:{ko:'# price 와 percent 에는 채점할 때 값이 미리 들어 있습니다 (예: price = 10000, percent = 10)\n# 이 아래에 코드를 작성하세요\n\n',
+              en:'# price and percent already hold values when grading runs (e.g. price = 10000, percent = 10)\n# Write your code below\n\n'},
+     example:{price:10000, percent:10},
+     tests:[{preset:{price:10000, percent:10}, out:'1000 9000'}, {preset:{price:9900, percent:15}, out:'1485 8415'},
+            {preset:{price:3000, percent:0}, out:'0 3000'}, {preset:{price:12345, percent:33}, out:'4073 8272'}],
+     must:[{re:'\\bdiscount\\s*=', msg:{ko:'할인 금액을 변수 discount 에 저장해야 합니다.', en:'Store the discount in discount.'}},
+           {re:'\\bpay\\s*=', msg:{ko:'결제 금액을 변수 pay 에 저장해야 합니다.', en:'Store the amount to pay in pay.'}}],
+     hint:{ko:'pay 를 구할 때는 이미 구한 discount 변수를 다시 사용합니다. // 를 쓰면 결과가 정수로 나오므로 9000.0 같은 소수점이 붙지 않습니다.',
+           en:'Reuse discount when working out pay. // keeps the result an integer, so no 9000.0.'},
+     answer:{ko:'discount = price * percent // 100\npay = price - discount\nprint(discount, pay)', en:'discount = price * percent // 100\npay = price - discount\nprint(discount, pay)'}},
+
+    {id:'c1-10', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 세 변수의 값을 한 칸씩 옮기기', en:'Write code · rotating three variables'},
+     q:{ko:'변수 <code>a</code>, <code>b</code>, <code>c</code> 가 주어집니다. a 에는 원래 b 의 값, b 에는 원래 c 의 값, c 에는 원래 a 의 값이 들어가도록 값을 옮긴 뒤 <code>print(a, b, c)</code> 로 출력하세요. 예를 들어 1, 2, 3 이면 <code>2 3 1</code> 이 출력되어야 합니다.',
+        en:'You are given <code>a</code>, <code>b</code> and <code>c</code>. Move the values so a gets the old b, b gets the old c, and c gets the old a, then print them with <code>print(a, b, c)</code>. For 1, 2, 3 the output is <code>2 3 1</code>.'},
+     given:{ko:'a = 1, b = 2, c = 3 (채점할 때 글자 값으로도 바뀝니다)', en:'a = 1, b = 2, c = 3 (grading also uses text values)'},
+     starter:{ko:'# a, b, c 에는 채점할 때 값이 미리 들어 있습니다 (예: a = 1, b = 2, c = 3)\n# 이 아래에 값을 옮기는 코드를 쓰고 마지막 줄에서 출력하세요\n\nprint(a, b, c)\n',
+              en:'# a, b and c already hold values when grading runs (e.g. a = 1, b = 2, c = 3)\n# Move the values below, keeping the print as the last line\n\nprint(a, b, c)\n'},
+     example:{a:1, b:2, c:3},
+     tests:[{preset:{a:1, b:2, c:3}, out:'2 3 1'}, {preset:{a:'x', b:'y', c:'z'}, out:'y z x'}, {preset:{a:9, b:0, c:-1}, out:'0 -1 9'}],
+     hint:{ko:'a 를 가장 먼저 덮어쓰므로 a 의 원래 값을 임시 변수 temp 에 먼저 보관하세요. 그다음 a = b, b = c, c = temp 순서로 옮깁니다.',
+           en:'a is overwritten first, so park its old value in temp. Then a = b, b = c, c = temp.'},
+     answer:{ko:'temp = a      # a 의 원래 값을 보관\na = b\nb = c\nc = temp\nprint(a, b, c)\n\n# 한 줄로도 됩니다: a, b, c = b, c, a',
+             en:'temp = a      # park the old a\na = b\nb = c\nc = temp\nprint(a, b, c)\n\n# One line also works: a, b, c = b, c, a'}},
+
+    /* ---------- 난이도 상 ---------- */
+    {id:'c1-11', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 계산으로 값을 맞바꾸고 글자로 잇기', en:'Write the output · swapping by arithmetic, then joining text'},
+     q:{ko:'아래 코드의 출력 결과를 줄마다 그대로 적으세요. 앞부분은 덧셈과 뺄셈만으로 두 변수의 값을 바꾸는 과정이고, 뒷부분은 글자와 숫자를 서로 바꿔 가며 계산하는 과정입니다. 각 줄이 끝난 뒤 변수에 어떤 값이 있는지 하나씩 적어 가며 따라가세요.',
+        en:'Write each line of output exactly. The first part swaps two variables with only + and -; the second converts back and forth between text and numbers. Track every variable after each line.'},
+     code:'x = 3\ny = 8\nx = x + y\ny = x - y\nx = x - y\nprint(x, y)\n\ns = "3" + "4"\nn = int(s) * 2\nprint(s, n)\nprint(str(n) + s)',
+     out:'8 3\n34 68\n6834',
+     hint:{ko:'x = 3 + 8 = 11, y = 11 - 8 = 3, x = 11 - 3 = 8 입니다. "3" + "4" 는 글자 "34" 이고, int("34") × 2 = 68 입니다.',
+           en:'x = 11, then y = 11 - 8 = 3, then x = 11 - 3 = 8. "3" + "4" is the text "34", and int("34") × 2 = 68.'},
+     why:{ko:'x 에 두 값의 합 11 을 넣은 뒤, 합에서 y 를 빼면 원래 x(3), 다시 합에서 새 y 를 빼면 원래 y(8)가 나와 값이 바뀝니다. s 는 글자 "34", n 은 68 이며, str(68) + "34" 는 글자를 이어 붙인 6834 입니다.',
+          en:'x holds the sum 11; sum minus y gives the old x (3), sum minus the new y gives the old y (8). s is the text "34", n is 68, and str(68) + "34" joins to 6834.'}},
+
+    {id:'c1-12', kind:'blank', lv:'hard',
+     title:{ko:'빈칸 채우기 · 숫자를 글자로 바꿔 자릿수 구하기', en:'Fill the blanks · counting digits through text'},
+     q:{ko:'정수는 글자로 바꾸면 글자 수로 자릿수를 셀 수 있습니다. 빈칸 두 곳에 함수 이름을 넣어, 정수 n 을 글자로 바꾸고 그 글자 수를 구하도록 완성하세요. 실행 결과는 <code>4 8</code> 이어야 합니다.',
+        en:'Turn an integer into text and its length is the number of digits. Fill both blanks so n becomes text and you get its length. The output must be <code>4 8</code>.'},
+     code:{ko:'n = 4728\ntext = __1__(n)            # 숫자를 글자 "4728" 로 바꾼다\ndigits = __2__(text)       # 글자 수 = 자릿수\nlast = int(text[-1])       # 마지막 글자 "8" 을 다시 숫자로\nprint(digits, last)        # 4 8',
+           en:'n = 4728\ntext = __1__(n)            # turn the number into the text "4728"\ndigits = __2__(text)       # length of the text = number of digits\nlast = int(text[-1])       # last character "8" back to a number\nprint(digits, last)        # 4 8'},
+     blanks:[{acc:['str']}, {acc:['len']}],
+     hint:{ko:'첫째 빈칸은 글자로 바꾸는 함수, 둘째 빈칸은 글자 수(길이, length)를 구하는 세 글자 함수입니다. 정수에는 길이를 바로 구할 수 없습니다.',
+           en:'The first turns a value into text; the second is the three-letter function for length. An integer has no length on its own.'},
+     why:{ko:'str(4728) 은 글자 "4728" 이고 len("4728") 은 4 입니다. len(4728) 처럼 정수에 바로 쓰면 TypeError 가 나므로 먼저 글자로 바꿉니다. text[-1] 은 맨 끝 글자 "8" 이며 int() 로 숫자 8 이 됩니다.',
+          en:'str(4728) is "4728" and len("4728") is 4. len(4728) on an integer raises TypeError, so convert first. text[-1] is the last character "8", and int() makes it 8.'}},
+
+    {id:'c1-13', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 임시 변수 없이 두 정수 맞바꾸기', en:'Write code · swapping two integers without a temp'},
+     q:{ko:'정수 변수 <code>a</code>, <code>b</code> 가 주어집니다. 임시 변수를 만들지 말고, <code>a, b = b, a</code> 도 쓰지 말고, 덧셈과 뺄셈만으로 두 값을 맞바꾼 뒤 <code>print(a, b)</code> 로 출력하세요. 대입은 a 와 b 에만 할 수 있습니다.',
+        en:'You are given integers <code>a</code> and <code>b</code>. Swap them using only + and - : no temporary variable and no <code>a, b = b, a</code>. Then print with <code>print(a, b)</code>. You may assign only to a and b.'},
+     given:{ko:'a = 3, b = 8 (채점할 때 음수, 0, 같은 값으로도 바뀝니다)', en:'a = 3, b = 8 (grading also uses negatives, zero and equal values)'},
+     starter:{ko:'# a 와 b 에는 채점할 때 정수가 미리 들어 있습니다 (예: a = 3, b = 8)\n# 이 아래에 a 와 b 에만 대입해 값을 맞바꾸세요\n\nprint(a, b)\n',
+              en:'# a and b already hold integers when grading runs (e.g. a = 3, b = 8)\n# Swap them below, assigning only to a and b\n\nprint(a, b)\n'},
+     example:{a:3, b:8},
+     tests:[{preset:{a:3, b:8}, out:'8 3'}, {preset:{a:-4, b:10}, out:'10 -4'}, {preset:{a:0, b:0}, out:'0 0'}, {preset:{a:7, b:7}, out:'7 7'}, {preset:{a:1000, b:-1}, out:'-1 1000'}],
+     must:[{re:'^\\s*\\w+\\s*,\\s*\\w+\\s*=', not:true, msg:{ko:'a, b = b, a 처럼 쉼표로 한꺼번에 대입하는 방식은 이 문제에서 쓸 수 없습니다.', en:'Comma assignment such as a, b = b, a is not allowed here.'}},
+           {re:'^\\s*(?!(?:a|b)\\s*[-+*/]?=)[A-Za-z_]\\w*\\s*[-+*/]?=(?!=)', not:true, msg:{ko:'a 와 b 가 아닌 다른 변수에 대입하는 줄이 있습니다. 임시 변수 없이 a 와 b 만 사용하세요.', en:'You assign to a variable other than a or b. Use only a and b.'}}],
+     hint:{ko:'세 줄이면 됩니다. 먼저 a 에 두 수의 합을 넣으세요. 그러면 합에서 b 를 빼서 원래 a 를, 다시 합에서 새 b 를 빼서 원래 b 를 구할 수 있습니다.',
+           en:'Three lines. Put the sum in a first. Then the sum minus b gives the old a, and the sum minus the new b gives the old b.'},
+     answer:{ko:'a = a + b     # a 에 두 수의 합을 넣는다\nb = a - b     # 합 - 원래 b = 원래 a\na = a - b     # 합 - 원래 a = 원래 b\nprint(a, b)',
+             en:'a = a + b     # a holds the sum\nb = a - b     # sum - old b = old a\na = a - b     # sum - old a = old b\nprint(a, b)'}},
+
+    {id:'c1-14', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 세 가지 자료형을 섞어 계산하기', en:'Write code · mixing three types'},
+     q:{ko:'문자열 <code>a</code>(숫자 모양의 글자), 정수 <code>b</code>, 실수 <code>c</code> 가 주어집니다. 다음 세 줄을 차례로 출력하세요. 첫째 줄은 글자 a 를 b 번 반복해 이어 붙인 글자, 둘째 줄은 a 를 정수로 바꿔 b 를 곱하고 c 를 더한 값, 셋째 줄은 a, b, c 를 모두 글자로 바꿔 순서대로 이어 붙인 글자입니다.',
+        en:'You are given a string <code>a</code> (digits as text), an int <code>b</code> and a float <code>c</code>. Print three lines: a repeated b times; a as an integer times b plus c; and a, b and c all as text, joined in order.'},
+     given:{ko:'a = "12", b = 3, c = 1.5 → 121212 / 37.5 / 1231.5 (채점할 때 다른 값으로 바뀝니다)', en:'a = "12", b = 3, c = 1.5 → 121212 / 37.5 / 1231.5 (grading uses other values too)'},
+     starter:{ko:'# a(글자), b(정수), c(실수) 에는 채점할 때 값이 미리 들어 있습니다\n# 이 아래에 세 줄을 출력하는 코드를 작성하세요\n\n',
+              en:'# a (text), b (int) and c (float) already hold values when grading runs\n# Write code below that prints the three lines\n\n'},
+     example:{a:'12', b:3, c:1.5},
+     tests:[{preset:{a:'12', b:3, c:1.5}, out:'121212\n37.5\n1231.5'}, {preset:{a:'5', b:2, c:0.25}, out:'55\n10.25\n520.25'},
+            {preset:{a:'-3', b:4, c:2.5}, out:'-3-3-3-3\n-9.5\n-342.5'}],
+     must:[{re:'int\\s*\\(', msg:{ko:'둘째 줄 계산을 위해 int() 로 a 를 정수로 바꿔야 합니다.', en:'Use int() on a for the second line.'}},
+           {re:'str\\s*\\(', msg:{ko:'셋째 줄을 위해 str() 로 b 와 c 를 글자로 바꿔야 합니다.', en:'Use str() on b and c for the third line.'}}],
+     hint:{ko:'첫째 줄은 a * b, 둘째 줄은 int(a) * b + c, 셋째 줄은 a + str(b) + str(c) 입니다. a 는 이미 글자이므로 셋째 줄에서 다시 바꿀 필요가 없습니다.',
+           en:'Line one is a * b, line two int(a) * b + c, line three a + str(b) + str(c). a is already text.'},
+     answer:{ko:'print(a * b)\nprint(int(a) * b + c)\nprint(a + str(b) + str(c))', en:'print(a * b)\nprint(int(a) * b + c)\nprint(a + str(b) + str(c))'}},
+
+    {id:'c1-15', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 초를 시간, 분, 초로 나누기', en:'Write code · seconds into hours, minutes and seconds'},
+     q:{ko:'총 시간 <code>seconds</code>(초, 정수)가 주어집니다. 이를 시간 <code>h</code>, 분 <code>m</code>, 초 <code>s</code> 로 나누어 <code>print(h, m, s)</code> 로 출력하세요. 1시간은 3600초, 1분은 60초입니다. 남은 초를 담는 변수 <code>rest</code> 를 만들어 단계마다 갱신하는 방식으로 작성합니다.',
+        en:'You are given <code>seconds</code> (an int). Split it into hours <code>h</code>, minutes <code>m</code> and seconds <code>s</code> and print them with <code>print(h, m, s)</code>. An hour is 3600 s, a minute 60 s. Keep the leftover in a variable <code>rest</code> and update it step by step.'},
+     given:{ko:'seconds = 3725 → 1 2 5 (채점할 때 다른 값으로 바뀝니다)', en:'seconds = 3725 → 1 2 5 (grading uses other values too)'},
+     starter:{ko:'# seconds 에는 채점할 때 값이 미리 들어 있습니다 (예: seconds = 3725)\n# 이 아래에 코드를 작성하세요\n\n',
+              en:'# seconds already holds a value when grading runs (e.g. seconds = 3725)\n# Write your code below\n\n'},
+     example:{seconds:3725},
+     tests:[{preset:{seconds:3725}, out:'1 2 5'}, {preset:{seconds:59}, out:'0 0 59'}, {preset:{seconds:86399}, out:'23 59 59'},
+            {preset:{seconds:3600}, out:'1 0 0'}, {preset:{seconds:0}, out:'0 0 0'}],
+     must:[{re:'\\brest\\s*=', msg:{ko:'남은 초를 담는 변수 rest 를 사용해야 합니다.', en:'Use a variable called rest for the leftover seconds.'}}],
+     hint:{ko:'h = seconds // 3600 으로 시간을 구하고, rest = seconds % 3600 으로 남은 초를 담습니다. 그다음 m = rest // 60, rest = rest % 60 으로 갱신하면 rest 가 곧 초가 됩니다.',
+           en:'h = seconds // 3600, rest = seconds % 3600. Then m = rest // 60 and rest = rest % 60 - rest is now the seconds.'},
+     answer:{ko:'h = seconds // 3600\nrest = seconds % 3600      # 시간을 빼고 남은 초\nm = rest // 60\nrest = rest % 60           # 분을 빼고 남은 초\ns = rest\nprint(h, m, s)',
+             en:'h = seconds // 3600\nrest = seconds % 3600      # seconds left after the hours\nm = rest // 60\nrest = rest % 60           # seconds left after the minutes\ns = rest\nprint(h, m, s)'}}
+  ],
+
+
+  /* ===================== 2장 · 연산자 ===================== */
+  c2:[
+    /* ---------- 난이도 하 ---------- */
+    {id:'c2-1', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 산술 연산자 여섯 가지', en:'Write the output · six arithmetic operators'},
+     q:{ko:'같은 두 수 7 과 3(또는 2)에 산술 연산자를 하나씩 적용한 결과입니다. 출력 결과를 줄마다 그대로 적으세요. <code>/</code> 는 항상 실수를 돌려주고, <code>//</code> 는 몫, <code>%</code> 는 나머지를 구한다는 점이 핵심입니다.',
+        en:'Each line applies one arithmetic operator. Write the output exactly. Key points: <code>/</code> always returns a float, <code>//</code> gives the quotient, <code>%</code> the remainder.'},
+     code:'print(7 + 3)\nprint(7 - 3)\nprint(7 * 3)\nprint(7 / 2)\nprint(7 // 2)\nprint(7 % 2)',
+     out:'10\n4\n21\n3.5\n3\n1',
+     hint:{ko:'7 을 2 로 나누면 몫 3, 나머지 1 입니다. / 의 결과는 3.5 입니다.', en:'7 divided by 2 is 3 remainder 1; / gives 3.5.'},
+     why:{ko:'더하기 10, 빼기 4, 곱하기 21 입니다. 7 / 2 는 실수 나눗셈이라 3.5, 7 // 2 는 소수점 아래를 버린 몫 3, 7 % 2 는 나머지 1 입니다.',
+          en:'10, 4 and 21. 7 / 2 is true division, 3.5; 7 // 2 is the quotient 3; 7 % 2 is the remainder 1.'}},
+
+    {id:'c2-2', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 비교 연산자의 결과', en:'Write the output · comparison results'},
+     q:{ko:'비교 연산자는 계산 결과로 <code>True</code>(참) 또는 <code>False</code>(거짓)를 돌려줍니다. 아래 코드의 출력 결과를 줄마다 그대로 적으세요. <code>==</code>(같다)와 <code>!=</code>(다르다), <code>&gt;=</code>(이상)의 뜻을 확인하는 문제입니다.',
+        en:'Comparisons return <code>True</code> or <code>False</code>. Write the output exactly. It checks <code>==</code> (equal), <code>!=</code> (not equal) and <code>&gt;=</code> (at least).'},
+     code:'a = 5\nb = 8\nprint(a < b)\nprint(a == b)\nprint(a != b)\nprint(a >= 5)\nprint(b % 2 == 0)',
+     out:'True\nFalse\nTrue\nTrue\nTrue',
+     hint:{ko:'a >= 5 는 「a 가 5 이상」이므로 5 도 포함합니다. 8 % 2 는 0 입니다.', en:'a >= 5 includes 5 itself. 8 % 2 is 0.'},
+     why:{ko:'5 < 8 은 참, 5 == 8 은 거짓, 5 != 8 은 참입니다. 5 >= 5 는 같은 값도 포함하므로 참이고, 8 % 2 는 0 이므로 0 == 0 이 참입니다.',
+          en:'5 < 8 is true, 5 == 8 false, 5 != 8 true. 5 >= 5 includes equality, so true; 8 % 2 is 0, so 0 == 0 is true.'}},
+
+    {id:'c2-3', kind:'blank', lv:'easy',
+     title:{ko:'빈칸 채우기 · 평균과 제곱 구하기', en:'Fill the blanks · average and square'},
+     q:{ko:'세 과목 점수의 평균과 4 의 제곱을 구하는 코드입니다. 빈칸 두 곳에 알맞은 연산자를 넣어 실행 결과가 주석과 같아지도록 완성하세요. 평균은 소수점까지 나와야 합니다.',
+        en:'Code for the average of three scores and the square of 4. Put the right operators in both blanks so the output matches the comments. The average must keep its decimal point.'},
+     code:{ko:'total = 80 + 90 + 70\navg = total __1__ 3          # 평균 (소수점 포함)\nn = 4\nsquare = n __2__ 2           # n 의 제곱\nprint(avg)                   # 80.0\nprint(square)                # 16',
+           en:'total = 80 + 90 + 70\navg = total __1__ 3          # average, with decimals\nn = 4\nsquare = n __2__ 2           # n squared\nprint(avg)                   # 80.0\nprint(square)                # 16'},
+     blanks:[{acc:['/']}, {acc:['**']}],
+     hint:{ko:'80.0 처럼 소수점이 나오는 나눗셈 연산자와, 거듭제곱 연산자(별표 두 개)를 쓰세요.', en:'Use the division that gives 80.0, and the power operator (two asterisks).'},
+     why:{ko:'240 / 3 은 실수 나눗셈이므로 80.0 입니다. // 를 쓰면 80 이 되어 주석과 다릅니다. 4 ** 2 는 4 를 두 번 곱한 16 입니다.',
+          en:'240 / 3 is true division, 80.0; // would give 80. 4 ** 2 multiplies 4 twice, 16.'}},
+
+    {id:'c2-4', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 두 수의 합, 차, 곱', en:'Write code · sum, difference, product'},
+     q:{ko:'정수 <code>a</code>, <code>b</code> 가 주어집니다. 첫째 줄에 두 수의 합, 둘째 줄에 a 에서 b 를 뺀 차, 셋째 줄에 두 수의 곱을 출력하세요.',
+        en:'You are given integers <code>a</code> and <code>b</code>. Print the sum on line one, a minus b on line two, and the product on line three.'},
+     given:{ko:'a = 7, b = 3 → 10 / 4 / 21 (채점할 때 음수를 포함한 다른 값으로 바뀝니다)', en:'a = 7, b = 3 → 10 / 4 / 21 (grading also uses negatives)'},
+     example:{a:7, b:3},
+     tests:[{preset:{a:7, b:3}, out:'10\n4\n21'}, {preset:{a:2, b:9}, out:'11\n-7\n18'}, {preset:{a:-4, b:-6}, out:'-10\n2\n24'}, {preset:{a:0, b:5}, out:'5\n-5\n0'}],
+     hint:{ko:'print 를 세 번 씁니다. print(a + b), print(a - b), print(a * b) 순서입니다.', en:'Three prints: print(a + b), print(a - b), print(a * b).'},
+     answer:{ko:'print(a + b)\nprint(a - b)\nprint(a * b)', en:'print(a + b)\nprint(a - b)\nprint(a * b)'}},
+
+    {id:'c2-5', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 짝수인지 판정하기', en:'Write code · is it even?'},
+     q:{ko:'정수 <code>n</code> 이 주어집니다. 나머지 연산자 <code>%</code> 와 비교 연산자 <code>==</code> 를 사용해 n 이 짝수이면 True, 홀수이면 False 가 출력되도록 비교 결과를 그대로 출력하세요. (조건문 없이 작성합니다)',
+        en:'You are given an integer <code>n</code>. Using <code>%</code> and <code>==</code>, print the comparison itself so it shows True for even and False for odd. (No if.)'},
+     given:{ko:'n = 4 (채점할 때 홀수, 0, 음수로도 바뀝니다)', en:'n = 4 (grading also uses odd numbers, 0 and negatives)'},
+     example:{n:4},
+     tests:[{preset:{n:4}, out:'True'}, {preset:{n:7}, out:'False'}, {preset:{n:0}, out:'True'}, {preset:{n:-3}, out:'False'}, {preset:{n:-10}, out:'True'}],
+     must:[{re:'%', msg:{ko:'나머지 연산자 % 를 사용해야 합니다.', en:'Use the remainder operator %.'}}, {re:'\\bif\\b', not:true, msg:{ko:'이 문제는 if 없이 비교 결과를 그대로 출력합니다.', en:'Print the comparison directly - no if.'}}],
+     hint:{ko:'짝수는 2 로 나눈 나머지가 0 입니다. print(n % 2 == 0) 한 줄이면 됩니다.', en:'Even numbers leave remainder 0 when divided by 2: print(n % 2 == 0).'},
+     answer:{ko:'print(n % 2 == 0)', en:'print(n % 2 == 0)'}},
+
+    /* ---------- 난이도 중 ---------- */
+    {id:'c2-6', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · 연산자 우선순위', en:'Write the output · operator precedence'},
+     q:{ko:'여러 연산자가 한 식에 섞이면 곱셈·나눗셈·나머지가 덧셈·뺄셈보다 먼저 계산되고, 괄호 안이 가장 먼저 계산됩니다. 아래 코드의 출력 결과를 줄마다 그대로 적으세요.',
+        en:'When operators mix, *, /, //, % go before + and -, and brackets go first. Write the output exactly.'},
+     code:'print(2 + 3 * 4)\nprint((2 + 3) * 4)\nprint(10 - 4 / 2)\nprint(17 % 5 * 2)\nprint(20 // 3 + 20 % 3)',
+     out:'14\n20\n8.0\n4\n8',
+     hint:{ko:'10 - 4 / 2 에서 나눗셈이 먼저이며 / 의 결과는 실수입니다. 17 % 5 * 2 처럼 우선순위가 같으면 왼쪽부터 계산합니다.',
+           en:'In 10 - 4 / 2 the division comes first and gives a float. Equal precedence, as in 17 % 5 * 2, goes left to right.'},
+     why:{ko:'2 + 12 = 14, 5 × 4 = 20 입니다. 10 - 2.0 은 실수 8.0 입니다. 17 % 5 = 2 에 2 를 곱해 4, 20 // 3 = 6 과 20 % 3 = 2 를 더해 8 입니다.',
+          en:'2 + 12 = 14; 5 × 4 = 20. 10 - 2.0 is 8.0. 17 % 5 = 2, times 2 is 4. 20 // 3 = 6 plus 20 % 3 = 2 gives 8.'}},
+
+    {id:'c2-7', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · 복합 대입 연산자 연달아 쓰기', en:'Write the output · compound assignments in a row'},
+     q:{ko:'<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>//=</code>, <code>%=</code>, <code>**=</code> 는 계산한 결과를 같은 변수에 다시 저장합니다. 각 줄을 실행한 뒤 변수 값이 어떻게 바뀌는지 따라가며 출력 결과를 적으세요.',
+        en:'Compound operators store the result back into the same variable. Track the value after every line and write the output.'},
+     code:'x = 10\nx += 5\nx -= 3\nx *= 2\nx //= 5\nprint(x)\n\ny = 7\ny %= 4\ny **= 2\nprint(y)',
+     out:'4\n9',
+     hint:{ko:'x 는 10 → 15 → 12 → 24 → 4 순서로 바뀝니다. y 는 7 % 4 = 3 이 된 뒤 3 의 제곱이 됩니다.', en:'x goes 10 → 15 → 12 → 24 → 4. y becomes 7 % 4 = 3, then 3 squared.'},
+     why:{ko:'x 는 15, 12, 24 를 거쳐 24 // 5 = 4 가 됩니다. y 는 7 % 4 = 3, 3 ** 2 = 9 입니다.', en:'x passes 15, 12, 24 and ends at 24 // 5 = 4. y is 7 % 4 = 3, then 3 ** 2 = 9.'}},
+
+    {id:'c2-8', kind:'blank', lv:'mid',
+     title:{ko:'빈칸 채우기 · 논리 연산자와 비교 연산자', en:'Fill the blanks · logic and comparison'},
+     q:{ko:'나이가 19 세 이상이면서 입장권이 있어야 입장할 수 있고, 13 세 미만이면 어린이입니다. 빈칸 두 곳에 알맞은 연산자를 넣어 실행 결과가 <code>True False</code> 가 되도록 완성하세요.',
+        en:'Entry needs age 19 or over and a ticket; under 13 counts as a child. Fill both blanks so the output is <code>True False</code>.'},
+     code:{ko:'age = 25\nhas_ticket = True\ncan_enter = age >= 19 __1__ has_ticket   # 두 조건이 모두 참이어야 한다\nis_child = age __2__ 13                   # 13 세 미만인가\nprint(can_enter, is_child)               # True False',
+           en:'age = 25\nhas_ticket = True\ncan_enter = age >= 19 __1__ has_ticket   # both must be true\nis_child = age __2__ 13                   # under 13?\nprint(can_enter, is_child)               # True False'},
+     blanks:[{acc:['and']}, {acc:['<']}],
+     hint:{ko:'「둘 다 참」을 뜻하는 논리 연산자와 「미만(보다 작다)」을 뜻하는 비교 연산자입니다.', en:'The logic operator for "both true", and the comparison for "less than".'},
+     why:{ko:'25 >= 19 와 has_ticket 이 모두 참이므로 and 의 결과는 True 입니다. or 를 쓰면 입장권이 없어도 입장하게 되어 조건과 맞지 않습니다. 25 < 13 은 거짓입니다.',
+          en:'25 >= 19 and has_ticket are both true, so and gives True; or would let people in without a ticket. 25 < 13 is false.'}},
+
+    {id:'c2-9', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 센티미터를 미터와 센티미터로', en:'Write code · centimetres into metres and centimetres'},
+     q:{ko:'길이 <code>total_cm</code>(센티미터, 정수)가 주어집니다. 1m 는 100cm 입니다. 몫 연산자 <code>//</code> 와 나머지 연산자 <code>%</code> 를 사용해 몇 m 몇 cm 인지 구하고 <code>print(m, cm)</code> 로 출력하세요.',
+        en:'You are given <code>total_cm</code> (an int). 1 m is 100 cm. Use <code>//</code> and <code>%</code> to get metres and leftover centimetres, then print with <code>print(m, cm)</code>.'},
+     given:{ko:'total_cm = 175 → 1 75 (채점할 때 다른 값으로 바뀝니다)', en:'total_cm = 175 → 1 75 (grading uses other values too)'},
+     example:{total_cm:175},
+     tests:[{preset:{total_cm:175}, out:'1 75'}, {preset:{total_cm:99}, out:'0 99'}, {preset:{total_cm:300}, out:'3 0'}, {preset:{total_cm:1234}, out:'12 34'}],
+     must:[{re:'//', msg:{ko:'몫 연산자 // 를 사용해야 합니다.', en:'Use //.'}}, {re:'%', msg:{ko:'나머지 연산자 % 를 사용해야 합니다.', en:'Use %.'}}],
+     hint:{ko:'m = total_cm // 100, cm = total_cm % 100 입니다.', en:'m = total_cm // 100, cm = total_cm % 100.'},
+     answer:{ko:'m = total_cm // 100\ncm = total_cm % 100\nprint(m, cm)', en:'m = total_cm // 100\ncm = total_cm % 100\nprint(m, cm)'}},
+
+    {id:'c2-10', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 체질량지수(BMI) 계산', en:'Write code · body mass index'},
+     q:{ko:'몸무게 <code>weight</code>(kg)와 키 <code>height_cm</code>(cm)가 정수로 주어집니다. 키를 미터로 바꾼 뒤 <code>BMI = 몸무게 ÷ (키(m))²</code> 를 거듭제곱 연산자 <code>**</code> 로 계산하고, <code>round(bmi, 1)</code> 로 소수 첫째 자리까지 반올림해 출력하세요.',
+        en:'You are given <code>weight</code> (kg) and <code>height_cm</code> (cm). Convert height to metres, compute <code>BMI = weight ÷ height(m)²</code> using <code>**</code>, and print <code>round(bmi, 1)</code>.'},
+     given:{ko:'weight = 70, height_cm = 175 → 22.9 (채점할 때 다른 값으로 바뀝니다)', en:'weight = 70, height_cm = 175 → 22.9 (grading uses other values too)'},
+     example:{weight:70, height_cm:175},
+     tests:[{preset:{weight:70, height_cm:175}, out:'22.9'}, {preset:{weight:50, height_cm:160}, out:'19.5'}, {preset:{weight:90, height_cm:180}, out:'27.8'}, {preset:{weight:45, height_cm:150}, out:'20.0'}],
+     must:[{re:'\\*\\*', msg:{ko:'제곱 계산에 ** 를 사용해야 합니다.', en:'Use ** for the square.'}}, {re:'round\\s*\\(', msg:{ko:'round() 로 반올림해 출력해야 합니다.', en:'Print with round().'}}],
+     hint:{ko:'height_m = height_cm / 100 으로 미터를 구합니다. 분모 전체를 괄호로 감싸 weight / height_m ** 2 처럼 쓰면 ** 가 먼저 계산됩니다.',
+           en:'height_m = height_cm / 100. In weight / height_m ** 2, ** is done first, which is what you want.'},
+     answer:{ko:'height_m = height_cm / 100\nbmi = weight / height_m ** 2\nprint(round(bmi, 1))', en:'height_m = height_cm / 100\nbmi = weight / height_m ** 2\nprint(round(bmi, 1))'}},
+
+    /* ---------- 난이도 상 ---------- */
+    {id:'c2-11', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 음수 나눗셈, 거듭제곱, 연속 비교', en:'Write the output · negative division, powers, chained comparison'},
+     q:{ko:'아래 코드에는 헷갈리기 쉬운 연산이 모여 있습니다. 음수에 <code>//</code> 와 <code>%</code> 를 쓸 때, <code>**</code> 를 두 번 이어 쓸 때, <code>not</code> 과 <code>or</code> 가 섞일 때, 비교 연산자를 이어 쓸 때의 결과를 줄마다 적으세요.',
+        en:'Tricky operations: // and % on negatives, chained **, not mixed with or, and chained comparisons. Write each line of output.'},
+     code:'print(-7 // 2)\nprint(-7 % 2)\nprint(2 ** 3 ** 2)\nprint(not 3 > 2 or 1 > 2)\nprint(1 < 3 < 2)',
+     out:'-4\n1\n512\nFalse\nFalse',
+     hint:{ko:'// 는 더 작은 쪽 정수로 내림합니다(-3.5 → -4). ** 는 오른쪽부터 계산합니다. not 은 비교보다 나중, or 보다 먼저 계산됩니다. 1 < 3 < 2 는 1 < 3 and 3 < 2 와 같습니다.',
+           en:'// floors toward the smaller integer (-3.5 → -4). ** groups from the right. not runs after comparisons but before or. 1 < 3 < 2 means 1 < 3 and 3 < 2.'},
+     why:{ko:'-7 / 2 = -3.5 를 내림하면 -4 이고, -7 = 2 × (-4) + 1 이므로 나머지는 1 입니다. 2 ** (3 ** 2) = 2 ** 9 = 512 입니다. (not True) or False 는 False, 1 < 3 은 참이지만 3 < 2 가 거짓이라 전체는 False 입니다.',
+          en:'-3.5 floors to -4, and -7 = 2 × (-4) + 1, so the remainder is 1. 2 ** (3 ** 2) = 2 ** 9 = 512. (not True) or False is False; 3 < 2 fails, so the chain is False.'}},
+
+    {id:'c2-12', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 몫과 나머지의 관계, 불 값의 계산', en:'Write the output · quotient-remainder identity, arithmetic on booleans'},
+     q:{ko:'몫과 나머지로 원래 수를 다시 만드는 관계, True 와 False 를 숫자처럼 더할 때의 결과, <code>/</code> 와 <code>//</code> 결과의 비교를 확인하는 문제입니다. 출력 결과를 줄마다 그대로 적으세요.',
+        en:'It checks rebuilding a number from quotient and remainder, adding True and False like numbers, and comparing / with //. Write each line of output.'},
+     code:'x = 17\nprint(x // 5 * 5 + x % 5)\nprint(x % 5 == 2 and x // 5 == 3)\nprint(True + True + False)\nprint(10 / 4 == 10 // 4)\nprint(10 / 5 == 10 // 5)',
+     out:'17\nTrue\n2\nFalse\nTrue',
+     hint:{ko:'몫 × 나누는 수 + 나머지 = 원래 수입니다. 계산할 때 True 는 1, False 는 0 으로 취급됩니다. 2.0 == 2 는 참입니다.',
+           en:'quotient × divisor + remainder = the original. In arithmetic True is 1 and False 0. 2.0 == 2 is true.'},
+     why:{ko:'17 // 5 = 3, 3 × 5 + 2 = 17 입니다. 나머지 2, 몫 3 이 모두 맞아 True, 1 + 1 + 0 = 2 입니다. 2.5 == 2 는 거짓, 2.0 == 2 는 값이 같으므로 참입니다.',
+          en:'17 // 5 = 3, 3 × 5 + 2 = 17. Remainder 2 and quotient 3 both hold, True. 1 + 1 + 0 = 2. 2.5 == 2 is false; 2.0 == 2 is true.'}},
+
+    {id:'c2-13', kind:'blank', lv:'hard',
+     title:{ko:'빈칸 채우기 · 네 자리 수에서 자리별 숫자 꺼내기', en:'Fill the blanks · pulling digits out of a number'},
+     q:{ko:'문자열로 바꾸지 않고 <code>//</code> 와 <code>%</code> 만으로 네 자리 수 4728 의 천의 자리, 십의 자리, 일의 자리 숫자를 꺼냅니다. 빈칸 세 곳을 채워 실행 결과가 <code>4 2 8</code> 이 되도록 완성하세요.',
+        en:'Using only // and %, pull the thousands, tens and ones digits out of 4728. Fill all three blanks so the output is <code>4 2 8</code>.'},
+     code:{ko:'n = 4728\nthousands = n __1__ 1000        # 1000 으로 나눈 몫\ntens = n // 10 __2__ 10         # 10 으로 나눈 몫의 일의 자리\nones = n __3__ 10               # 10 으로 나눈 나머지\nprint(thousands, tens, ones)    # 4 2 8',
+           en:'n = 4728\nthousands = n __1__ 1000        # quotient by 1000\ntens = n // 10 __2__ 10         # ones digit of the quotient by 10\nones = n __3__ 10               # remainder by 10\nprint(thousands, tens, ones)    # 4 2 8'},
+     blanks:[{acc:['//']}, {acc:['%']}, {acc:['%']}],
+     hint:{ko:'4728 // 10 은 472 이고, 472 의 일의 자리 숫자는 10 으로 나눈 나머지입니다.', en:'4728 // 10 is 472, and its ones digit is the remainder by 10.'},
+     why:{ko:'4728 // 1000 = 4 입니다. 4728 // 10 = 472 이고 472 % 10 = 2 가 십의 자리입니다. 4728 % 10 = 8 이 일의 자리입니다. 「// 로 오른쪽 자리를 버리고, % 로 마지막 자리를 꺼낸다」가 자리 계산의 기본 방법입니다.',
+          en:'4728 // 1000 = 4. 4728 // 10 = 472, and 472 % 10 = 2 is the tens digit. 4728 % 10 = 8 is the ones digit. // drops digits on the right; % takes the last one.'}},
+
+    {id:'c2-14', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 세 자리 수의 각 자리 숫자 합', en:'Write code · digit sum of a three-digit number'},
+     q:{ko:'세 자리 정수 <code>n</code>(100~999)이 주어집니다. <code>str()</code> 을 쓰지 말고 <code>//</code> 와 <code>%</code> 만으로 백의 자리, 십의 자리, 일의 자리 숫자를 구한 뒤 세 숫자의 합을 출력하세요. 예를 들어 472 이면 4 + 7 + 2 = 13 입니다.',
+        en:'You are given a three-digit integer <code>n</code> (100-999). Without <code>str()</code>, use // and % to get its three digits and print their sum. For 472 that is 4 + 7 + 2 = 13.'},
+     given:{ko:'n = 472 → 13 (채점할 때 100, 999, 305 등으로 바뀝니다)', en:'n = 472 → 13 (grading also uses 100, 999, 305 and more)'},
+     example:{n:472},
+     tests:[{preset:{n:472}, out:'13'}, {preset:{n:100}, out:'1'}, {preset:{n:999}, out:'27'}, {preset:{n:305}, out:'8'}, {preset:{n:560}, out:'11'}],
+     must:[{re:'\\bstr\\s*\\(', not:true, msg:{ko:'이 문제는 str() 없이 // 와 % 로만 풉니다.', en:'Solve it with // and % only - no str().'}}, {re:'%', msg:{ko:'나머지 연산자 % 를 사용해야 합니다.', en:'Use %.'}}],
+     hint:{ko:'백의 자리는 n // 100, 십의 자리는 n // 10 % 10, 일의 자리는 n % 10 입니다.', en:'Hundreds n // 100, tens n // 10 % 10, ones n % 10.'},
+     answer:{ko:'h = n // 100\nt = n // 10 % 10\no = n % 10\nprint(h + t + o)', en:'h = n // 100\nt = n // 10 % 10\no = n % 10\nprint(h + t + o)'}},
+
+    {id:'c2-15', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 복리로 불어난 금액', en:'Write code · compound interest'},
+     q:{ko:'원금 <code>money</code>(원), 연 이자율 <code>rate</code>(%, 정수), 기간 <code>years</code>(년)가 주어집니다. 이자가 해마다 원금에 더해지는 복리일 때 만기 금액은 <code>원금 × (1 + 이자율/100)<sup>기간</sup></code> 입니다. <code>**</code> 로 계산하고 <code>round()</code> 로 원 단위까지 반올림한 정수를 출력하세요.',
+        en:'You are given <code>money</code>, an annual <code>rate</code> (%, int) and <code>years</code>. With compound interest the final amount is <code>money × (1 + rate/100)<sup>years</sup></code>. Compute it with <code>**</code> and print <code>round()</code> of it as a whole number.'},
+     given:{ko:'money = 1000000, rate = 3, years = 5 → 1159274 (채점할 때 다른 값으로 바뀝니다)', en:'money = 1000000, rate = 3, years = 5 → 1159274 (grading uses other values too)'},
+     example:{money:1000000, rate:3, years:5},
+     tests:[{preset:{money:1000000, rate:3, years:5}, out:'1159274'}, {preset:{money:500000, rate:5, years:10}, out:'814447'},
+            {preset:{money:1000, rate:0, years:7}, out:'1000'}, {preset:{money:2000000, rate:10, years:2}, out:'2420000'}],
+     must:[{re:'\\*\\*', msg:{ko:'기간만큼 거듭제곱하는 데 ** 를 사용해야 합니다.', en:'Use ** for the years.'}}, {re:'round\\s*\\(', msg:{ko:'round() 로 원 단위까지 반올림해야 합니다.', en:'Round with round().'}}],
+     hint:{ko:'이자율 3 은 0.03 이므로 1 + rate / 100 을 괄호로 감싼 뒤 ** years 를 붙입니다. round(값) 처럼 자릿수를 주지 않으면 정수로 반올림됩니다.',
+           en:'A rate of 3 is 0.03, so bracket (1 + rate / 100) and raise it to years. round(value) with no digits gives an integer.'},
+     answer:{ko:'amount = money * (1 + rate / 100) ** years\nprint(round(amount))', en:'amount = money * (1 + rate / 100) ** years\nprint(round(amount))'}}
+  ],
+
+  /* ===================== 3장 · 조건문 ===================== */
+  c3:[
+    /* ---------- 난이도 하 ---------- */
+    {id:'c3-1', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 양수, 0, 음수 판정', en:'Write the output · positive, zero or negative'},
+     q:{ko:'아래 코드의 출력 결과를 줄마다 그대로 적으세요. if-elif-else 는 위에서부터 조건을 차례로 확인해 처음으로 참인 길 하나만 실행하고, 들여쓰기가 없는 마지막 줄은 조건과 상관없이 실행됩니다.',
+        en:'Write the output exactly. if-elif-else checks from the top and runs only the first true branch; the unindented last line always runs.'},
+     code:{ko:'n = -5\nif n > 0:\n    print("양수")\nelif n == 0:\n    print("0")\nelse:\n    print("음수")\nprint("끝")',
+           en:'n = -5\nif n > 0:\n    print("positive")\nelif n == 0:\n    print("zero")\nelse:\n    print("negative")\nprint("done")'},
+     out:{ko:'음수\n끝', en:'negative\ndone'},
+     hint:{ko:'-5 > 0 도, -5 == 0 도 거짓이므로 else 로 갑니다.', en:'Both -5 > 0 and -5 == 0 are false, so else runs.'},
+     why:{ko:'앞의 두 조건이 모두 거짓이라 else 의 「음수」가 출력되고, 들여쓰기가 없는 print("끝") 은 if 문과 상관없이 실행됩니다.',
+          en:'Both tests fail, so else prints "negative"; the unindented print runs regardless.'}},
+
+    {id:'c3-2', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · 따로 선 if 두 개', en:'Write the output · two separate ifs'},
+     q:{ko:'아래 코드에는 if 문이 두 개 있습니다. 첫째 if 와 둘째 if-else 는 서로 별개의 판단이므로 각각 실행됩니다. 출력 결과를 줄마다 그대로 적으세요.',
+        en:'There are two separate decisions here, so each runs on its own. Write the output exactly.'},
+     code:{ko:'score = 85\nif score >= 60:\n    print("합격")\nif score >= 90:\n    print("우수")\nelse:\n    print("보통")',
+           en:'score = 85\nif score >= 60:\n    print("pass")\nif score >= 90:\n    print("excellent")\nelse:\n    print("average")'},
+     out:{ko:'합격\n보통', en:'pass\naverage'},
+     hint:{ko:'첫째 if 가 참이어도 둘째 if 는 다시 판단합니다. else 는 바로 위의 if score >= 90 과 짝입니다.', en:'The second if is checked even after the first succeeds. The else pairs with if score >= 90.'},
+     why:{ko:'85 >= 60 이 참이라 「합격」을 출력합니다. 이어서 별도의 if 로 85 >= 90 을 판단하는데 거짓이므로 짝인 else 의 「보통」을 출력합니다.',
+          en:'85 >= 60 prints "pass". The separate if checks 85 >= 90, which fails, so its else prints "average".'}},
+
+    {id:'c3-3', kind:'blank', lv:'easy',
+     title:{ko:'빈칸 채우기 · 절댓값 만들기', en:'Fill the blanks · absolute value'},
+     q:{ko:'음수이면 부호를 바꿔 양수로 만드는 코드입니다. 빈칸 두 곳을 채워 실행 결과가 <code>7</code> 이 되도록 완성하세요. 첫째 빈칸은 비교 연산자, 둘째 빈칸은 n 의 부호를 바꾼 값입니다.',
+        en:'Code that flips a negative number to positive. Fill both blanks so the output is <code>7</code>: a comparison first, then n with its sign flipped.'},
+     code:{ko:'n = -7\nif n __1__ 0:        # 음수라면\n    n = __2__        # 부호를 바꾼다\nprint(n)             # 7',
+           en:'n = -7\nif n __1__ 0:        # if negative\n    n = __2__        # flip the sign\nprint(n)             # 7'},
+     blanks:[{acc:['<']}, {acc:['-n', 'n*-1', '-1*n', 'n*(-1)', '0-n', '(-1)*n']}],
+     hint:{ko:'「0 보다 작다」는 < 입니다. 부호를 바꾸려면 변수 앞에 빼기 기호를 붙입니다.', en:'"Less than 0" is <. Put a minus sign in front of the variable to flip it.'},
+     why:{ko:'-7 < 0 이 참이므로 n = -n 이 실행되어 -(-7) = 7 이 됩니다. 양수였다면 조건이 거짓이라 그대로 출력됩니다.',
+          en:'-7 < 0 holds, so n = -n makes it 7. A positive n would skip the if and print unchanged.'}},
+
+    {id:'c3-4', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 짝수와 홀수 구분', en:'Write code · even or odd'},
+     q:{ko:'정수 <code>n</code> 이 주어집니다. if-else 를 사용해 n 이 짝수이면 <code>짝수</code>, 홀수이면 <code>홀수</code> 를 출력하세요.',
+        en:'You are given an integer <code>n</code>. Using if-else, print <code>even</code> for an even number and <code>odd</code> for an odd one.'},
+     given:{ko:'n = 4 (채점할 때 홀수, 0, 음수로도 바뀝니다)', en:'n = 4 (grading also uses odd numbers, 0 and negatives)'},
+     example:{n:4},
+     tests:[{preset:{n:4}, out:{ko:'짝수', en:'even'}}, {preset:{n:7}, out:{ko:'홀수', en:'odd'}}, {preset:{n:0}, out:{ko:'짝수', en:'even'}}, {preset:{n:-3}, out:{ko:'홀수', en:'odd'}}],
+     must:[{re:'\\bif\\b', msg:{ko:'if 문을 사용해야 합니다.', en:'Use an if statement.'}}, {re:'\\belse\\b', msg:{ko:'else 를 사용해야 합니다.', en:'Use else.'}}],
+     hint:{ko:'조건은 n % 2 == 0 입니다. if 줄 끝의 콜론(:)과 들여쓰기를 확인하세요.', en:'The test is n % 2 == 0. Mind the colon and indentation.'},
+     answer:{ko:'if n % 2 == 0:\n    print("짝수")\nelse:\n    print("홀수")', en:'if n % 2 == 0:\n    print("even")\nelse:\n    print("odd")'}},
+
+    {id:'c3-5', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 두 수 중 큰 값', en:'Write code · the larger of two'},
+     q:{ko:'정수 <code>a</code>, <code>b</code> 가 주어집니다. <code>max()</code> 를 쓰지 말고 if-else 로 두 수 중 큰 값을 출력하세요. 두 수가 같으면 그 값을 출력합니다.',
+        en:'You are given integers <code>a</code> and <code>b</code>. Without <code>max()</code>, use if-else to print the larger. If equal, print that value.'},
+     given:{ko:'a = 3, b = 8 (채점할 때 다른 값으로 바뀝니다)', en:'a = 3, b = 8 (grading uses other values too)'},
+     example:{a:3, b:8},
+     tests:[{preset:{a:3, b:8}, out:'8'}, {preset:{a:10, b:-2}, out:'10'}, {preset:{a:5, b:5}, out:'5'}, {preset:{a:-7, b:-1}, out:'-1'}],
+     must:[{re:'\\bmax\\s*\\(', not:true, msg:{ko:'max() 없이 if 로 비교해야 합니다.', en:'Compare with if, not max().'}}, {re:'\\bif\\b', msg:{ko:'if 문을 사용해야 합니다.', en:'Use an if statement.'}}],
+     hint:{ko:'if a >= b: 이면 a 를, 아니면 b 를 출력합니다.', en:'if a >= b: print a, else print b.'},
+     answer:{ko:'if a >= b:\n    print(a)\nelse:\n    print(b)', en:'if a >= b:\n    print(a)\nelse:\n    print(b)'}},
+
+    /* ---------- 난이도 중 ---------- */
+    {id:'c3-6', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · 조건 순서의 함정과 중첩 if', en:'Write the output · condition order and a nested if'},
+     q:{ko:'아래 코드는 조건의 순서가 잘못되어 있습니다. 어떤 길이 실행되는지 정확히 따라간 뒤, 이어지는 중첩 if 의 결과까지 줄마다 적으세요.',
+        en:'The conditions below are in the wrong order. Trace exactly which branch runs, then the nested if, and write each line.'},
+     code:{ko:'temp = 35\nif temp >= 20:\n    print("따뜻함")\nelif temp >= 30:\n    print("더움")\nelse:\n    print("추움")\n\nif temp > 30:\n    if temp > 40:\n        print("위험")\n    else:\n        print("주의")',
+           en:'temp = 35\nif temp >= 20:\n    print("warm")\nelif temp >= 30:\n    print("hot")\nelse:\n    print("cold")\n\nif temp > 30:\n    if temp > 40:\n        print("danger")\n    else:\n        print("caution")'},
+     out:{ko:'따뜻함\n주의', en:'warm\ncaution'},
+     hint:{ko:'35 >= 20 이 가장 먼저 참이 되므로 elif temp >= 30 은 검사하지 않습니다. 안쪽 else 는 if temp > 40 과 짝입니다.',
+           en:'35 >= 20 is true first, so elif temp >= 30 is never checked. The inner else pairs with if temp > 40.'},
+     why:{ko:'더운 날씨를 판정하려면 큰 기준(30)을 먼저 검사해야 하는데, 20 이 먼저 와서 35 도도 「따뜻함」이 됩니다. 아래 중첩 if 에서는 35 > 30 이 참이고 35 > 40 이 거짓이므로 「주의」입니다.',
+          en:'The bigger threshold (30) should come first; with 20 first even 35 is "warm". Below, 35 > 30 holds and 35 > 40 fails, so "caution".'}},
+
+    {id:'c3-7', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · and, or, not 이 들어간 조건', en:'Write the output · conditions with and, or, not'},
+     q:{ko:'나이 15 세, 회원 여부 True 일 때 아래 코드의 출력 결과를 줄마다 적으세요. and 는 두 조건이 모두 참일 때, or 는 하나라도 참일 때 참이며, not 은 참과 거짓을 뒤집습니다.',
+        en:'With age 15 and member True, write each line of output. and needs both true, or needs one, not flips.'},
+     code:'age = 15\nmember = True\n\nif age >= 19 and member:\n    print("A")\nelif age >= 13 or member:\n    print("B")\nelse:\n    print("C")\n\nif not member:\n    print("X")\nelse:\n    print("Y")',
+     out:'B\nY',
+     hint:{ko:'15 >= 19 가 거짓이라 and 전체가 거짓입니다. 15 >= 13 이 참이라 or 는 참입니다. not True 는 False 입니다.',
+           en:'15 >= 19 is false, so the and fails. 15 >= 13 is true, so the or succeeds. not True is False.'},
+     why:{ko:'첫 조건은 나이 조건이 거짓이라 전체가 거짓, 둘째 조건은 나이 조건만으로도 참이라 B 를 출력합니다. member 가 True 이므로 not member 는 False 가 되어 else 의 Y 를 출력합니다.',
+          en:'The first test fails on age; the second passes on age alone, so B. member is True, so not member is False and else prints Y.'}},
+
+    {id:'c3-8', kind:'blank', lv:'mid',
+     title:{ko:'빈칸 채우기 · 점수 구간별 등급', en:'Fill the blanks · grade bands'},
+     q:{ko:'점수에 따라 A, B, C, F 등급을 정하는 코드입니다. 빈칸 두 곳에 알맞은 키워드를 넣어 72 점이 C 로 판정되도록 완성하세요.',
+        en:'Code that assigns A, B, C or F. Fill both blanks with keywords so 72 comes out as C.'},
+     code:{ko:'score = 72\nif score >= 90:\n    grade = "A"\n__1__ score >= 80:\n    grade = "B"\nelif score >= 70:\n    grade = "C"\n__2__:\n    grade = "F"\nprint(grade)        # C',
+           en:'score = 72\nif score >= 90:\n    grade = "A"\n__1__ score >= 80:\n    grade = "B"\nelif score >= 70:\n    grade = "C"\n__2__:\n    grade = "F"\nprint(grade)        # C'},
+     blanks:[{acc:['elif']}, {acc:['else']}],
+     hint:{ko:'첫째 빈칸 뒤에는 조건이 있고, 둘째 빈칸 뒤에는 조건이 없습니다.', en:'The first blank is followed by a condition; the second is not.'},
+     why:{ko:'조건이 이어지는 자리는 elif, 앞의 조건이 모두 거짓일 때 실행되는 마지막 자리는 else 입니다. 72 는 90, 80 기준에서 거짓이고 70 기준에서 참이므로 C 입니다.',
+          en:'A follow-on condition is elif; the catch-all at the end is else. 72 fails 90 and 80 and passes 70, so C.'}},
+
+    {id:'c3-9', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 세 수 중 가장 큰 값', en:'Write code · the largest of three'},
+     q:{ko:'정수 <code>a</code>, <code>b</code>, <code>c</code> 가 주어집니다. <code>max()</code> 를 쓰지 말고 조건문으로 세 수 중 가장 큰 값을 출력하세요. 같은 값이 있어도 그 값을 한 번만 출력합니다.',
+        en:'You are given integers <code>a</code>, <code>b</code> and <code>c</code>. Without <code>max()</code>, use conditions to print the largest, once, even with ties.'},
+     given:{ko:'a = 9, b = 4, c = 7 (채점할 때 같은 값, 음수를 포함해 바뀝니다)', en:'a = 9, b = 4, c = 7 (grading includes ties and negatives)'},
+     example:{a:9, b:4, c:7},
+     tests:[{preset:{a:9, b:4, c:7}, out:'9'}, {preset:{a:1, b:2, c:3}, out:'3'}, {preset:{a:2, b:8, c:5}, out:'8'}, {preset:{a:6, b:6, c:1}, out:'6'}, {preset:{a:-1, b:-5, c:-3}, out:'-1'}],
+     must:[{re:'\\bmax\\s*\\(', not:true, msg:{ko:'max() 없이 조건문으로 비교해야 합니다.', en:'Compare with conditions, not max().'}}],
+     hint:{ko:'a 가 b 이상이고 c 이상이면 a, 그렇지 않고 b 가 c 이상이면 b, 나머지는 c 입니다. 또는 big = a 로 두고 b, c 와 차례로 비교해 더 크면 바꾸는 방법도 있습니다.',
+           en:'If a >= b and a >= c, it is a; elif b >= c, b; else c. Or start with big = a and replace it when b or c is bigger.'},
+     answer:{ko:'if a >= b and a >= c:\n    print(a)\nelif b >= c:\n    print(b)\nelse:\n    print(c)', en:'if a >= b and a >= c:\n    print(a)\nelif b >= c:\n    print(b)\nelse:\n    print(c)'}},
+
+    {id:'c3-10', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 나이에 따른 입장료', en:'Write code · admission by age'},
+     q:{ko:'나이 <code>age</code> 가 주어집니다. 7 세 이하는 0 원, 8~18 세는 5000 원, 19~64 세는 10000 원, 65 세 이상은 3000 원입니다. if-elif-else 로 입장료를 구해 숫자만 출력하세요. 경계 나이(7, 8, 18, 19, 64, 65)가 정확히 판정되어야 합니다.',
+        en:'You are given <code>age</code>. 7 and under pay 0, 8-18 pay 5000, 19-64 pay 10000, 65 and over pay 3000. Use if-elif-else and print the fee only. Boundary ages must be exact.'},
+     given:{ko:'age = 25 (채점할 때 경계 나이를 포함해 바뀝니다)', en:'age = 25 (grading includes every boundary)'},
+     example:{age:25},
+     tests:[{preset:{age:25}, out:'10000'}, {preset:{age:0}, out:'0'}, {preset:{age:7}, out:'0'}, {preset:{age:8}, out:'5000'}, {preset:{age:18}, out:'5000'},
+            {preset:{age:19}, out:'10000'}, {preset:{age:64}, out:'10000'}, {preset:{age:65}, out:'3000'}, {preset:{age:80}, out:'3000'}],
+     must:[{re:'\\belif\\b', msg:{ko:'elif 로 구간을 이어야 합니다.', en:'Chain the bands with elif.'}}],
+     hint:{ko:'작은 나이부터 age <= 7, age <= 18, age <= 64 순서로 검사하면 각 elif 에서 아래 경계를 다시 쓸 필요가 없습니다.',
+           en:'Test age <= 7, then age <= 18, then age <= 64; each elif already excludes the lower bands.'},
+     answer:{ko:'if age <= 7:\n    fee = 0\nelif age <= 18:\n    fee = 5000\nelif age <= 64:\n    fee = 10000\nelse:\n    fee = 3000\nprint(fee)', en:'if age <= 7:\n    fee = 0\nelif age <= 18:\n    fee = 5000\nelif age <= 64:\n    fee = 10000\nelse:\n    fee = 3000\nprint(fee)'}},
+
+    /* ---------- 난이도 상 ---------- */
+    {id:'c3-11', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 순서가 잘못된 배수 판정', en:'Write the output · multiples checked in the wrong order'},
+     q:{ko:'3 의 배수는 Fizz, 15 의 배수는 FizzBuzz 를 출력하려는 코드인데 조건의 순서에 문제가 있습니다. 그 아래 따로 선 if 와 and·or 가 섞인 식까지 실행 결과를 줄마다 적으세요.',
+        en:'Meant to print Fizz for multiples of 3 and FizzBuzz for 15, but the order is off. Include the separate if and the and/or expression, and write each line.'},
+     code:'n = 30\nif n % 3 == 0:\n    print("Fizz")\nelif n % 15 == 0:\n    print("FizzBuzz")\nelse:\n    print(n)\n\nif n % 5 == 0:\n    print("Buzz")\n\nprint(n > 10 and n % 7 == 0 or n == 30)',
+     out:'Fizz\nBuzz\nTrue',
+     hint:{ko:'30 은 3 의 배수이므로 첫 조건에서 멈춥니다. and 는 or 보다 먼저 계산됩니다: (n > 10 and n % 7 == 0) or n == 30.',
+           en:'30 is a multiple of 3, so the chain stops at the first test. and binds before or: (n > 10 and n % 7 == 0) or n == 30.'},
+     why:{ko:'15 의 배수는 모두 3 의 배수이므로 더 좁은 조건(15)을 먼저 써야 합니다. 여기서는 Fizz 만 나오고 FizzBuzz 길은 실행되지 않습니다. 따로 선 if 에서 30 % 5 == 0 이라 Buzz, 마지막 식은 (True and False) or True = True 입니다.',
+          en:'Every multiple of 15 is a multiple of 3, so the narrower test must come first; here only Fizz prints. The separate if prints Buzz, and the last line is (True and False) or True = True.'}},
+
+    {id:'c3-12', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 숫자 0 과 글자 "0" 의 참·거짓', en:'Write the output · the number 0 versus the text "0"'},
+     q:{ko:'if 뒤에는 비교식이 아닌 값이 바로 올 수도 있습니다. 숫자 0 과 빈 글자는 거짓으로, 0 이 아닌 숫자와 내용이 있는 글자는 참으로 취급됩니다. 아래 코드의 출력 결과를 줄마다 적으세요.',
+        en:'An if can test a plain value. The number 0 and empty text count as false; other numbers and non-empty text count as true. Write each line.'},
+     code:'a = 0\nb = "0"\n\nif a:\n    print("A")\nelse:\n    print("not A")\n\nif b:\n    print("B")\nelse:\n    print("not B")\n\nif a == int(b):\n    print("same")',
+     out:'not A\nB\nsame',
+     hint:{ko:'b 는 숫자가 아니라 글자 "0" 한 개가 들어 있는 문자열이므로 비어 있지 않습니다. int("0") 은 숫자 0 입니다.',
+           en:'b is the one-character text "0", which is not empty. int("0") is the number 0.'},
+     why:{ko:'숫자 0 은 거짓이라 else 의 not A 가 나옵니다. 문자열 "0" 은 내용이 있으므로 참이 되어 B 가 나옵니다. int("0") 은 0 이므로 a == 0 이 참이 되어 same 이 출력됩니다.',
+          en:'0 is falsy, so not A. "0" has content, so it is truthy: B. int("0") is 0, so a == 0 holds: same.'}},
+
+    {id:'c3-13', kind:'blank', lv:'hard',
+     title:{ko:'빈칸 채우기 · 윤년 판정 조건', en:'Fill the blanks · the leap-year condition'},
+     q:{ko:'4 로 나누어떨어지고 100 으로 나누어떨어지지 않는 해, 또는 400 으로 나누어떨어지는 해가 윤년입니다. 빈칸 두 곳에 논리 연산자를 넣어 1900 년이 평년으로 판정되도록 완성하세요.',
+        en:'A leap year divides by 4 but not by 100, or divides by 400. Fill both blanks with logic operators so 1900 comes out as a common year.'},
+     code:{ko:'year = 1900\nif (year % 4 == 0 __1__ year % 100 != 0) __2__ year % 400 == 0:\n    print("윤년")\nelse:\n    print("평년")        # 평년',
+           en:'year = 1900\nif (year % 4 == 0 __1__ year % 100 != 0) __2__ year % 400 == 0:\n    print("leap")\nelse:\n    print("common")      # common'},
+     blanks:[{acc:['and']}, {acc:['or']}],
+     hint:{ko:'괄호 안은 「4 의 배수이면서 100 의 배수가 아님」, 괄호 밖은 「또는 400 의 배수」입니다.', en:'Inside the brackets: a multiple of 4 and not of 100. Outside: or a multiple of 400.'},
+     why:{ko:'1900 은 4 의 배수지만 100 의 배수이므로 괄호 안이 거짓이고, 400 의 배수도 아니므로 전체가 거짓이 되어 평년입니다. 2000 년은 400 의 배수라 or 뒤가 참이 되어 윤년입니다.',
+          en:'1900 divides by 4 but also by 100, so the brackets fail, and it is not a multiple of 400: common. 2000 passes the 400 test: leap.'}},
+
+    {id:'c3-14', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 삼각형의 종류 판별', en:'Write code · classify a triangle'},
+     q:{ko:'세 변의 길이 <code>a</code>, <code>b</code>, <code>c</code>(양의 정수)가 주어집니다. 가장 긴 변이 나머지 두 변의 합보다 작지 않으면 <code>삼각형 아님</code>, 세 변이 모두 같으면 <code>정삼각형</code>, 두 변만 같으면 <code>이등변삼각형</code>, 모두 다르면 <code>일반 삼각형</code> 을 출력하세요. 변은 어떤 순서로든 주어질 수 있습니다.',
+        en:'You are given three side lengths <code>a</code>, <code>b</code>, <code>c</code>. If the longest side is not shorter than the other two combined, print <code>not a triangle</code>; all equal, <code>equilateral</code>; exactly two equal, <code>isosceles</code>; otherwise <code>scalene</code>. Sides can come in any order.'},
+     given:{ko:'a = 3, b = 4, c = 5 (채점할 때 순서를 바꾼 여러 조합으로 바뀝니다)', en:'a = 3, b = 4, c = 5 (grading shuffles many combinations)'},
+     example:{a:3, b:4, c:5},
+     tests:[{preset:{a:3, b:4, c:5}, out:{ko:'일반 삼각형', en:'scalene'}}, {preset:{a:3, b:3, c:3}, out:{ko:'정삼각형', en:'equilateral'}},
+            {preset:{a:3, b:3, c:5}, out:{ko:'이등변삼각형', en:'isosceles'}}, {preset:{a:5, b:3, c:3}, out:{ko:'이등변삼각형', en:'isosceles'}},
+            {preset:{a:1, b:2, c:3}, out:{ko:'삼각형 아님', en:'not a triangle'}}, {preset:{a:2, b:9, c:3}, out:{ko:'삼각형 아님', en:'not a triangle'}},
+            {preset:{a:5, b:9, c:5}, out:{ko:'이등변삼각형', en:'isosceles'}}],
+     hint:{ko:'삼각형이 되는 조건은 a + b > c and b + c > a and a + c > b 입니다. 이 조건이 거짓인 경우를 가장 먼저 걸러 낸 뒤, a == b == c, 그다음 a == b or b == c or a == c 순서로 검사하세요.',
+           en:'A triangle needs a + b > c and b + c > a and a + c > b. Filter out the failures first, then test a == b == c, then a == b or b == c or a == c.'},
+     answer:{ko:'if not (a + b > c and b + c > a and a + c > b):\n    print("삼각형 아님")\nelif a == b and b == c:\n    print("정삼각형")\nelif a == b or b == c or a == c:\n    print("이등변삼각형")\nelse:\n    print("일반 삼각형")',
+             en:'if not (a + b > c and b + c > a and a + c > b):\n    print("not a triangle")\nelif a == b and b == c:\n    print("equilateral")\nelif a == b or b == c or a == c:\n    print("isosceles")\nelse:\n    print("scalene")'}},
+
+    {id:'c3-15', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 그 달의 날짜 수', en:'Write code · days in a month'},
+     q:{ko:'연도 <code>year</code> 와 월 <code>month</code>(1~12)가 주어집니다. 그 달이 며칠까지 있는지 숫자로 출력하세요. 4, 6, 9, 11 월은 30 일, 2 월은 윤년이면 29 일이고 아니면 28 일, 나머지 달은 31 일입니다. 윤년 규칙은 400 의 배수이거나, 4 의 배수이면서 100 의 배수가 아닌 해입니다.',
+        en:'You are given <code>year</code> and <code>month</code> (1-12). Print how many days the month has: April, June, September and November have 30; February has 29 in a leap year and 28 otherwise; the rest have 31. A leap year is a multiple of 400, or a multiple of 4 that is not a multiple of 100.'},
+     given:{ko:'year = 2024, month = 2 → 29 (채점할 때 여러 연도와 월로 바뀝니다)', en:'year = 2024, month = 2 → 29 (grading tries many years and months)'},
+     example:{year:2024, month:2},
+     tests:[{preset:{year:2024, month:2}, out:'29'}, {preset:{year:2023, month:2}, out:'28'}, {preset:{year:1900, month:2}, out:'28'}, {preset:{year:2000, month:2}, out:'29'},
+            {preset:{year:2023, month:4}, out:'30'}, {preset:{year:2023, month:11}, out:'30'}, {preset:{year:2023, month:12}, out:'31'}, {preset:{year:2023, month:1}, out:'31'}, {preset:{year:2023, month:9}, out:'30'}],
+     hint:{ko:'먼저 month == 2 인지 검사하고, 그 안에서 윤년인지 다시 판단하는 중첩 if 를 씁니다. 그다음 elif month == 4 or month == 6 or month == 9 or month == 11 로 30 일인 달을 처리합니다.',
+           en:'Check month == 2 first and decide the leap year inside it with a nested if. Then elif month == 4 or month == 6 or month == 9 or month == 11 for 30 days.'},
+     answer:{ko:'if month == 2:\n    if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:\n        days = 29\n    else:\n        days = 28\nelif month == 4 or month == 6 or month == 9 or month == 11:\n    days = 30\nelse:\n    days = 31\nprint(days)',
+             en:'if month == 2:\n    if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:\n        days = 29\n    else:\n        days = 28\nelif month == 4 or month == 6 or month == 9 or month == 11:\n    days = 30\nelse:\n    days = 31\nprint(days)'}}
+  ],
+
+  /* ===================== 4장 · 반복문 ===================== */
+  c4:[
+    /* ---------- 난이도 하 ---------- */
+    {id:'c4-1', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · for 와 range', en:'Write the output · for and range'},
+     q:{ko:'<code>range(1, 4)</code> 는 1 부터 3 까지의 수를 차례로 만듭니다(끝 숫자 4 는 포함하지 않음). 반복할 때마다 i 와 i 의 제곱을 출력하는 아래 코드의 결과를 줄마다 적으세요.',
+        en:'<code>range(1, 4)</code> produces 1 to 3 (4 is excluded). Write what this prints on each pass: i and i squared.'},
+     code:'for i in range(1, 4):\n    print(i, i * i)',
+     out:'1 1\n2 4\n3 9',
+     hint:{ko:'i 는 1, 2, 3 순서로 바뀌고 각각 한 줄씩 출력됩니다.', en:'i takes 1, 2, 3, one line each.'},
+     why:{ko:'range(1, 4) 는 1, 2, 3 을 만들고, 반복마다 i 와 i × i 를 출력하므로 1 1, 2 4, 3 9 세 줄입니다.', en:'range(1, 4) gives 1, 2, 3; each pass prints i and i × i.'}},
+
+    {id:'c4-2', kind:'output', lv:'easy',
+     title:{ko:'출력 결과 쓰기 · while 로 세 배씩 늘리기', en:'Write the output · tripling with while'},
+     q:{ko:'while 은 조건이 참인 동안 반복합니다. 반복 안에서 n 을 세 배로 만든 뒤 출력하는 아래 코드의 결과를 줄마다 적으세요. 조건은 반복을 시작하기 전에 검사한다는 점에 주의하세요.',
+        en:'while repeats as long as its condition holds. Write each line printed as n is tripled. The condition is checked before each pass.'},
+     code:'n = 1\nwhile n < 20:\n    n = n * 3\n    print(n)',
+     out:'3\n9\n27',
+     hint:{ko:'n 이 9 일 때 9 < 20 이 참이므로 한 번 더 반복해 27 을 출력합니다. 그 뒤 27 < 20 이 거짓이 되어 멈춥니다.', en:'At n = 9, 9 < 20 holds, so one more pass prints 27; then 27 < 20 fails.'},
+     why:{ko:'1 → 3, 3 → 9, 9 → 27 로 세 번 반복합니다. 마지막 27 은 20 보다 크지만 조건 검사 전에 이미 출력된 값입니다.', en:'Three passes: 3, 9, 27. 27 exceeds 20 but was printed before the next check.'}},
+
+    {id:'c4-3', kind:'blank', lv:'easy',
+     title:{ko:'빈칸 채우기 · 1 부터 10 까지의 합', en:'Fill the blanks · sum of 1 to 10'},
+     q:{ko:'1 부터 10 까지 더한 값을 구하는 코드입니다. 빈칸 두 곳을 채워 실행 결과가 <code>55</code> 가 되도록 완성하세요.',
+        en:'Code that adds 1 to 10. Fill both blanks so the output is <code>55</code>.'},
+     code:{ko:'total = 0\nfor i in __1__(1, 11):\n    total __2__ i        # total 에 i 를 더해 다시 저장\nprint(total)             # 55',
+           en:'total = 0\nfor i in __1__(1, 11):\n    total __2__ i        # add i to total and store it back\nprint(total)             # 55'},
+     blanks:[{acc:['range']}, {acc:['+=']}],
+     hint:{ko:'연속된 수를 만드는 함수와, 더해서 다시 저장하는 복합 대입 연산자입니다.', en:'The function that produces a run of numbers, and the compound add-and-store operator.'},
+     why:{ko:'range(1, 11) 은 1 부터 10 까지를 만들고, total += i 는 total = total + i 와 같습니다. 1 + 2 + … + 10 = 55 입니다.',
+          en:'range(1, 11) gives 1 to 10, and total += i means total = total + i. 1 + … + 10 = 55.'}},
+
+    {id:'c4-4', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 1 부터 n 까지 한 줄씩 출력', en:'Write code · print 1 to n'},
+     q:{ko:'정수 <code>n</code>(1 이상)이 주어집니다. for 와 range 를 사용해 1 부터 n 까지의 수를 한 줄에 하나씩 출력하세요.',
+        en:'You are given an integer <code>n</code> (1 or more). Use for and range to print 1 to n, one number per line.'},
+     given:{ko:'n = 3 (채점할 때 1, 5 로도 바뀝니다)', en:'n = 3 (grading also uses 1 and 5)'},
+     example:{n:3},
+     tests:[{preset:{n:3}, out:'1\n2\n3'}, {preset:{n:1}, out:'1'}, {preset:{n:5}, out:'1\n2\n3\n4\n5'}],
+     must:[{re:'\\bfor\\b', msg:{ko:'for 반복문을 사용해야 합니다.', en:'Use a for loop.'}}],
+     hint:{ko:'range(1, n + 1) 이어야 n 까지 포함됩니다.', en:'range(1, n + 1) includes n.'},
+     answer:{ko:'for i in range(1, n + 1):\n    print(i)', en:'for i in range(1, n + 1):\n    print(i)'}},
+
+    {id:'c4-5', kind:'code', lv:'easy',
+     title:{ko:'코드 작성 · 1 부터 n 까지의 합', en:'Write code · sum of 1 to n'},
+     q:{ko:'정수 <code>n</code>(0 이상)이 주어집니다. 반복문으로 1 부터 n 까지 모두 더한 값을 출력하세요. n 이 0 이면 0 을 출력합니다. <code>sum()</code> 함수는 쓰지 않습니다.',
+        en:'You are given <code>n</code> (0 or more). Use a loop to add 1 to n and print the total; print 0 for n = 0. No <code>sum()</code>.'},
+     given:{ko:'n = 10 → 55 (채점할 때 0, 1, 100 으로도 바뀝니다)', en:'n = 10 → 55 (grading also uses 0, 1 and 100)'},
+     example:{n:10},
+     tests:[{preset:{n:10}, out:'55'}, {preset:{n:1}, out:'1'}, {preset:{n:100}, out:'5050'}, {preset:{n:0}, out:'0'}],
+     must:[{re:'\\b(for|while)\\b', msg:{ko:'for 또는 while 반복문을 사용해야 합니다.', en:'Use a for or while loop.'}}, {re:'\\bsum\\s*\\(', not:true, msg:{ko:'sum() 없이 반복문으로 더해야 합니다.', en:'Add in a loop, not with sum().'}}],
+     hint:{ko:'반복 전에 total = 0 을 두고, for i in range(1, n + 1): 안에서 total += i 를 합니다.', en:'Set total = 0 before the loop and do total += i inside for i in range(1, n + 1):.'},
+     answer:{ko:'total = 0\nfor i in range(1, n + 1):\n    total += i\nprint(total)', en:'total = 0\nfor i in range(1, n + 1):\n    total += i\nprint(total)'}},
+
+    /* ---------- 난이도 중 ---------- */
+    {id:'c4-6', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · 반복문 안의 반복문', en:'Write the output · a loop inside a loop'},
+     q:{ko:'바깥 반복이 한 번 돌 때마다 안쪽 반복은 처음부터 끝까지 모두 돕니다. 아래 코드의 출력 결과를 줄마다 그대로 적으세요.',
+        en:'Each pass of the outer loop runs the inner loop from start to finish. Write the output exactly.'},
+     code:'for i in range(1, 3):\n    for j in range(1, 4):\n        print(i, j)',
+     out:'1 1\n1 2\n1 3\n2 1\n2 2\n2 3',
+     hint:{ko:'i 가 1 일 때 j 는 1, 2, 3 을 모두 돌고, 그다음 i 가 2 가 되어 j 가 다시 1 부터 돕니다.', en:'With i = 1, j runs 1, 2, 3; then i becomes 2 and j starts again from 1.'},
+     why:{ko:'바깥 2 번 × 안쪽 3 번 = 6 줄입니다. 안쪽 변수 j 가 먼저 바뀌고, 안쪽이 끝나야 바깥 변수 i 가 바뀝니다.', en:'2 outer × 3 inner = 6 lines. j changes first; i changes only after the inner loop ends.'}},
+
+    {id:'c4-7', kind:'output', lv:'mid',
+     title:{ko:'출력 결과 쓰기 · continue 와 break', en:'Write the output · continue and break'},
+     q:{ko:'<code>continue</code> 는 이번 반복의 남은 부분을 건너뛰고 다음 반복으로 가며, <code>break</code> 는 반복 전체를 끝냅니다. 아래 코드의 출력 결과를 줄마다 적으세요. 반복이 끝난 뒤 n 에 남아 있는 값도 출력됩니다.',
+        en:'<code>continue</code> skips the rest of this pass; <code>break</code> ends the loop. Write each line, including the value left in n afterwards.'},
+     code:'for n in range(1, 10):\n    if n % 2 == 0:\n        continue\n    if n > 6:\n        break\n    print(n)\nprint(n)',
+     out:'1\n3\n5\n7',
+     hint:{ko:'짝수는 continue 로 출력하지 않고 넘어갑니다. 홀수 7 에서 7 > 6 이 참이 되어 break 로 끝나며, 그때 n 은 7 입니다.',
+           en:'Even numbers are skipped. At 7, 7 > 6 holds and break ends the loop, leaving n = 7.'},
+     why:{ko:'1, 3, 5 는 두 조건을 모두 통과해 출력됩니다. 7 에서 break 가 실행되어 반복이 끝나고, 마지막 줄의 print(n) 이 7 을 출력합니다.', en:'1, 3 and 5 pass both checks. break fires at 7, and the final print shows 7.'}},
+
+    {id:'c4-8', kind:'blank', lv:'mid',
+     title:{ko:'빈칸 채우기 · 목록에서 3 의 배수 세기', en:'Fill the blanks · counting multiples of 3'},
+     q:{ko:'목록에 들어 있는 수 중 3 의 배수가 몇 개인지 세는 코드입니다. 빈칸 두 곳을 채워 실행 결과가 <code>3</code> 이 되도록 완성하세요.',
+        en:'Code that counts the multiples of 3 in a list. Fill both blanks so the output is <code>3</code>.'},
+     code:{ko:'nums = [3, 7, 9, 12, 14]\ncount = 0\nfor x __1__ nums:\n    if x % 3 == 0:\n        count __2__ 1\nprint(count)        # 3',
+           en:'nums = [3, 7, 9, 12, 14]\ncount = 0\nfor x __1__ nums:\n    if x % 3 == 0:\n        count __2__ 1\nprint(count)        # 3'},
+     blanks:[{acc:['in']}, {acc:['+=']}],
+     hint:{ko:'for 변수 ___ 목록: 형태의 키워드와, 1 씩 늘리는 복합 대입 연산자입니다.', en:'The keyword in "for var ___ list:", and the compound operator that adds 1.'},
+     why:{ko:'for x in nums 는 목록의 값을 하나씩 x 에 넣으며 반복합니다. 3, 9, 12 가 3 의 배수이므로 count += 1 이 세 번 실행됩니다.',
+          en:'for x in nums walks the list one value at a time. 3, 9 and 12 qualify, so count += 1 runs three times.'}},
+
+    {id:'c4-9', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 팩토리얼 계산', en:'Write code · factorial'},
+     q:{ko:'정수 <code>n</code>(0 이상)이 주어집니다. n! = 1 × 2 × … × n 을 반복문으로 계산해 출력하세요. 0! 은 1 입니다.',
+        en:'You are given <code>n</code> (0 or more). Compute n! = 1 × 2 × … × n with a loop and print it. 0! is 1.'},
+     given:{ko:'n = 5 → 120 (채점할 때 0, 1, 10 으로도 바뀝니다)', en:'n = 5 → 120 (grading also uses 0, 1 and 10)'},
+     example:{n:5},
+     tests:[{preset:{n:5}, out:'120'}, {preset:{n:0}, out:'1'}, {preset:{n:1}, out:'1'}, {preset:{n:10}, out:'3628800'}],
+     must:[{re:'\\b(for|while)\\b', msg:{ko:'반복문을 사용해야 합니다.', en:'Use a loop.'}}],
+     hint:{ko:'곱셈을 쌓을 변수는 0 이 아니라 1 로 시작해야 합니다. result = 1 로 두고 result *= i 를 반복합니다.', en:'A running product starts at 1, not 0: result = 1, then result *= i.'},
+     answer:{ko:'result = 1\nfor i in range(1, n + 1):\n    result *= i\nprint(result)', en:'result = 1\nfor i in range(1, n + 1):\n    result *= i\nprint(result)'}},
+
+    {id:'c4-10', kind:'code', lv:'mid',
+     title:{ko:'코드 작성 · 점수 목록의 평균', en:'Write code · average of a score list'},
+     q:{ko:'점수 목록 <code>scores</code> 가 주어집니다(1 개 이상). <code>sum()</code> 을 쓰지 말고 for 로 합계를 구한 뒤, 개수 <code>len(scores)</code> 로 나눈 평균을 <code>round(평균, 1)</code> 로 소수 첫째 자리까지 반올림해 출력하세요.',
+        en:'You are given a list <code>scores</code> (at least one). Without <code>sum()</code>, total it with for, divide by <code>len(scores)</code>, and print <code>round(average, 1)</code>.'},
+     given:{ko:'scores = [80, 90, 70] → 80.0 (채점할 때 다른 목록으로 바뀝니다)', en:'scores = [80, 90, 70] → 80.0 (grading uses other lists too)'},
+     example:{scores:[80, 90, 70]},
+     tests:[{preset:{scores:[80, 90, 70]}, out:'80.0'}, {preset:{scores:[100]}, out:'100.0'}, {preset:{scores:[1, 2]}, out:'1.5'}, {preset:{scores:[77, 85, 92, 60]}, out:'78.5'}],
+     must:[{re:'\\bfor\\b', msg:{ko:'for 반복문으로 합계를 구해야 합니다.', en:'Total it with a for loop.'}}, {re:'\\bsum\\s*\\(', not:true, msg:{ko:'sum() 없이 반복문으로 더해야 합니다.', en:'Add in a loop, not with sum().'}}],
+     hint:{ko:'total = 0 으로 시작해 for s in scores: total += s 로 더한 뒤 total / len(scores) 를 구합니다.', en:'total = 0, for s in scores: total += s, then total / len(scores).'},
+     answer:{ko:'total = 0\nfor s in scores:\n    total += s\navg = total / len(scores)\nprint(round(avg, 1))', en:'total = 0\nfor s in scores:\n    total += s\navg = total / len(scores)\nprint(round(avg, 1))'}},
+
+    /* ---------- 난이도 상 ---------- */
+    {id:'c4-11', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 규칙에 따라 1 이 될 때까지 반복', en:'Write the output · repeat until it reaches 1'},
+     q:{ko:'짝수이면 2 로 나누고 홀수이면 3 을 곱해 1 을 더하는 규칙을 n 이 1 이 될 때까지 반복합니다. 반복할 때마다 바뀐 n 을 출력하고, 마지막에 반복 횟수를 출력합니다. 출력 결과를 줄마다 적으세요.',
+        en:'Halve n when even, or triple it and add 1 when odd, until n is 1. Each pass prints the new n; at the end the number of steps prints. Write each line.'},
+     code:'n = 6\nsteps = 0\nwhile n != 1:\n    if n % 2 == 0:\n        n = n // 2\n    else:\n        n = 3 * n + 1\n    steps += 1\n    print(n)\nprint(steps)',
+     out:'3\n10\n5\n16\n8\n4\n2\n1\n8',
+     hint:{ko:'6 → 3 → 10 → 5 → 16 → … 순서입니다. n 이 1 이 된 반복에서도 1 을 출력한 뒤 조건 검사에서 멈춥니다.', en:'6 → 3 → 10 → 5 → 16 → … The pass that reaches 1 still prints it before the check stops the loop.'},
+     why:{ko:'3, 10, 5, 16, 8, 4, 2, 1 의 여덟 값을 거치며 반복마다 steps 가 1 씩 늘어 8 이 됩니다. 반복 횟수가 미리 정해져 있지 않을 때 while 을 쓰는 대표적인 예입니다.',
+          en:'Eight values - 3, 10, 5, 16, 8, 4, 2, 1 - so steps ends at 8. A classic case for while: the number of passes is not known in advance.'}},
+
+    {id:'c4-12', kind:'output', lv:'hard',
+     title:{ko:'출력 결과 쓰기 · 안쪽 반복만 끝내는 break', en:'Write the output · a break that ends only the inner loop'},
+     q:{ko:'중첩 반복에서 <code>break</code> 는 자신이 들어 있는 안쪽 반복만 끝내고, 바깥 반복은 계속됩니다. 아래 코드의 출력 결과를 줄마다 적으세요. 마지막 줄은 반복이 모두 끝난 뒤 i 와 j 에 남은 값입니다.',
+        en:'In nested loops, <code>break</code> ends only the inner loop; the outer one carries on. Write each line, including the final values left in i and j.'},
+     code:'for i in range(1, 4):\n    for j in range(1, 4):\n        if j > i:\n            break\n        print(i, j)\nprint(i, j)',
+     out:'1 1\n2 1\n2 2\n3 1\n3 2\n3 3\n3 3',
+     hint:{ko:'i 가 1 이면 j 가 2 일 때 break, i 가 2 이면 j 가 3 일 때 break 됩니다. i 가 3 일 때는 break 없이 j 가 3 까지 돕니다.',
+           en:'With i = 1, break at j = 2; with i = 2, break at j = 3; with i = 3 no break, j runs to 3.'},
+     why:{ko:'j 가 i 보다 커지는 순간 안쪽 반복만 끝나므로 i 번째 줄에는 j 가 1 부터 i 까지 출력되어 계단 모양이 됩니다. 마지막 반복에서 i = 3, j = 3 이 남아 3 3 이 한 번 더 출력됩니다.',
+          en:'The inner loop stops once j exceeds i, so row i prints j from 1 to i - a staircase. The last pass leaves i = 3, j = 3, printed once more.'}},
+
+    {id:'c4-13', kind:'blank', lv:'hard',
+     title:{ko:'빈칸 채우기 · 소수 판정의 표시 변수와 break', en:'Fill the blanks · prime check with a flag and break'},
+     q:{ko:'2 부터 n - 1 까지 나누어 보다가 나누어떨어지는 수를 찾으면 소수가 아니라고 표시하고 더 볼 필요가 없으므로 반복을 끝내는 코드입니다. 빈칸 두 곳을 채워 완성하세요. 29 는 소수이므로 결과는 <code>True</code> 입니다.',
+        en:'Try dividing by 2 to n - 1; on finding a divisor, mark it not prime and stop looking. Fill both blanks. 29 is prime, so the output is <code>True</code>.'},
+     code:{ko:'n = 29\nis_prime = True\nfor d in range(2, n):\n    if n % d == 0:\n        is_prime = __1__     # 소수가 아니라고 표시\n        __2__                # 더 볼 필요가 없으니 반복을 끝낸다\nprint(is_prime)              # True',
+           en:'n = 29\nis_prime = True\nfor d in range(2, n):\n    if n % d == 0:\n        is_prime = __1__     # mark it not prime\n        __2__                # no need to look further\nprint(is_prime)              # True'},
+     blanks:[{acc:['False']}, {acc:['break']}],
+     hint:{ko:'첫째 빈칸은 True 의 반대 값(첫 글자 대문자), 둘째 빈칸은 반복을 즉시 끝내는 키워드입니다.', en:'The opposite of True (capital first letter), and the keyword that ends a loop at once.'},
+     why:{ko:'처음에 소수라고 가정(True)해 두고, 나누어떨어지는 수가 하나라도 나오면 False 로 바꾼 뒤 break 로 끝냅니다. 29 는 2~28 중 나누어떨어지는 수가 없어 True 가 그대로 남습니다.',
+          en:'Assume prime (True); any divisor flips it to False and break stops the search. 29 has no divisor from 2 to 28, so it stays True.'}},
+
+    {id:'c4-14', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · 소수인지 판정하기', en:'Write code · is it prime?'},
+     q:{ko:'2 이상의 정수 <code>n</code> 이 주어집니다. 1 과 자기 자신으로만 나누어떨어지는 수를 소수라고 합니다. 반복문으로 2 부터 n - 1 까지 나누어 보고, n 이 소수이면 True, 아니면 False 를 출력하세요.',
+        en:'You are given an integer <code>n</code> of 2 or more. A prime divides only by 1 and itself. Try 2 to n - 1 in a loop and print True if n is prime, False otherwise.'},
+     given:{ko:'n = 17 → True (채점할 때 2, 9, 49, 97, 100 등으로 바뀝니다)', en:'n = 17 → True (grading also uses 2, 9, 49, 97, 100 and more)'},
+     example:{n:17},
+     tests:[{preset:{n:17}, out:'True'}, {preset:{n:2}, out:'True'}, {preset:{n:9}, out:'False'}, {preset:{n:49}, out:'False'}, {preset:{n:97}, out:'True'}, {preset:{n:100}, out:'False'}],
+     must:[{re:'\\b(for|while)\\b', msg:{ko:'반복문으로 나누어 보아야 합니다.', en:'Use a loop to test the divisors.'}}],
+     hint:{ko:'is_prime = True 로 시작해, n % d == 0 인 d 를 찾으면 False 로 바꾸고 break 합니다. n 이 2 이면 range(2, 2) 가 비어 있어 True 가 그대로 남습니다.',
+           en:'Start with is_prime = True; on any d with n % d == 0 set it False and break. For n = 2, range(2, 2) is empty, so True stays.'},
+     answer:{ko:'is_prime = True\nfor d in range(2, n):\n    if n % d == 0:\n        is_prime = False\n        break\nprint(is_prime)', en:'is_prime = True\nfor d in range(2, n):\n    if n % d == 0:\n        is_prime = False\n        break\nprint(is_prime)'}},
+
+    {id:'c4-15', kind:'code', lv:'hard',
+     title:{ko:'코드 작성 · while 로 모든 자리 숫자의 합', en:'Write code · digit sum with while'},
+     q:{ko:'0 이상의 정수 <code>n</code> 이 주어집니다. 자릿수가 몇 개인지 미리 알 수 없으므로 while 반복문을 사용합니다. <code>str()</code> 을 쓰지 말고, 반복할 때마다 <code>n % 10</code> 으로 마지막 자리를 더하고 <code>n // 10</code> 으로 마지막 자리를 지워 가며 모든 자리 숫자의 합을 출력하세요.',
+        en:'You are given <code>n</code> (0 or more). Its length is unknown, so use while. Without <code>str()</code>, add <code>n % 10</code> and drop the last digit with <code>n // 10</code> on each pass, then print the digit sum.'},
+     given:{ko:'n = 4728 → 21 (채점할 때 0, 9, 100000, 99999 로도 바뀝니다)', en:'n = 4728 → 21 (grading also uses 0, 9, 100000 and 99999)'},
+     example:{n:4728},
+     tests:[{preset:{n:4728}, out:'21'}, {preset:{n:0}, out:'0'}, {preset:{n:9}, out:'9'}, {preset:{n:100000}, out:'1'}, {preset:{n:99999}, out:'45'}],
+     must:[{re:'\\bwhile\\b', msg:{ko:'while 반복문을 사용해야 합니다.', en:'Use a while loop.'}}, {re:'\\bstr\\s*\\(', not:true, msg:{ko:'str() 없이 % 와 // 로 풀어야 합니다.', en:'Solve it with % and //, not str().'}}],
+     hint:{ko:'total = 0 으로 두고 while n > 0: 안에서 total += n % 10, n = n // 10 을 반복합니다. n 이 0 이면 반복하지 않고 0 이 출력됩니다.',
+           en:'total = 0; while n > 0: total += n % 10, n = n // 10. For n = 0 the loop never runs and 0 prints.'},
+     answer:{ko:'total = 0\nwhile n > 0:\n    total += n % 10\n    n = n // 10\nprint(total)', en:'total = 0\nwhile n > 0:\n    total += n % 10\n    n = n // 10\nprint(total)'}}
+  ]
+};
+
+
+/* ---------- 연습문제 · 기록 저장 (이 브라우저 안에만 남는다) ---------- */
+var DRILL_KEY = 'pydrill-v1';
+var DRILL_STORE = (function(){
+  try{ return JSON.parse(localStorage.getItem(DRILL_KEY) || '{}') || {}; }catch(e){ return {}; }
+})();
+function drillSave(){
+  try{ localStorage.setItem(DRILL_KEY, JSON.stringify(DRILL_STORE)); }catch(e){}
+}
+function drillRec(id){
+  if(!DRILL_STORE[id]) DRILL_STORE[id] = {};
+  return DRILL_STORE[id];
+}
+function drillSolved(id){ return !!(DRILL_STORE[id] && DRILL_STORE[id].ok); }
+function drillMarkSolved(id){
+  var r = drillRec(id); r.ok = true; drillSave();
+  document.querySelectorAll('.drill[data-id="' + id + '"]').forEach(function(n){ n.classList.add('solved'); });
+  drillProgressRefresh();
+}
+function drillProgressRefresh(){
+  document.querySelectorAll('[data-drill-prog]').forEach(function(n){
+    var ch = n.getAttribute('data-drill-prog'), list = DRILLS[ch] || [], c = 0;
+    list.forEach(function(p){ if(drillSolved(p.id)) c++; });
+    n.textContent = (LANG === 'ko' ? '통과 ' : 'passed ') + c + ' / ' + list.length;
+    n.classList.toggle('all', c === list.length && list.length > 0);
+  });
+}
+
+/* ---------- 출력 비교 ---------- */
+function drillNorm(s){
+  var lines = String(s == null ? '' : s).replace(/\r/g, '').split('\n').map(function(x){ return x.replace(/\s+$/, ''); });
+  while(lines.length && lines[lines.length - 1] === '') lines.pop();
+  while(lines.length && lines[0] === '' ) lines.shift();
+  return lines;
+}
+/* 다른 줄의 위치를 찾는다. 같으면 -1 */
+function drillDiff(exp, got){
+  var a = drillNorm(exp), b = drillNorm(got);
+  var n = Math.max(a.length, b.length);
+  for(var i = 0; i < n; i++) if(a[i] !== b[i]) return {line:i, expLen:a.length, gotLen:b.length};
+  return null;
+}
+function drillBlankNorm(s){
+  return String(s).replace(/\s+/g, '').replace(/'/g, '"');
+}
+function drillStripComments(code){
+  return code.split('\n').map(function(l){
+    var out = '', q = null;
+    for(var i = 0; i < l.length; i++){
+      var c = l[i];
+      if(q){ out += c; if(c === '\\'){ out += l[i + 1] || ''; i++; } else if(c === q) q = null; continue; }
+      if(c === '"' || c === "'"){ q = c; out += c; continue; }
+      if(c === '#') break;
+      out += c;
+    }
+    return out;
+  }).join('\n');
+}
+
+/* ---------- 브라우저 안 파이썬 실행 엔진 (Pyodide, 별도 작업 스레드) ---------- */
+var PY_BASE = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
+var PY_TIMEOUT = 3000;
+var PY_HARNESS = [
+  'import sys, io, json, traceback',
+  'def __drill_run(code, preset_json):',
+  '    g = {"__name__": "__main__"}',
+  '    g.update(json.loads(preset_json))',
+  '    def _blocked_input(*a, **k):',
+  '        raise RuntimeError("input() is not used in these exercises")',
+  '    g["input"] = _blocked_input',
+  '    buf = io.StringIO()',
+  '    old = sys.stdout',
+  '    sys.stdout = buf',
+  '    err = None',
+  '    try:',
+  '        exec(compile(code, "<code>", "exec"), g)',
+  '    except SyntaxError as ex:',
+  '        err = {"type": type(ex).__name__, "msg": str(ex.msg), "line": ex.lineno}',
+  '    except BaseException as ex:',
+  '        line = None',
+  '        for fr in traceback.extract_tb(ex.__traceback__):',
+  '            if fr.filename == "<code>":',
+  '                line = fr.lineno',
+  '        err = {"type": type(ex).__name__, "msg": str(ex), "line": line}',
+  '    finally:',
+  '        sys.stdout = old',
+  '    out = buf.getvalue()',
+  '    if len(out) > 20000:',
+  '        out = out[:20000]',
+  '    return json.dumps({"out": out, "err": err}, ensure_ascii=False)'
+].join('\n');
+var PY_WORKER_SRC = [
+  'var py = null;',
+  'self.onmessage = async function(e){',
+  '  var m = e.data;',
+  '  if(m.type === "init"){',
+  '    try{',
+  '      importScripts(m.base + "pyodide.js");',
+  '      py = await loadPyodide({indexURL: m.base});',
+  '      py.runPython(m.harness);',
+  '      self.postMessage({type:"ready"});',
+  '    }catch(err){ self.postMessage({type:"fail", msg:String(err && err.message || err)}); }',
+  '    return;',
+  '  }',
+  '  if(m.type === "run"){',
+  '    try{',
+  '      var r = py.globals.get("__drill_run")(m.code, m.preset);',
+  '      self.postMessage({type:"result", id:m.id, data:JSON.parse(r)});',
+  '    }catch(err){ self.postMessage({type:"result", id:m.id, data:{out:"", err:{type:"Error", msg:String(err && err.message || err), line:null}}}); }',
+  '  }',
+  '};'
+].join('\n');
+var PYENG = {w:null, state:'idle', wait:[], pend:{}, seq:0, failMsg:''};
+function pyStatus(){
+  document.querySelectorAll('[data-py-status]').forEach(function(n){
+    var s = PYENG.state, t;
+    if(s === 'idle')    t = LANG === 'ko' ? '실행 엔진: 처음 채점할 때 내려받습니다 (약 10MB, 인터넷 필요)' : 'Engine: downloads on first grade (about 10 MB, needs internet)';
+    else if(s === 'loading') t = LANG === 'ko' ? '실행 엔진을 내려받는 중입니다. 처음 한 번은 10초 안팎 걸립니다.' : 'Downloading the engine - about 10 seconds the first time.';
+    else if(s === 'ready')   t = LANG === 'ko' ? '실행 엔진 준비 완료' : 'Engine ready';
+    else t = LANG === 'ko' ? '실행 엔진을 불러오지 못했습니다. 인터넷 연결을 확인하거나 「채점 파일 내려받기」로 VS Code 에서 채점하세요.' : 'Could not load the engine. Check your connection, or use "Download grader" and grade in VS Code.';
+    n.textContent = t;
+    n.className = 'pystat ' + s;
+  });
+}
+function pyEngine(){
+  return new Promise(function(res, rej){
+    if(PYENG.state === 'ready'){ res(); return; }
+    PYENG.wait.push({res:res, rej:rej});
+    if(PYENG.state === 'loading') return;
+    PYENG.state = 'loading'; pyStatus();
+    try{
+      var url = URL.createObjectURL(new Blob([PY_WORKER_SRC], {type:'text/javascript'}));
+      var w = new Worker(url);
+      PYENG.w = w;
+      w.onmessage = function(e){
+        var m = e.data;
+        if(m.type === 'ready'){ PYENG.state = 'ready'; pyStatus(); PYENG.wait.splice(0).forEach(function(x){ x.res(); }); }
+        else if(m.type === 'fail'){ pyFail(m.msg); }
+        else if(m.type === 'result'){
+          var p = PYENG.pend[m.id]; if(!p) return;
+          clearTimeout(p.timer); delete PYENG.pend[m.id]; p.res(m.data);
+        }
+      };
+      w.onerror = function(e){ pyFail(e && e.message || 'worker error'); };
+    }catch(err){ pyFail(String(err && err.message || err)); return; }
+    PYENG.w.postMessage({type:'init', base:PY_BASE, harness:PY_HARNESS});
+    /* 내려받기가 멈춘 채 끝나지 않으면 실패로 처리한다 */
+    var myW = PYENG.w;
+    setTimeout(function(){ if(PYENG.state === 'loading' && PYENG.w === myW) pyFail('load timeout'); }, 90000);
+  });
+}
+function pyFail(msg){
+  PYENG.state = 'fail'; PYENG.failMsg = msg; pyStatus();
+  try{ if(PYENG.w) PYENG.w.terminate(); }catch(e){}
+  PYENG.w = null;
+  PYENG.wait.splice(0).forEach(function(x){ x.rej(new Error(msg)); });
+}
+function pyRun(code, preset){
+  return pyEngine().then(function(){
+    return new Promise(function(res){
+      var id = ++PYENG.seq;
+      var timer = setTimeout(function(){
+        /* 끝나지 않는 반복 - 작업 스레드를 끊고 다음 채점 때 새로 띄운다 */
+        delete PYENG.pend[id];
+        try{ PYENG.w.terminate(); }catch(e){}
+        PYENG.w = null; PYENG.state = 'idle'; pyStatus();
+        res({timeout:true, out:'', err:null});
+      }, PY_TIMEOUT + 500);
+      PYENG.pend[id] = {res:res, timer:timer};
+      PYENG.w.postMessage({type:'run', id:id, code:code, preset:JSON.stringify(preset || {})});
+    });
+  });
+}
+
+/* ---------- 오류를 초보자 말로 풀어 쓰기 ---------- */
+var PY_ERR_KO = {
+  SyntaxError:'문법 오류입니다. 콜론(:), 괄호, 따옴표의 짝이 맞는지, = 와 == 를 바꾸어 쓰지 않았는지 확인하세요.',
+  IndentationError:'들여쓰기 오류입니다. if·for·while 줄 끝에 콜론(:)이 있는지, 그 아래 줄이 빈칸 네 칸만큼 들여 쓰였는지 확인하세요.',
+  TabError:'탭과 빈칸이 섞여 들여쓰기가 맞지 않습니다. 빈칸 네 칸으로 통일하세요.',
+  NameError:'정의하지 않은 이름을 사용했습니다. 변수 이름의 철자와 대소문자, 문자열이라면 따옴표를 확인하세요.',
+  TypeError:'자료형이 맞지 않는 계산입니다. 글자(str)와 숫자(int, float)를 바로 더하지 않았는지 확인하세요.',
+  ValueError:'값의 형식이 맞지 않습니다. 예를 들어 int("23.5") 처럼 정수로 바꿀 수 없는 글자를 바꾸려 하지 않았는지 확인하세요.',
+  ZeroDivisionError:'0 으로 나누었습니다. 나누는 값이 0 이 되는 경우가 있는지 확인하세요.',
+  IndexError:'목록의 범위를 벗어난 번호를 사용했습니다. 번호는 0 부터 시작하고 마지막 번호는 길이 - 1 입니다.',
+  RuntimeError:'실행 중 오류입니다. 이 연습문제에서는 input() 을 쓰지 않고 미리 주어진 변수를 사용합니다.'
+};
+var PY_ERR_EN = {
+  SyntaxError:'Syntax error. Check colons, brackets and quote pairs, and whether = and == got swapped.',
+  IndentationError:'Indentation error. Check the colon at the end of if/for/while and that the next line is indented four spaces.',
+  TabError:'Tabs and spaces are mixed. Use four spaces throughout.',
+  NameError:'A name is used before it was defined. Check spelling, upper/lower case, and quotes around text.',
+  TypeError:'The types do not fit. Did you add text (str) to a number (int, float) directly?',
+  ValueError:'A value has the wrong form - for example int("23.5") cannot become an integer.',
+  ZeroDivisionError:'Division by zero. Check whether the divisor can become 0.',
+  IndexError:'An index is out of range. Indexes start at 0 and end at length - 1.',
+  RuntimeError:'Runtime error. These exercises use the given variables instead of input().'
+};
+function pyErrText(err){
+  var map = LANG === 'ko' ? PY_ERR_KO : PY_ERR_EN;
+  var where = err.line ? (LANG === 'ko' ? err.line + '번째 줄 · ' : 'line ' + err.line + ' · ') : '';
+  return '<b>' + esc(where + err.type) + '</b>: ' + esc(err.msg) +
+    (map[err.type] ? '<div class="dx-why">' + map[err.type] + '</div>' : '');
+}
+
+/* ---------- 결과 표시 ---------- */
+function drillMsg(box, kind, html){
+  box.className = 'dres ' + kind;
+  box.innerHTML = html;
+  drillReveal(box);
+}
+/* 결과가 슬라이드 아래로 숨으면 슬라이드 본문만 스크롤해 보여 준다 */
+function drillReveal(node){
+  var bd = node.closest && node.closest('.bd');
+  if(!bd) return;
+  var nb = node.getBoundingClientRect(), bb = bd.getBoundingClientRect();
+  if(nb.bottom > bb.bottom) bd.scrollTop += Math.min(nb.bottom - bb.bottom + 12, nb.top - bb.top - 8);
+}
+function drillLineMsg(d){
+  if(d.expLen !== d.gotLen && d.line >= Math.min(d.expLen, d.gotLen))
+    return LANG === 'ko' ? '출력 줄 수가 다릅니다. 모두 ' + d.expLen + '줄이어야 하는데 ' + d.gotLen + '줄입니다.'
+                         : 'The number of lines differs: expected ' + d.expLen + ', got ' + d.gotLen + '.';
+  return LANG === 'ko' ? (d.line + 1) + '번째 줄이 다릅니다. 그 줄을 만드는 코드를 다시 한 줄씩 따라가 보세요.'
+                       : 'Line ' + (d.line + 1) + ' differs. Trace the code that prints it, one line at a time.';
+}
+function drillPresetText(p){
+  return Object.keys(p).map(function(k){
+    var v = p[k];
+    return k + ' = ' + (typeof v === 'string' ? '"' + v + '"' : (v === true ? 'True' : v === false ? 'False' : JSON.stringify(v).replace(/,/g, ', ')));
+  }).join(', ');
+}
+
+/* ---------- 공통 머리 · 힌트 · 해설 ---------- */
+function drillShell(p, idx, total){
+  var d = el('div', 'drill' + (drillSolved(p.id) ? ' solved' : ''));
+  d.setAttribute('data-id', p.id);
+  var h = el('div', 'dh');
+  h.appendChild(el('span', 'dno', (LANG === 'ko' ? '연습 ' : 'Exercise ') + idx + ' / ' + total));
+  h.appendChild(el('span', 'dt', esc(T(p.title))));
+  if(p.lv){
+    var lvName = {easy:{ko:'난이도 하', en:'Easy'}, mid:{ko:'난이도 중', en:'Medium'}, hard:{ko:'난이도 상', en:'Hard'}}[p.lv];
+    h.appendChild(el('span', 'dlv ' + p.lv, T(lvName)));
+  }
+  h.appendChild(el('span', 'dok', LANG === 'ko' ? '✓ 통과' : '✓ passed'));
+  d.appendChild(h);
+  return d;
+}
+function drillFoot(p, extraBtns){
+  var f = el('div', 'dfoot');
+  (extraBtns || []).forEach(function(b){ f.appendChild(b); });
+  var reveal = el('div', 'dreveal');
+  if(p.hint){
+    var hb = el('button', 'btn', LANG === 'ko' ? '힌트 보기' : 'Show hint');
+    hb.onclick = function(){ reveal.innerHTML = '<div class="dhint"><b>' + (LANG === 'ko' ? '힌트' : 'Hint') + '</b> ' + T(p.hint) + '</div>'; drillReveal(reveal); };
+    f.appendChild(hb);
+  }
+  var ab = el('button', 'btn', LANG === 'ko' ? '정답과 해설 보기' : 'Show answer');
+  ab.onclick = function(){
+    var html = '<div class="dans"><b>' + (LANG === 'ko' ? '정답' : 'Answer') + '</b>';
+    if(p.kind === 'output') html += '<pre>' + esc(T(p.out)) + '</pre>';
+    else if(p.kind === 'blank') html += ' ' + p.blanks.map(function(b, i){ return '<code>' + (i + 1) + ' → ' + esc(b.acc[0]) + '</code>'; }).join(' ');
+    else html += '<pre>' + esc(T(p.answer)) + '</pre>';
+    if(p.why) html += '<div class="dwhy">' + T(p.why) + '</div>';
+    html += '</div>';
+    reveal.innerHTML = html;
+    drillReveal(reveal);
+  };
+  f.appendChild(ab);
+  return {foot:f, reveal:reveal};
+}
+
+/* ---------- 문제 종류별 화면 ---------- */
+function drillOutput(p, d){
+  var body = el('div', 'dbody two');
+  var L1 = el('div', 'dcol');
+  L1.appendChild(el('p', 'dq', T(p.q)));
+  L1.appendChild(codeBox(T(p.code).split('\n'), null, LANG === 'ko' ? '읽을 코드' : 'code to read', null, 250));
+  var R1 = el('div', 'dcol');
+  R1.appendChild(el('div', 'dlab', LANG === 'ko' ? '내가 예상한 출력 (한 줄에 한 줄씩)' : 'My predicted output (one line per line)'));
+  var ta = el('textarea', 'dta short');
+  ta.spellcheck = false; ta.rows = 6;
+  var rec = drillRec(p.id);
+  if(rec.txt) ta.value = rec.txt;
+  ta.oninput = function(){ rec.txt = ta.value; drillSave(); };
+  R1.appendChild(ta);
+  var res = el('div', 'dres');
+  var check = el('button', 'btn pri', LANG === 'ko' ? '채점하기' : 'Check');
+  check.onclick = function(){
+    if(!ta.value.trim()){ drillMsg(res, 'info', LANG === 'ko' ? '예상한 출력을 먼저 적으세요.' : 'Write your prediction first.'); return; }
+    var df = drillDiff(T(p.out), ta.value);
+    if(!df){ drillMsg(res, 'ok', LANG === 'ko' ? '정답입니다. 출력이 모두 일치합니다.' : 'Correct - every line matches.'); drillMarkSolved(p.id); }
+    else drillMsg(res, 'no', drillLineMsg(df));
+  };
+  ta.onkeydown = function(e){ if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); check.click(); } };
+  var fr = drillFoot(p, [check]);
+  R1.appendChild(fr.foot); R1.appendChild(res); R1.appendChild(fr.reveal);
+  body.appendChild(L1); body.appendChild(R1);
+  d.appendChild(body);
+}
+
+function drillBlank(p, d){
+  var body = el('div', 'dbody');
+  body.appendChild(el('p', 'dq', T(p.q)));
+  var box = el('div', 'codebox');
+  var bar = el('div', 'codebar');
+  bar.appendChild(el('div', 'fn', LANG === 'ko' ? '빈칸을 채울 코드' : 'code with blanks'));
+  box.appendChild(bar);
+  var pre = el('pre', 'code dblank');
+  var inputs = [], rec = drillRec(p.id);
+  rec.bl = rec.bl || [];
+  T(p.code).split('\n').forEach(function(line, li){
+    var row = el('div', 'ln');
+    row.appendChild(el('i', '', String(li + 1)));
+    var span = el('span');
+    var parts = line.split(/__(\d)__/);
+    for(var k = 0; k < parts.length; k++){
+      if(k % 2 === 0){ if(parts[k]) span.insertAdjacentHTML('beforeend', hlLine(parts[k])); }
+      else{
+        var bi = +parts[k] - 1;
+        var inp = el('input', 'dbin');
+        inp.type = 'text'; inp.spellcheck = false; inp.autocomplete = 'off';
+        inp.placeholder = String(bi + 1);
+        inp.value = rec.bl[bi] || '';
+        inp.style.width = Math.max(4, (p.blanks[bi].acc[0].length + 3)) + 'ch';
+        (function(inp, bi){ inp.oninput = function(){ rec.bl[bi] = inp.value; inp.classList.remove('ok', 'no'); drillSave(); }; })(inp, bi);
+        inputs[bi] = inp;
+        span.appendChild(inp);
+      }
+    }
+    row.appendChild(span);
+    pre.appendChild(row);
+  });
+  box.appendChild(pre);
+  body.appendChild(box);
+  var res = el('div', 'dres');
+  var check = el('button', 'btn pri', LANG === 'ko' ? '채점하기' : 'Check');
+  check.onclick = function(){
+    var wrong = [], empty = false;
+    p.blanks.forEach(function(b, i){
+      var v = drillBlankNorm(inputs[i].value);
+      if(!v){ empty = true; inputs[i].className = 'dbin no'; wrong.push(i + 1); return; }
+      var ok = b.acc.some(function(a){ return drillBlankNorm(a) === v; });
+      inputs[i].className = 'dbin ' + (ok ? 'ok' : 'no');
+      if(!ok) wrong.push(i + 1);
+    });
+    if(!wrong.length){ drillMsg(res, 'ok', LANG === 'ko' ? '정답입니다. 빈칸이 모두 맞습니다.' : 'Correct - every blank is right.'); drillMarkSolved(p.id); }
+    else drillMsg(res, 'no', (LANG === 'ko' ? wrong.join(', ') + '번 빈칸을 다시 보세요.' : 'Look again at blank ' + wrong.join(', ') + '.') +
+      (empty ? (LANG === 'ko' ? ' 비어 있는 칸이 있습니다.' : ' Some blanks are empty.') : ''));
+  };
+  inputs.forEach(function(inp){ inp.onkeydown = function(e){ if(e.key === 'Enter'){ e.preventDefault(); check.click(); } }; });
+  var fr = drillFoot(p, [check]);
+  body.appendChild(fr.foot); body.appendChild(res); body.appendChild(fr.reveal);
+  d.appendChild(body);
+}
+
+/* 편집기: Tab 은 빈칸 네 칸, Enter 는 들여쓰기를 이어 간다 */
+function drillEditor(ta){
+  ta.addEventListener('keydown', function(e){
+    var s = ta.selectionStart, en = ta.selectionEnd, v = ta.value;
+    if(e.key === 'Tab' && !e.shiftKey){
+      e.preventDefault();
+      ta.value = v.slice(0, s) + '    ' + v.slice(en);
+      ta.selectionStart = ta.selectionEnd = s + 4;
+      ta.dispatchEvent(new Event('input'));
+    }else if(e.key === 'Tab' && e.shiftKey){
+      e.preventDefault();
+      var ls = v.lastIndexOf('\n', s - 1) + 1, cut = 0;
+      while(cut < 4 && v[ls + cut] === ' ') cut++;
+      if(cut){ ta.value = v.slice(0, ls) + v.slice(ls + cut); ta.selectionStart = ta.selectionEnd = Math.max(ls, s - cut); ta.dispatchEvent(new Event('input')); }
+    }else if(e.key === 'Enter' && !e.ctrlKey && !e.metaKey && !e.shiftKey){
+      e.preventDefault();
+      var lineStart = v.lastIndexOf('\n', s - 1) + 1;
+      var cur = v.slice(lineStart, s);
+      var ind = (cur.match(/^ */) || [''])[0];
+      if(/:\s*(#.*)?$/.test(cur)) ind += '    ';
+      ta.value = v.slice(0, s) + '\n' + ind + v.slice(en);
+      ta.selectionStart = ta.selectionEnd = s + 1 + ind.length;
+      ta.dispatchEvent(new Event('input'));
+    }
+  });
+}
+
+function drillAutoStarter(p){
+  var names = Object.keys(p.example || {}).join(', '), ex = drillPresetText(p.example || {});
+  return LANG === 'ko'
+    ? '# ' + names + ' 에는 채점할 때 값이 미리 들어 있습니다 (예: ' + ex + ')\n# 주어진 변수에 값을 직접 넣지 말고, 이 아래에 코드를 작성하세요\n\n'
+    : '# ' + names + ' already hold values when grading runs (e.g. ' + ex + ')\n# Do not assign them yourself - write your code below\n\n';
+}
+/* VS Code 에서 돌리는 채점 파일 */
+function drillGraderFile(p, code){
+  var tests = p.tests.map(function(t){ return {preset:t.preset, out:T(t.out)}; });
+  var ko = LANG === 'ko';
+  return [
+    '# -*- coding: utf-8 -*-',
+    ko ? '# 연습문제 ' + p.id + ' 채점 파일 - ' + T(p.title) : '# Exercise ' + p.id + ' grader - ' + T(p.title),
+    ko ? '# VS Code 에서 이 파일을 열고 F5 (또는 터미널에서 python 파일이름.py) 로 실행합니다.' : '# Open in VS Code and press F5 (or run python <file>.py in a terminal).',
+    ko ? '# 아래 CODE 는 교재 편집기에 작성한 코드입니다. 코드를 고쳤다면 교재에서 다시 내려받으세요.' : '# CODE below is what you wrote in the textbook editor. Download again after changes.',
+    'import io, sys, json',
+    '',
+    'CODE = ' + JSON.stringify(code),
+    'TESTS = json.loads(' + JSON.stringify(JSON.stringify(tests)) + ')',
+    '',
+    'def norm(s):',
+    '    lines = [x.rstrip() for x in s.replace("\\r", "").split("\\n")]',
+    '    while lines and lines[-1] == "":',
+    '        lines.pop()',
+    '    while lines and lines[0] == "":',
+    '        lines.pop(0)',
+    '    return lines',
+    '',
+    'passed = 0',
+    'for no, t in enumerate(TESTS, 1):',
+    '    g = dict(t["preset"])',
+    '    buf = io.StringIO()',
+    '    old = sys.stdout',
+    '    sys.stdout = buf',
+    '    err = None',
+    '    try:',
+    '        exec(CODE, g)',
+    '    except Exception as e:',
+    '        err = type(e).__name__ + ": " + str(e)',
+    '    finally:',
+    '        sys.stdout = old',
+    '    got = norm(buf.getvalue())',
+    '    exp = norm(t["out"])',
+    '    if err is None and got == exp:',
+    '        passed += 1',
+    '        print(' + JSON.stringify(ko ? '[통과] 검사' : '[PASS] test') + ', no)',
+    '    else:',
+    '        print(' + JSON.stringify(ko ? '[실패] 검사' : '[FAIL] test') + ', no, ' + JSON.stringify(ko ? '| 입력값:' : '| input:') + ', t["preset"])',
+    '        if err:',
+    '            print(' + JSON.stringify(ko ? '   오류:' : '   error:') + ', err)',
+    '        print(' + JSON.stringify(ko ? '   기대 출력:' : '   expected:') + ', exp)',
+    '        print(' + JSON.stringify(ko ? '   내 출력:  ' : '   got:     ') + ', got)',
+    'print()',
+    'print(' + JSON.stringify(ko ? '결과:' : 'Result:') + ', passed, "/", len(TESTS))',
+    ''
+  ].join('\n');
+}
+
+function drillCode(p, d){
+  var body = el('div', 'dbody two code');
+  var L1 = el('div', 'dcol');
+  L1.appendChild(el('p', 'dq', T(p.q)));
+  if(p.given) L1.appendChild(el('div', 'dgiven', '<b>' + (LANG === 'ko' ? '주어지는 값' : 'Given') + '</b> ' + T(p.given)));
+  var exOut = p.tests[0] ? T(p.tests[0].out) : '';
+  var ex = el('div', 'dexp');
+  ex.appendChild(el('div', 'dlab', (LANG === 'ko' ? '예시 입력일 때 기대 출력 · ' : 'Expected output for the example · ') + esc(drillPresetText(p.example || {}))));
+  ex.appendChild(el('pre', '', esc(exOut)));
+  L1.appendChild(ex);
+  L1.appendChild(el('div', 'pystat', '')).setAttribute('data-py-status', '1');
+
+  var R1 = el('div', 'dcol');
+  var ebar = el('div', 'dedbar');
+  ebar.appendChild(el('span', '', LANG === 'ko' ? '내 코드 · solution.py' : 'my code · solution.py'));
+  var resetB = el('button', '', LANG === 'ko' ? '처음 코드로' : 'Reset');
+  ebar.appendChild(resetB);
+  R1.appendChild(ebar);
+  var ta = el('textarea', 'dta');
+  ta.spellcheck = false; ta.rows = 11;
+  ta.setAttribute('autocapitalize', 'off'); ta.setAttribute('autocomplete', 'off');
+  var rec = drillRec(p.id);
+  var starter = p.starter ? T(p.starter) : drillAutoStarter(p);
+  ta.value = rec.code != null ? rec.code : starter;
+  ta.oninput = function(){ rec.code = ta.value; drillSave(); };
+  resetB.onclick = function(){ ta.value = starter; rec.code = null; drillSave(); };
+  drillEditor(ta);
+  R1.appendChild(ta);
+
+  var res = el('div', 'dres');
+  var busy = false;
+  function lock(on, btns){ busy = on; btns.forEach(function(b){ b.disabled = on; }); }
+  function engineErr(){
+    drillMsg(res, 'no', LANG === 'ko'
+      ? '실행 엔진을 불러오지 못해 채점할 수 없습니다. 인터넷 연결을 확인한 뒤 다시 누르거나, 「채점 파일 내려받기」로 받은 파일을 VS Code 에서 실행하세요.'
+      : 'The engine could not load, so grading is unavailable. Check your connection and retry, or run the downloaded grader in VS Code.');
+    pyStatus();
+  }
+  function shown(out){ return '<pre>' + esc(out === '' ? (LANG === 'ko' ? '(출력 없음)' : '(no output)') : out) + '</pre>'; }
+
+  var runB = el('button', 'btn', LANG === 'ko' ? '실행해 보기' : 'Run');
+  var gradeB = el('button', 'btn pri', LANG === 'ko' ? '채점하기' : 'Grade');
+  var dlB = el('button', 'btn', LANG === 'ko' ? '채점 파일 내려받기' : 'Download grader');
+  var all = [runB, gradeB];
+
+  runB.onclick = function(){
+    if(busy) return;
+    lock(true, all);
+    drillMsg(res, 'info', LANG === 'ko' ? '실행 중입니다…' : 'Running…');
+    pyRun(ta.value, p.example || {}).then(function(r){
+      lock(false, all);
+      if(r.timeout){ drillMsg(res, 'no', LANG === 'ko' ? '3초 안에 끝나지 않았습니다. while 조건이 언젠가 False 가 되는지 확인하세요.' : 'Did not finish within 3 seconds. Make sure the while condition eventually becomes False.'); return; }
+      var html = '<b>' + (LANG === 'ko' ? '예시 입력으로 실행한 출력' : 'Output with the example input') + '</b>' + shown(r.out);
+      if(r.err) html += '<div class="dx-err">' + pyErrText(r.err) + '</div>';
+      drillMsg(res, r.err ? 'no' : 'info', html);
+    }, function(){ lock(false, all); engineErr(); });
+  };
+
+  gradeB.onclick = function(){
+    if(busy) return;
+    var src = ta.value, plain = drillStripComments(src);
+    if(!plain.trim()){ drillMsg(res, 'info', LANG === 'ko' ? '코드를 먼저 작성하세요.' : 'Write some code first.'); return; }
+    var miss = (p.must || []).filter(function(m){ var hit = (new RegExp(m.re, 'm')).test(plain); return m.not ? hit : !hit; });
+    if(miss.length){ drillMsg(res, 'no', '<b>' + (LANG === 'ko' ? '조건을 지키지 않았습니다' : 'A requirement is missing') + '</b><div>' + miss.map(function(m){ return T(m.msg); }).join('<br>') + '</div>'); return; }
+    lock(true, all);
+    drillMsg(res, 'info', LANG === 'ko' ? '검사 ' + p.tests.length + '개로 채점하는 중입니다…' : 'Grading with ' + p.tests.length + ' tests…');
+    var i = 0;
+    (function next(){
+      if(i >= p.tests.length){
+        lock(false, all);
+        drillMsg(res, 'ok', LANG === 'ko' ? '통과했습니다. 검사 ' + p.tests.length + '개의 입력값에서 출력이 모두 일치합니다.' : 'Passed - output matched on all ' + p.tests.length + ' tests.');
+        drillMarkSolved(p.id);
+        return;
+      }
+      var t = p.tests[i];
+      pyRun(src, t.preset).then(function(r){
+        var head = '<b>' + (LANG === 'ko' ? '검사 ' + (i + 1) + ' / ' + p.tests.length + ' 실패' : 'Test ' + (i + 1) + ' of ' + p.tests.length + ' failed') + '</b>' +
+                   '<div class="dx-in">' + (LANG === 'ko' ? '입력값 · ' : 'input · ') + esc(drillPresetText(t.preset)) + '</div>';
+        if(r.timeout){ lock(false, all); drillMsg(res, 'no', head + '<div>' + (LANG === 'ko' ? '3초 안에 끝나지 않았습니다. while 조건이 언젠가 False 가 되는지 확인하세요.' : 'Did not finish within 3 seconds. Make sure the while condition eventually becomes False.') + '</div>'); return; }
+        if(r.err){ lock(false, all); drillMsg(res, 'no', head + '<div class="dx-err">' + pyErrText(r.err) + '</div>'); return; }
+        var df = drillDiff(T(t.out), r.out);
+        if(df){
+          lock(false, all);
+          var hard = Object.keys(t.preset).filter(function(k){
+            return new RegExp('^\\s*' + k + '\\s*=\\s*(-?\\d|["\'\\[]|True|False)', 'm').test(plain);
+          });
+          var warn = !hard.length ? '' : '<div class="dx-why">' + (LANG === 'ko'
+            ? '주어진 변수 ' + hard.join(', ') + ' 에 값을 직접 넣는 줄이 있습니다. 그 줄 때문에 채점할 때 바뀌어 들어가는 값이 무시되므로 그 줄을 지우세요.'
+            : 'You assign values to the given variable(s) ' + hard.join(', ') + ', which overrides the grading input. Delete those lines.') + '</div>';
+          drillMsg(res, 'no', head + '<div>' + drillLineMsg(df) + '</div>' +
+            '<div class="dcmp"><div><span>' + (LANG === 'ko' ? '기대 출력' : 'Expected') + '</span>' + shown(T(t.out)) + '</div>' +
+            '<div><span>' + (LANG === 'ko' ? '내 출력' : 'Mine') + '</span>' + shown(r.out) + '</div></div>' + warn);
+          return;
+        }
+        i++; next();
+      }, function(){ lock(false, all); engineErr(); });
+    })();
+  };
+  dlB.onclick = function(){ saveFile('check_' + p.id + '.py', drillGraderFile(p, ta.value)); toast(LANG === 'ko' ? '채점 파일 저장' : 'Grader saved'); };
+  ta.addEventListener('keydown', function(e){ if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); gradeB.click(); } });
+
+  var fr = drillFoot(p, [runB, gradeB, dlB]);
+  R1.appendChild(fr.foot); L1.appendChild(res); L1.appendChild(fr.reveal);
+  body.appendChild(L1); body.appendChild(R1);
+  d.appendChild(body);
+}
+
+/* ---------- 장 머리말 ---------- */
+function drillHead(b){
+  var list = DRILLS[b.ch] || [];
+  var h = el('div', 'drillhead');
+  var top = el('div', 'dhh');
+  top.appendChild(el('span', 'dht', '🧩 ' + T(b.title)));
+  var prog = el('span', 'dprog', ''); prog.setAttribute('data-drill-prog', b.ch);
+  top.appendChild(prog);
+  h.appendChild(top);
+  var bd = el('div', 'dhb');
+  bd.appendChild(el('p', '', LANG === 'ko'
+    ? '이 장에서 배운 내용을 연습문제 ' + list.length + '개로 직접 확인합니다. 보기 중에서 고르는 문제는 없고, 출력을 직접 적거나 빈칸을 채우거나 코드를 처음부터 작성해야 합니다. 「채점하기」를 누르면 그 자리에서 맞았는지 알려 줍니다.'
+    : 'Check this chapter with ' + list.length + ' exercises. Nothing is multiple choice: you write the output, fill the blanks, or write the code from scratch. Press "Check" or "Grade" for an instant verdict.'));
+  var t = el('table', 'tb dtbl');
+  t.innerHTML = LANG === 'ko'
+    ? '<thead><tr><th>문제 종류</th><th>하는 일</th><th>채점 방법</th></tr></thead><tbody>' +
+      '<tr><td>출력 결과 쓰기</td><td>코드를 실행하지 않고 읽기만 해서 출력될 내용을 줄마다 적습니다</td><td>정답 출력과 줄 단위로 비교해 몇 번째 줄이 다른지 알려 줍니다</td></tr>' +
+      '<tr><td>빈칸 채우기</td><td>코드의 빈칸에 들어갈 함수 이름, 연산자, 키워드를 적습니다</td><td>빈칸마다 맞는지 표시합니다 (띄어쓰기는 상관없음)</td></tr>' +
+      '<tr><td>코드 작성</td><td>주어진 변수를 사용해 조건에 맞는 코드를 처음부터 작성합니다</td><td>브라우저 안에서 파이썬으로 실행하며 입력값을 여러 번 바꿔 넣어 출력을 비교합니다</td></tr></tbody>'
+    : '<thead><tr><th>Type</th><th>What you do</th><th>How it is graded</th></tr></thead><tbody>' +
+      '<tr><td>Write the output</td><td>Read the code without running it and write what it prints</td><td>Compared line by line; tells you which line differs</td></tr>' +
+      '<tr><td>Fill the blanks</td><td>Type the missing function, operator or keyword</td><td>Each blank is marked (spacing is ignored)</td></tr>' +
+      '<tr><td>Write code</td><td>Write code from scratch using the given variables</td><td>Runs real Python in the browser with several inputs and compares output</td></tr></tbody>';
+  bd.appendChild(t);
+  bd.appendChild(el('div', 'dnote', LANG === 'ko'
+    ? '코드 작성 문제는 처음 채점할 때 브라우저용 파이썬 실행 엔진(약 10MB)을 내려받으므로 인터넷 연결이 필요합니다. 연결이 안 되는 곳에서는 「채점 파일 내려받기」로 받은 파일을 VS Code 에서 실행하면 같은 검사를 할 수 있습니다. 작성한 코드와 통과 기록은 이 브라우저에 저장됩니다.'
+    : 'Code exercises download an in-browser Python engine (about 10 MB) on first grade, so you need a connection. Offline, use "Download grader" and run the file in VS Code for the same tests. Your code and progress are saved in this browser.'));
+  h.appendChild(bd);
+  setTimeout(drillProgressRefresh, 0);
+  return h;
+}
+
+/* ---------- 렌더러 연결 ---------- */
+var _rb3 = renderBlock;
+renderBlock = function(b){
+  if(b.type === 'drillhead') return drillHead(b);
+  if(b.type === 'drill'){
+    var list = DRILLS[b.ch], p = list[b.i];
+    var d = drillShell(p, b.i + 1, list.length);
+    if(p.kind === 'output') drillOutput(p, d);
+    else if(p.kind === 'blank') drillBlank(p, d);
+    else drillCode(p, d);
+    setTimeout(pyStatus, 0);
+    return d;
+  }
+  return _rb3(b);
+};
+var _slideKind0 = slideKind;
+slideKind = function(bd){
+  if(bd.querySelector('.drill, .drillhead')) return {id:'drill', icon:'🧩', label:LANG === 'ko' ? '연습문제' : 'Exercises'};
+  return _slideKind0(bd);
+};
+
+/* ---------- 1~4장 끝에 붙이기 ---------- */
+(function(){
+  var heads = {
+    c1:{ko:'1장 연습문제 · 변수와 자료형 15문항 (난이도 하 · 중 · 상 각 5문항)', en:'Chapter 1 exercises · 15 on variables and types (5 easy, 5 medium, 5 hard)'},
+    c2:{ko:'2장 연습문제 · 연산자 15문항 (난이도 하 · 중 · 상 각 5문항)', en:'Chapter 2 exercises · 15 on operators (5 easy, 5 medium, 5 hard)'},
+    c3:{ko:'3장 연습문제 · 조건문 15문항 (난이도 하 · 중 · 상 각 5문항)', en:'Chapter 3 exercises · 15 on conditionals (5 easy, 5 medium, 5 hard)'},
+    c4:{ko:'4장 연습문제 · 반복문 15문항 (난이도 하 · 중 · 상 각 5문항)', en:'Chapter 4 exercises · 15 on loops (5 easy, 5 medium, 5 hard)'}
+  };
+  Object.keys(DRILLS).forEach(function(ch){
+    var s = sectionById(ch); if(!s) return;
+    if(s.blocks.some(function(b){ return b.type === 'drillhead'; })) return;
+    s.blocks.push({type:'drillhead', ch:ch, title:heads[ch]});
+    DRILLS[ch].forEach(function(p, i){ s.blocks.push({type:'drill', ch:ch, i:i}); });
+  });
+  /* 표지 안내 문구에 연습문제 수를 더한다 */
+  var n = 0; Object.keys(DRILLS).forEach(function(ch){ n += DRILLS[ch].length; });
+  if(UI.coverMeta){
+    UI.coverMeta.ko.push('1~4장 연습문제 ' + n + '문항 · 자동 채점');
+    UI.coverMeta.en.push(n + ' exercises in Ch.1-4 · auto-graded');
+  }
 })();
 
 buildDeck();
